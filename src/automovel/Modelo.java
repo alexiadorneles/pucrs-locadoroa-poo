@@ -15,7 +15,7 @@ public abstract class Modelo {
         this.marca = marca;
     }
 
-    private String getNome() {
+    public String getNome() {
         return nome;
     }
 

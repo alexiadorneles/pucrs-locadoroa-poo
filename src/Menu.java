@@ -1,8 +1,15 @@
+import automovel.*;
+import repository.CategoriaRepository;
+import repository.MarcaRepository;
+import repository.ModeloRepository;
+
 import java.util.Scanner;
 
 public class Menu {
-    public Menu () {}
-    public void mostrar(){
+    public Menu() {
+    }
+
+    public void mostrar() {
         Scanner in = new Scanner(System.in);
 
         System.out.println("////////// LOCADORA AJE //////////");
@@ -10,14 +17,17 @@ public class Menu {
         System.out.println("1 - Atendendente");
         System.out.println("2 - Gerente");
         int opcao1 = in.nextInt();
+        int opcao2 = 0;
 
-        if(opcao1 == 1){
+
+        if (opcao1 == 1) {
             System.out.println("1 - Cadastrar nomo Cliente");
             System.out.println("2 - Consultar Disponibilidade de Automóvel por Categoria");
             System.out.println("3 - Consultar o Valor de uma Locaçao ");
             System.out.println("4 - Realizar Locação");
             System.out.println("5 - Finalizar Locação ");
-        }else{
+            System.out.println("99 - Sair ");
+        } else {
             System.out.println("1 - Cadastrar Nova Categoria Automóvel");
             System.out.println("2 - Cadastrar Nova Marca do Automóvel");
             System.out.println("3 - Cadastrar Novo Modelo do Automóvel");
@@ -25,24 +35,13 @@ public class Menu {
             System.out.println("5 - Consultar Locações");
             System.out.println("6 - Consultar Clientes");
             System.out.println("7 - Consultar Automóveis Cadastrados");
+            System.out.println("99 - Sair");
         }
-        int opcao2 = in.nextInt();
+
+        opcao2 = in.nextInt();
 
 
-        if(opcao1 == 1){
-            switch(opcao2) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-            }
-        }else{
+        if (opcao1 == 1) {
             switch (opcao2) {
                 case 1:
                     break;
@@ -54,6 +53,38 @@ public class Menu {
                     break;
                 case 5:
                     break;
+            }
+        } else {
+            switch (opcao2) {
+//            1 - Cadastrar Nova Categoria Automóvel
+                case 1:
+                    this.cadastrarCategoria(in);
+                    break;
+//            2 - Cadastrar Nova Marca do Automóvel
+                case 2:
+                    this.cadastrarMarca(in);
+                    break;
+//            3 - Cadastrar Novo Modelo do Automóvel
+                case 3:
+                    this.cadastrarModelo(in);
+                    break;
+//            4 - Cadastrar Novo Automóvel
+                case 4:
+                    System.out.println("Digite a placa: ");
+                    String placa = in.nextLine();
+                    System.out.println("Digite o ano: ");
+                    int ano = in.nextInt();
+                    System.out.println("Digite o valor diária: ");
+                    double valorDiaria = in.nextDouble();
+                    System.out.println("Digite o nome do modelo: ");
+                    String nomeModelo = in.nextLine();
+                    Automovel automovel = new Automovel(
+                            placa, ano, valorDiaria, true,
+                            ModeloRepository.getInstance().findOne(nomeModelo)
+                    );
+                    break;
+                case 5:
+                    break;
                 case 6:
                     break;
                 case 7:
@@ -61,5 +92,42 @@ public class Menu {
             }
         }
 
+    }
+
+    private void cadastrarCategoria(Scanner in) {
+        System.out.println("Digite o nome da categoria: ");
+        String nomeCategoria = in.next();
+        CategoriaRepository.getInstance().save(new Categoria(nomeCategoria));
+    }
+
+    private void cadastrarMarca(Scanner in) {
+        System.out.println("Digite o nome da marca: ");
+        MarcaRepository.getInstance().save(new Marca(in.next()));
+    }
+
+    private void cadastrarModelo(Scanner in) {
+        System.out.println("Digite o nome do modelo: ");
+        String nome = in.next();
+        System.out.println("Digite o valor: ");
+        double valor = in.nextDouble();
+
+        System.out.println("Escolha a categoria");
+        Categoria categoria = CategoriaRepository.getInstance().findOne(in.next());
+
+        System.out.println("Escolha a marca");
+        Marca marca = MarcaRepository.getInstance().findOne(in.next());
+
+
+        System.out.println("Escolha o tipo de modelo: \n 1 - Nacional \t 2 - Internacional");
+        int tipoModelo = in.nextInt();
+        if (tipoModelo == 1) {
+            System.out.println("Digite a porcentagem de ipi");
+            Modelo modelo = new ModeloNacional(nome, valor, categoria, marca, in.nextDouble());
+            ModeloRepository.getInstance().save(modelo);
+        } else {
+            System.out.println("Digite a porcentagem de taxa de importação");
+            Modelo modelo = new ModeloInternacional(nome, valor, categoria, marca, in.nextDouble());
+            ModeloRepository.getInstance().save(modelo);
+        }
     }
 }

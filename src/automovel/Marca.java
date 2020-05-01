@@ -7,7 +7,7 @@ public class Marca {
         this.nome = nome;
     }
 
-    private String getNome() {
+    public String getNome() {
         return nome;
     }
 }
