@@ -2,7 +2,8 @@ import automovel.Automovel;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 
 public class Locacao {
@@ -11,10 +12,10 @@ public class Locacao {
     private String dataFinal;
     private Automovel auto;
 
-    public Locacao(Cliente cliente, String dataInicial, String dataFinal, Automovel auto){
+    public Locacao(Cliente cliente, String dataInicial, String dataFinal, Automovel auto) {
         this.cliente = cliente;
-        this.dataInicial = new StringBuilder(dataInicial).reverse().toString();
-        this.dataFinal = new StringBuilder(dataFinal).reverse().toString();
+        this.dataInicial = dataInicial;
+        this.dataFinal = dataFinal;
         this.auto = auto;
     }
 
@@ -34,12 +35,12 @@ public class Locacao {
         return auto;
     }
 
-    public int calculaDiasDiaria(){
-        LocalDate inicial = getDataInicial();
-        LocalDate final = getDataFinal()
-        Period periodo = Period.between(inicial,final);
-        int dias = periodo.getDays();
-        return dias;
+    public long calculaDiasDiaria() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        LocalDate inicial = LocalDate.parse(getDataInicial(), formatter);
+        LocalDate dataFinal = LocalDate.parse(getDataFinal(), formatter);
+        Period periodo = Period.between(inicial, dataFinal);
+        return ChronoUnit.DAYS.between(inicial, dataFinal);
     }
 
 }
