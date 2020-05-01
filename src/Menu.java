@@ -28,7 +28,8 @@ public class Menu {
                 opcao2 = in.nextInt();
                 in.nextLine();
                 switch (opcao2) {
-                    case 1:
+//                    1 - Cadastrar nomo Cliente
+                    case 1: cadastrarCliente(in);
                         break;
                     case 2:
                         break;
@@ -109,6 +110,34 @@ public class Menu {
         System.out.println("4 - Realizar Locação");
         System.out.println("5 - Finalizar Locação ");
         System.out.println("99 - Sair ");
+    }
+
+    private void cadastrarCliente(Scanner in){
+        int escolha=0;
+        do {
+            System.out.println("Escolha o tipo de cliente: ");
+            System.out.println("1- Pessoa fisica ");
+            System.out.println("2- Pessoa juridica");
+            escolha = in.nextInt();
+        }while (escolha>2 || escolha<10);
+
+        System.out.print("Digite os dados do cliente: ");
+        System.out.println("Nome: ");
+        String nome = in.nextLine();
+        System.out.println("Telefone: ");
+        String telefone = in.nextLine();
+
+        if (escolha==1){
+            System.out.println("CPF: ");
+            String cpf= in.nextLine();
+            PessoaF cliente = new PessoaF(nome,telefone,cpf);
+        } else {
+            System.out.println("CNPJ: ");
+            String cnpj= in.nextLine();
+            PessoaF cliente = new PessoaF(nome,telefone,cnpj);
+        }
+        System.out.println("Cadastro concluído.");
+
     }
 
     private void cadastrarCategoria(Scanner in) {
