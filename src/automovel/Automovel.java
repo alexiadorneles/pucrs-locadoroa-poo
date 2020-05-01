@@ -19,7 +19,7 @@ public class Automovel {
         this.modelo = modelo;
     }
 
-    protected String getPlaca() {
+    public String getPlaca() {
         return placa;
     }
 
