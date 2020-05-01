@@ -4,6 +4,9 @@ import automovel.Automovel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+
+import static java.util.stream.Collectors.toList;
 
 public class AutomovelRepository implements Repository<Automovel> {
     private static AutomovelRepository instance = null;
@@ -28,5 +31,10 @@ public class AutomovelRepository implements Repository<Automovel> {
     @Override
     public Automovel findOne(String placa) {
         return this.automoveis.stream().filter(automovel -> automovel.getPlaca().equals(placa)).findFirst().orElse(null);
+    }
+
+    @Override
+    public List<Automovel> filter(Predicate<? super Automovel> fn) {
+        return this.automoveis.stream().filter(fn).collect(toList());
     }
 }

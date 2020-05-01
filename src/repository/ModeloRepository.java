@@ -4,6 +4,9 @@ import automovel.Modelo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+
+import static java.util.stream.Collectors.toList;
 
 public class ModeloRepository implements Repository<Modelo> {
     private static ModeloRepository instance = null;
@@ -28,5 +31,10 @@ public class ModeloRepository implements Repository<Modelo> {
     @Override
     public Modelo findOne(String nome) {
         return this.modelos.stream().filter(modelo -> modelo.getNome().equals(nome)).findFirst().orElse(null);
+    }
+
+    @Override
+    public List<Modelo> filter(Predicate<? super Modelo> fn) {
+        return this.modelos.stream().filter(fn).collect(toList());
     }
 }

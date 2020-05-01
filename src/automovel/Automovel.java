@@ -35,7 +35,7 @@ public class Automovel {
         return disponivel;
     }
 
-    protected Modelo getModelo() {
+    public Modelo getModelo() {
         return modelo;
     }
 }

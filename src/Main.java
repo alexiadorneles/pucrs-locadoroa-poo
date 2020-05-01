@@ -1,3 +1,9 @@
+import automovel.Automovel;
+import automovel.Categoria;
+import repository.AutomovelRepository;
+
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         Menu menu = new Menu();
@@ -8,6 +14,10 @@ public class Main {
 
         Locacao locacao = new Locacao(pf, "14/02/2020", "25/03/2020", null);
         System.out.println(locacao.calculaDiasDiaria());
+
+        Categoria categoriaX = new Categoria("X");
+        List<Automovel> automoveis = AutomovelRepository.getInstance()
+                .filter(automovel -> automovel.getModelo().getCategoria().equals(categoriaX));
 
     }
 }

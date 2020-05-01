@@ -4,6 +4,9 @@ import automovel.Categoria;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+
+import static java.util.stream.Collectors.toList;
 
 public class CategoriaRepository implements Repository<Categoria> {
 
@@ -29,5 +32,10 @@ public class CategoriaRepository implements Repository<Categoria> {
     @Override
     public Categoria findOne(String nome) {
         return this.categorias.stream().filter(categoria -> categoria.getNome().equals(nome)).findFirst().orElse(null);
+    }
+
+    @Override
+    public List<Categoria> filter(Predicate<? super Categoria> fn) {
+        return this.categorias.stream().filter(fn).collect(toList());
     }
 }

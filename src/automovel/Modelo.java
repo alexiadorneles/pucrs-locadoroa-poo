@@ -19,7 +19,7 @@ public abstract class Modelo {
         return nome;
     }
 
-    private Categoria getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
