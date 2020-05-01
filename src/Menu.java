@@ -17,13 +17,15 @@ public class Menu {
         System.out.println("1 - Atendendente");
         System.out.println("2 - Gerente");
         int opcao1 = in.nextInt();
-        int opcao2 = 0;
+        in.nextLine();
+        int opcao2;
 
 
         if (opcao1 == 1) {
             do {
                 this.mostrarOpcoesAtendente();
                 opcao2 = in.nextInt();
+                in.nextLine();
                 switch (opcao2) {
                     case 1:
                         break;
@@ -41,6 +43,7 @@ public class Menu {
             do {
                 this.mostrarOpcoesGerente();
                 opcao2 = in.nextInt();
+                in.nextLine();
                 switch (opcao2) {
 //            1 - Cadastrar Nova Categoria Automóvel
                     case 1:
@@ -74,6 +77,7 @@ public class Menu {
         String placa = in.nextLine();
         System.out.println("Digite o ano: ");
         int ano = in.nextInt();
+        in.nextLine();
         System.out.println("Digite o valor diária: ");
         double valorDiaria = in.nextDouble();
         System.out.println("Digite o nome do modelo: ");
@@ -106,26 +110,26 @@ public class Menu {
 
     private void cadastrarCategoria(Scanner in) {
         System.out.println("Digite o nome da categoria: ");
-        String nomeCategoria = in.next();
+        String nomeCategoria = in.nextLine();
         CategoriaRepository.getInstance().save(new Categoria(nomeCategoria));
     }
 
     private void cadastrarMarca(Scanner in) {
         System.out.println("Digite o nome da marca: ");
-        MarcaRepository.getInstance().save(new Marca(in.next()));
+        MarcaRepository.getInstance().save(new Marca(in.nextLine()));
     }
 
     private void cadastrarModelo(Scanner in) {
         System.out.println("Digite o nome do modelo: ");
-        String nome = in.next();
+        String nome = in.nextLine();
         System.out.println("Digite o valor: ");
         double valor = in.nextDouble();
 
         System.out.println("Escolha a categoria");
-        Categoria categoria = CategoriaRepository.getInstance().findOne(in.next());
+        Categoria categoria = CategoriaRepository.getInstance().findOne(in.nextLine());
 
         System.out.println("Escolha a marca");
-        Marca marca = MarcaRepository.getInstance().findOne(in.next());
+        Marca marca = MarcaRepository.getInstance().findOne(in.nextLine());
 
 
         System.out.println("Escolha o tipo de modelo: \n 1 - Nacional \t 2 - Internacional");
