@@ -119,7 +119,7 @@ public class Menu {
             System.out.println("1- Pessoa fisica ");
             System.out.println("2- Pessoa juridica");
             escolha = in.nextInt();
-        }while (escolha>2 || escolha<10);
+        }while (escolha>2 || escolha<1);
 
         System.out.print("Digite os dados do cliente: ");
         System.out.println("Nome: ");
