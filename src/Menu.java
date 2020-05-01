@@ -1,4 +1,5 @@
 import automovel.*;
+import repository.AutomovelRepository;
 import repository.CategoriaRepository;
 import repository.MarcaRepository;
 import repository.ModeloRepository;
@@ -80,12 +81,14 @@ public class Menu {
         in.nextLine();
         System.out.println("Digite o valor diária: ");
         double valorDiaria = in.nextDouble();
+        in.nextLine();
         System.out.println("Digite o nome do modelo: ");
         String nomeModelo = in.nextLine();
         Automovel automovel = new Automovel(
                 placa, ano, valorDiaria, true,
                 ModeloRepository.getInstance().findOne(nomeModelo)
         );
+        AutomovelRepository.getInstance().save(automovel);
     }
 
     private void mostrarOpcoesGerente() {
@@ -124,6 +127,7 @@ public class Menu {
         String nome = in.nextLine();
         System.out.println("Digite o valor: ");
         double valor = in.nextDouble();
+        in.nextLine();
 
         System.out.println("Escolha a categoria");
         Categoria categoria = CategoriaRepository.getInstance().findOne(in.nextLine());
