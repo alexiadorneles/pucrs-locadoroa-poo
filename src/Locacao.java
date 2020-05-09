@@ -1,5 +1,4 @@
 import automovel.Automovel;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -42,5 +41,4 @@ public class Locacao {
         Period periodo = Period.between(inicial, dataFinal);
         return ChronoUnit.DAYS.between(inicial, dataFinal);
     }
-
 }

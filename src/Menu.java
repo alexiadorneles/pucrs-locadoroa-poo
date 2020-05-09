@@ -74,23 +74,6 @@ public class Menu {
         }
     }
 
-    private void cadastrarAutomovel(Scanner in) {
-        System.out.println("Digite a placa: ");
-        String placa = in.nextLine();
-        System.out.println("Digite o ano: ");
-        int ano = in.nextInt();
-        in.nextLine();
-        System.out.println("Digite o valor diária: ");
-        double valorDiaria = in.nextDouble();
-        in.nextLine();
-        System.out.println("Digite o nome do modelo: ");
-        String nomeModelo = in.nextLine();
-        Automovel automovel = new Automovel(
-                placa, ano, valorDiaria, true,
-                ModeloRepository.getInstance().findOne(nomeModelo)
-        );
-        AutomovelRepository.getInstance().save(automovel);
-    }
 
     private void mostrarOpcoesGerente() {
         System.out.println("1 - Cadastrar Nova Categoria Automóvel");
@@ -110,6 +93,24 @@ public class Menu {
         System.out.println("4 - Realizar Locação");
         System.out.println("5 - Finalizar Locação ");
         System.out.println("99 - Sair ");
+    }
+
+    private void cadastrarAutomovel(Scanner in) {
+        System.out.println("Digite a placa: ");
+        String placa = in.nextLine();
+        System.out.println("Digite o ano: ");
+        int ano = in.nextInt();
+        in.nextLine();
+        System.out.println("Digite o valor diária: ");
+        double valorDiaria = in.nextDouble();
+        in.nextLine();
+        System.out.println("Digite o nome do modelo: ");
+        String nomeModelo = in.nextLine();
+        Automovel automovel = new Automovel(
+                placa, ano, valorDiaria, true,
+                ModeloRepository.getInstance().findOne(nomeModelo)
+        );
+        AutomovelRepository.getInstance().save(automovel);
     }
 
     private void cadastrarCliente(Scanner in){
