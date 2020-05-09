@@ -31,7 +31,8 @@ public class Menu {
 //                    1 - Cadastrar nomo Cliente
                     case 1: cadastrarCliente(in);
                         break;
-                    case 2:
+//                    2-Consultar Disponibilidade de Automóvel por Categoria
+                    case 2: consultaDisponibilidadeCategoria(in);
                         break;
                     case 3:
                         break;
@@ -138,6 +139,14 @@ public class Menu {
         }
         System.out.println("Cadastro concluído.");
 
+    }
+
+    private void consultaDisponibilidadeCategoria(Scanner in){
+        System.out.println("Digite a categoria: ");
+        Categoria categoria = new Categoria(in.nextLine());
+        if(AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getCategoria().equals(categoria)).isEmpty()) {
+            System.out.println("Não a automoveis dessa categoria");
+        } else System.out.println(AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getCategoria().equals(categoria)));
     }
 
     private void cadastrarCategoria(Scanner in) {
