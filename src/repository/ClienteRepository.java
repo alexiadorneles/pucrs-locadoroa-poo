@@ -35,9 +35,5 @@ public class ClienteRepository implements Repository<Cliente> {
     public List<Cliente> filter(Predicate<? super Cliente> fn) {
         return this.clientes.stream().filter(fn).collect(toList());
     }
-
-    private class Cliente {
-    }
 }
 
-}
