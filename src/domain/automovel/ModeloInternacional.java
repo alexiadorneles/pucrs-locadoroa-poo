@@ -1,4 +1,4 @@
-package automovel;
+package domain.automovel;
 
 public class ModeloInternacional extends Modelo {
     private double taxaImportacao;

@@ -1,3 +1,5 @@
+package domain;
+
 public class PessoaJ extends Cliente {
     private String CNPJ;
 

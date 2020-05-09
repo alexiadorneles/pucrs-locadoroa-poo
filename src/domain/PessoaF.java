@@ -1,3 +1,5 @@
+package domain;
+
 public class PessoaF  extends Cliente {
     private String CFP;
 

@@ -1,6 +1,6 @@
 package repository;
 
-import automovel.Marca;
+import domain.automovel.Marca;
 
 import java.util.ArrayList;
 import java.util.List;

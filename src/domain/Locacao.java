@@ -1,4 +1,6 @@
-import automovel.Automovel;
+package domain;
+
+import domain.automovel.Automovel;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;

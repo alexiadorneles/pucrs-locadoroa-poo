@@ -1,4 +1,4 @@
-package automovel;
+package domain.automovel;
 
 public class Marca {
     private String nome;

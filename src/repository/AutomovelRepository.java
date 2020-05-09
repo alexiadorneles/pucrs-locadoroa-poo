@@ -1,6 +1,6 @@
 package repository;
 
-import automovel.Automovel;
+import domain.automovel.Automovel;
 
 import java.util.ArrayList;
 import java.util.List;

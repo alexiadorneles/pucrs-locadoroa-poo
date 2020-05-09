@@ -1,4 +1,4 @@
-package automovel;
+package domain.automovel;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,8 @@
-import automovel.Automovel;
-import automovel.Categoria;
+import domain.automovel.Automovel;
+import domain.automovel.Categoria;
+import domain.Locacao;
+import domain.PessoaF;
+import domain.PessoaJ;
 import repository.AutomovelRepository;
 
 import java.util.List;

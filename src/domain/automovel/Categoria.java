@@ -1,4 +1,4 @@
-package automovel;
+package domain.automovel;
 
 public class Categoria {
     private String nome;

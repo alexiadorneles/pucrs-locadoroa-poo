@@ -1,4 +1,5 @@
-import automovel.*;
+import domain.automovel.*;
+import domain.PessoaF;
 import repository.AutomovelRepository;
 import repository.CategoriaRepository;
 import repository.MarcaRepository;
@@ -28,7 +29,7 @@ public class Menu {
                 opcao2 = in.nextInt();
                 in.nextLine();
                 switch (opcao2) {
-//                    1 - Cadastrar nomo Cliente
+//                    1 - Cadastrar nomo domain.Cliente
                     case 1: cadastrarCliente(in);
                         break;
 //                    2-Consultar Disponibilidade de Automóvel por Categoria
@@ -88,7 +89,7 @@ public class Menu {
     }
 
     private void mostrarOpcoesAtendente() {
-        System.out.println("1 - Cadastrar nomo Cliente");
+        System.out.println("1 - Cadastrar nomo domain.Cliente");
         System.out.println("2 - Consultar Disponibilidade de Automóvel por Categoria");
         System.out.println("3 - Consultar o Valor de uma Locaçao ");
         System.out.println("4 - Realizar Locação");

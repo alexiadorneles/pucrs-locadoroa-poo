@@ -1,4 +1,4 @@
-package automovel;
+package domain.automovel;
 
 public class ModeloNacional extends Modelo {
     private double ipi;

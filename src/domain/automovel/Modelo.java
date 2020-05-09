@@ -1,4 +1,4 @@
-package automovel;
+package domain.automovel;
 
 public abstract class Modelo {
     private String nome;
