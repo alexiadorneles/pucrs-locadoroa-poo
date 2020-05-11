@@ -4,14 +4,23 @@ import domain.automovel.Categoria;
 import domain.locacao.Locacao;
 import domain.cliente.PessoaFisica;
 import domain.cliente.PessoaJuridica;
-import repository.AutomovelRepository;
-import repository.ClienteRepository;
+import menu.CadastroMenu;
+import menu.ConsultaMenu;
+import menu.Menu;
+import repository.*;
 
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Menu menu = new Menu();
+        CadastroMenu cadastroMenu = new CadastroMenu(ModeloRepository.getInstance(), AutomovelRepository.getInstance(), ClienteRepository.getInstance(),
+                MarcaRepository.getInstance(), CategoriaRepository.getInstance()
+        );
+
+        ConsultaMenu consultaMenu = new ConsultaMenu(AutomovelRepository.getInstance(), LocacaoRepository.getInstance());
+
+        Menu menu = new Menu(cadastroMenu, consultaMenu, AutomovelRepository.getInstance(), LocacaoRepository.getInstance(), ClienteRepository.getInstance());
+
         menu.mostrar();
 
         PessoaFisica pf = new PessoaFisica("Pedro", "99793723", "089.765.456-78");       // 7
@@ -26,7 +35,6 @@ public class Main {
         Categoria categoriaX = new Categoria("X");
         List<Automovel> automoveis = AutomovelRepository.getInstance()
                 .filter(automovel -> automovel.getModelo().getCategoria().equals(categoriaX));
-
 
 
     }
