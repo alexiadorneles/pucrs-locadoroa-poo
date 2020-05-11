@@ -1,6 +1,7 @@
 package repository;
 
 import domain.Cliente;
+import java.util.Iterator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,4 +38,12 @@ public class ClienteRepository implements Repository<Cliente> {
     public List<Cliente> filter(Predicate<? super Cliente> fn) {
         return this.clientes.stream().filter(fn).collect(toList());
     }
+
+    public void listaClientes (){
+        for (Iterator<Cliente> iterator = clientes.iterator(); iterator.hasNext(); ) {
+            Cliente clientes = iterator.next();
+            System.out.println (clientes.getNome());
+        }
+    }
+
 }

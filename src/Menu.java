@@ -4,6 +4,8 @@ import repository.AutomovelRepository;
 import repository.CategoriaRepository;
 import repository.MarcaRepository;
 import repository.ModeloRepository;
+import repository.ClienteRepository;
+import domain.Cliente;
 
 import java.util.Scanner;
 
@@ -14,7 +16,7 @@ public class Menu {
     public void mostrar() {
         Scanner in = new Scanner(System.in);
 
-        System.out.println("////////// LOCADORA AJE //////////");
+        System.out.println("---------- LOCADORA AJE ----------");
 
         System.out.println("1 - Atendendente");
         System.out.println("2 - Gerente");
@@ -67,7 +69,9 @@ public class Menu {
                         break;
                     case 5:
                         break;
+//             6 - Consultar Clientes Cadastrados
                     case 6:
+                        this.consultarClientesCadastrados();
                         break;
                     case 7:
                         break;
@@ -149,6 +153,10 @@ public class Menu {
         if(AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getCategoria().equals(categoria)).isEmpty()) {
             System.out.println("Não a automoveis dessa categoria");
         } else System.out.println(AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getCategoria().equals(categoria)));
+    }
+
+    private void consultarClientesCadastrados(){ // VER ERRO
+        ClienteRepository.getInstance().listaClientes();
     }
 
     private void cadastrarCategoria(Scanner in) {
