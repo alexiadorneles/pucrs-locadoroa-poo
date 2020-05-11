@@ -9,4 +9,6 @@ public interface Repository<T> {
     T findOne(String nome);
 
     List<T> filter(Predicate<? super T> fn);
+
+    List<T> findAll();
 }

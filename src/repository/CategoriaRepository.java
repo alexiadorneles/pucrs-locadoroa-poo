@@ -38,4 +38,9 @@ public class CategoriaRepository implements Repository<Categoria> {
     public List<Categoria> filter(Predicate<? super Categoria> fn) {
         return this.categorias.stream().filter(fn).collect(toList());
     }
+
+    @Override
+    public List<Categoria> findAll() {
+        return this.categorias;
+    }
 }

@@ -38,4 +38,13 @@ public class Automovel {
     public Modelo getModelo() {
         return modelo;
     }
+
+    @Override
+    public String toString() {
+        return "placa='" + placa + '\'' +
+                ", ano=" + ano +
+                ", valorDiaria=" + valorDiaria +
+                ", disponivel=" + disponivel +
+                ", modelo=" + modelo;
+    }
 }

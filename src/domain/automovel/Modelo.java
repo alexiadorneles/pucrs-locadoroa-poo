@@ -31,5 +31,4 @@ public abstract class Modelo {
         return valor;
     }
 
-
 }

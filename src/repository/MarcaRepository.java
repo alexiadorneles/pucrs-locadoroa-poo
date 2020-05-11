@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 import static java.util.stream.Collectors.toList;
 
 public class MarcaRepository implements Repository<Marca> {
-    private List<Marca> marcas = new ArrayList<>();
+    private List<Marca> marcas;
     private static MarcaRepository instance = null;
 
     private MarcaRepository() {
@@ -36,5 +36,10 @@ public class MarcaRepository implements Repository<Marca> {
     @Override
     public List<Marca> filter(Predicate<? super Marca> fn) {
         return this.marcas.stream().filter(fn).collect(toList());
+    }
+
+    @Override
+    public List<Marca> findAll() {
+        return this.marcas;
     }
 }

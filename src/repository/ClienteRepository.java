@@ -40,6 +40,7 @@ public class ClienteRepository implements Repository<Cliente> {
         return this.clientes.stream().filter(fn).collect(toList());
     }
 
+    @Override
     public List<Cliente> findAll() {
         return this.clientes;
     }

@@ -37,4 +37,9 @@ public class ModeloRepository implements Repository<Modelo> {
     public List<Modelo> filter(Predicate<? super Modelo> fn) {
         return this.modelos.stream().filter(fn).collect(toList());
     }
+
+    @Override
+    public List<Modelo> findAll() {
+        return this.modelos;
+    }
 }

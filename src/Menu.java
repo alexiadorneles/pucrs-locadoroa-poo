@@ -86,18 +86,34 @@ public class Menu {
                     case 9:
                         this.cadastrarAutomovel(in);
                         break;
+//            10 - Remover Automóvel
                     case 10:
+                        this.removerAutomovel(in);
                         break;
-//            10 - Consultar Clientes Cadastrados
                     case 11:
+                        break;
+//            12 - Consultar Clientes Cadastrados
+                    case 12:
                         this.consultarClientesCadastrados();
                         break;
-                    case 12:
+                    case 13:
+                        this.consultarAutomoveis();
                         break;
                 }
             } while (opcao2 != 99);
         }
 
+    }
+
+    private void consultarAutomoveis() {
+        List<Automovel> automoveis = AutomovelRepository.getInstance().findAll();
+        automoveis.forEach(System.out::println);
+    }
+
+    private void removerAutomovel(Scanner in) {
+        System.out.println("Digite a placa do automóvel que deseja remover");
+        boolean result = AutomovelRepository.getInstance().removeByPlaca(in.nextLine());
+        System.out.println(result ? "Removido com sucesso!" : "Um automóvel com essa placa não existe");
     }
 
 
@@ -111,9 +127,10 @@ public class Menu {
         System.out.println("7 - Cadastrar Nova Marca do Automóvel");
         System.out.println("8 - Cadastrar Novo Modelo do Automóvel");
         System.out.println("9 - Cadastrar Novo Automóvel");
-        System.out.println("10 - Consultar Locações");
-        System.out.println("11 - Consultar Clientes");
-        System.out.println("12 - Consultar Automóveis Cadastrados");
+        System.out.println("10 - Remover Automóvel");
+        System.out.println("11 - Consultar Locações");
+        System.out.println("12 - Consultar Clientes");
+        System.out.println("13 - Consultar Automóveis Cadastrados");
         System.out.println("99 - Sair");
     }
 

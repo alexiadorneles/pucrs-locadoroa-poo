@@ -12,4 +12,14 @@ public class ModeloInternacional extends Modelo {
     public double calcularValorModelo() {
         return this.getValor() * (1 + (this.taxaImportacao / 100));
     }
+
+    @Override
+    public String toString() {
+        return "Internacional: " +
+                "   taxaImportacao=" + taxaImportacao
+                + "   nome=" + this.getNome()
+                + "   valor=" + this.getValor()
+                + "   categoria=" + this.getCategoria()
+                ;
+    }
 }

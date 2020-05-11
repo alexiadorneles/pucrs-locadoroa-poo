@@ -37,4 +37,13 @@ public class AutomovelRepository implements Repository<Automovel> {
     public List<Automovel> filter(Predicate<? super Automovel> fn) {
         return this.automoveis.stream().filter(fn).collect(toList());
     }
+
+    @Override
+    public List<Automovel> findAll() {
+        return this.automoveis;
+    }
+
+    public boolean removeByPlaca(String placa) {
+        return this.automoveis.remove(this.findOne(placa));
+    }
 }
