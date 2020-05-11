@@ -23,8 +23,9 @@ public class Automovel {
         return placa;
     }
 
-    protected int getAno() {
+    public int getAno() {
         return ano;
+
     }
 
     protected double getValorDiaria() {

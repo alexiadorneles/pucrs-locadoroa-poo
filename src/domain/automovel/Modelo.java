@@ -23,7 +23,7 @@ public abstract class Modelo {
         return categoria;
     }
 
-    private Marca getMarca() {
+    public Marca getMarca() {
         return marca;
     }
 

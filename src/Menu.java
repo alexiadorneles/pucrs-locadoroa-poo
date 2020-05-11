@@ -1,10 +1,12 @@
 import domain.automovel.*;
 import domain.PessoaF;
+import domain.Locacao;
 import repository.AutomovelRepository;
 import repository.CategoriaRepository;
 import repository.MarcaRepository;
 import repository.ModeloRepository;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Menu {
@@ -30,12 +32,13 @@ public class Menu {
                 in.nextLine();
                 switch (opcao2) {
 //                    1 - Cadastrar nomo domain.Cliente
-                    case 1: cadastrarCliente(in);
+                    case 1: this.cadastrarCliente(in);
                         break;
 //                    2-Consultar Disponibilidade de Automóvel por Categoria
-                    case 2: consultaDisponibilidadeCategoria(in);
+                    case 2: this.consultaDisponibilidadeCategoria(in);
                         break;
-                    case 3:
+//                  3 - Consultar o Valor de uma Locaçao
+                    case 3: this.consultaValorLocacao(in);
                         break;
                     case 4:
                         break;
@@ -142,13 +145,51 @@ public class Menu {
         System.out.println("Cadastro concluído.");
 
     }
-
     private void consultaDisponibilidadeCategoria(Scanner in){
         System.out.println("Digite a categoria: ");
         Categoria categoria = new Categoria(in.nextLine());
         if(AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getCategoria().equals(categoria)).isEmpty()) {
             System.out.println("Não a automoveis dessa categoria");
-        } else System.out.println(AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getCategoria().equals(categoria)));
+        } else System.out.println(Arrays.asList(AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getCategoria().equals(categoria))));
+    }
+    private void consultaValorLocacao(Scanner in){
+        System.out.println("Digite a data inicial: ");
+        String dataInicial=in.next();
+        System.out.println("Digite a data final: ");
+        String dataFinal=in.next();
+        Categoria categoria;
+        Marca marca;
+        do {
+            System.out.println("Digite a categoria de automovel que deseja: ");
+            categoria = new Categoria(in.nextLine());
+            if (AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getCategoria().equals(categoria)).isEmpty()) {
+                System.out.println("Não a automoveis dessa categoria");
+            } else
+                System.out.println(AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getCategoria().equals(categoria)));
+        }while (AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getCategoria().equals(categoria)).isEmpty());
+
+        do {
+            System.out.println("Digite a marca de automovel que deseja: ");
+            marca = new Marca(in.nextLine());
+            if (AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getMarca().equals(marca)).isEmpty()) {
+                System.out.println("Não a automoveis dessa marca");
+            } else
+                System.out.println(AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getMarca().equals(categoria)));
+        }while (AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getMarca().equals(marca)).isEmpty());
+
+        do {
+            System.out.println("Digite a marca de automovel que deseja: ");
+            marca = new Marca(in.nextLine());
+            if (AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getMarca().equals(marca)).isEmpty()) {
+                System.out.println("Não a automoveis dessa marca");
+            } else
+                System.out.println(AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getMarca().equals(categoria)));
+        }while (AutomovelRepository.getInstance().filter(automovel -> automovel.getModelo().getMarca().equals(marca)).isEmpty());
+
+
+        //System.out.println("Data inicial: da locação");
+        //Automovel auto = new Automovel("simulacao", );
+        //Locacao simulacao = new Locacao();
     }
 
     private void cadastrarCategoria(Scanner in) {
