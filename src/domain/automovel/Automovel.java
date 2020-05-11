@@ -52,10 +52,10 @@ public class Automovel {
 
     @Override
     public String toString() {
-        return "placa='" + placa + '\'' +
-                ", ano=" + ano +
-                ", valorDiaria=" + valorDiaria +
-                ", disponivel=" + disponivel +
-                ", modelo=" + modelo;
+        return "Placa: " + placa + '\'' +
+                "Ano: " + ano + '\'' +
+                "Valor diaria: " + valorDiaria + '\''+
+                "Disponibilidade: " + disponivel + '\''+
+                "Modelo: " + modelo+ '\'';
     }
 }

@@ -15,11 +15,10 @@ public class ModeloInternacional extends Modelo {
 
     @Override
     public String toString() {
-        return "Internacional: " +
-                "   taxaImportacao=" + taxaImportacao
-                + "   nome=" + this.getNome()
-                + "   valor=" + this.getValor()
-                + "   categoria=" + this.getCategoria()
+        return   '\'' +"Taxa de importacao: " + taxaImportacao + '\''
+                + "   Modelo: " + this.getNome()+ '\''
+                + "   Valor: " + this.getValor()+ '\''
+                + "   Categoria: " + this.getCategoria()+ '\''
                 ;
     }
 }

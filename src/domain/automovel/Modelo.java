@@ -31,4 +31,8 @@ public abstract class Modelo {
         return valor;
     }
 
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

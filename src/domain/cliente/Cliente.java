@@ -21,4 +21,9 @@ public class Cliente {
         return telefone;
     }
 
+    @Override
+    public String toString() {
+        return "Cliente: " + nome + '\''
+                ;
+    }
 }
