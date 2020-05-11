@@ -11,7 +11,7 @@ public class Automovel {
     private final Modelo modelo;
 
     public double calcularValorFixo() {
-        return this.modelo.calcularValorModelo() / 1000;
+        return this.modelo.calcularValorModelo();
     }
 
     public Automovel(String placa, int ano, double valorDiaria, boolean disponivel, Modelo modelo) {
@@ -52,10 +52,10 @@ public class Automovel {
 
     @Override
     public String toString() {
-        return "Placa: " + placa + '\'' +
-                "Ano: " + ano + '\'' +
-                "Valor diaria: " + valorDiaria + '\''+
-                "Disponibilidade: " + disponivel + '\''+
+        return "Placa: " + placa + '\n' +
+                "Ano: " + ano + '\n' +
+                "Valor diaria: " + valorDiaria + '\n'+
+                "Disponibilidade: " + disponivel + '\n'+
                 "Modelo: " + modelo;
     }
 }

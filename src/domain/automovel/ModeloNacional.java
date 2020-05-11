@@ -16,9 +16,9 @@ public class ModeloNacional extends Modelo {
 
     @Override
     public String toString() {
-        return  "  IPI: " + ipi+ '\''
-                + "  Modelo: " + this.getNome()+ '\''
-                + "  Valor: " + this.getValor()+ '\''
+        return  "  IPI: " + ipi+ '\n'
+                + "  Modelo: " + this.getNome()+ '\n'
+                + "  Valor: " + this.getValor()+ '\n'
                 + "  Categoria: " + this.getCategoria()
                 ;
     }

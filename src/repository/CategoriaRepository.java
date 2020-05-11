@@ -43,4 +43,13 @@ public class CategoriaRepository implements Repository<Categoria> {
     public List<Categoria> findAll() {
         return this.categorias;
     }
+
+    @Override
+    public String toString() {
+        String listaCategoria="";
+        for (Categoria categoria : categorias){
+            listaCategoria+=categoria.toString()+'\n';
+        }
+        return listaCategoria;
+    }
 }

@@ -47,7 +47,7 @@ public class MarcaRepository implements Repository<Marca> {
     public String toString() {
         String listaMarcas="";
         for (Marca marca : marcas){
-            listaMarcas+= marca.toString()+'\'';
+            listaMarcas+= marca.toString()+'\n';
         }
         return listaMarcas;
     }

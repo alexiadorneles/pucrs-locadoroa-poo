@@ -52,7 +52,7 @@ public class AutomovelRepository implements Repository<Automovel> {
     public String toString() {
         String listaAutomoveis = "";
         for(Automovel auto :automoveis){
-            listaAutomoveis += auto.toString()+'\'';
+            listaAutomoveis += auto.toString()+'\n';
     }
         return listaAutomoveis;
     }

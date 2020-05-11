@@ -49,7 +49,7 @@ public class LocacaoRepository implements Repository<Locacao> {
     public String toString() {
         String listaLocacao="";
         for(Locacao locacao: locacoes){
-            listaLocacao+= locacao.toString() +'\'';
+            listaLocacao+= locacao.toString() +'\n';
         }
         return listaLocacao;
     }

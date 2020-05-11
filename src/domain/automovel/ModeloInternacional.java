@@ -15,9 +15,9 @@ public class ModeloInternacional extends Modelo {
 
     @Override
     public String toString() {
-        return  "Taxa de importacao: " + taxaImportacao + '\''
-                + "   Modelo: " + this.getNome()+ '\''
-                + "   Valor: " + this.getValor()+ '\''
+        return  "Taxa de importacao: " + taxaImportacao + '\n'
+                + "   Modelo: " + this.getNome()+ '\n'
+                + "   Valor: " + this.getValor()+ '\n'
                 + "   Categoria: " + this.getCategoria()
                 ;
     }

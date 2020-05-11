@@ -47,7 +47,7 @@ public class ModeloRepository implements Repository<Modelo> {
     public String toString() {
         String listaModelos="";
         for (Modelo model : modelos){
-            listaModelos+=model.toString()+'\'';
+            listaModelos+=model.toString()+'\n';
         }
         return listaModelos;
     }

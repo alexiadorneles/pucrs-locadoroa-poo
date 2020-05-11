@@ -47,7 +47,7 @@ public class ClienteRepository implements Repository<Cliente> {
     public String toString() {
         String listaCLientes="";
         for (Cliente cliente : clientes){
-            listaCLientes+= cliente.toString()+'\'';
+            listaCLientes+= cliente.toString()+'\n';
         }
         return listaCLientes;
     }
