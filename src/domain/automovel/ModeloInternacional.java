@@ -10,7 +10,7 @@ public class ModeloInternacional extends Modelo {
 
     @Override
     public double calcularValorModelo() {
-        return (this.getValor() * (1 + ((this.taxaImportacao+25) / 100)))/1000;
+        return (this.getValor() * (1 + ((this.taxaImportacao+25) / 100.0)))/1000.0;
     }
 
     @Override

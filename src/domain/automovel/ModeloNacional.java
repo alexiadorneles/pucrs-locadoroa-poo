@@ -10,7 +10,7 @@ public class ModeloNacional extends Modelo {
 
     @Override
     public double calcularValorModelo() {
-        return (this.getValor() * (1 + ((this.ipi+10) / 100)))/1000;
+        return (this.getValor() * (1 + ((this.ipi+10) / 100.0)))/1000.0;
     }
 
 
