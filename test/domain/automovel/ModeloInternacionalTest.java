@@ -18,6 +18,6 @@ class ModeloInternacionalTest {
         final double resultado = modelo.calcularValorModelo();
 
         // assert
-        assertEquals(resultado, 437500);
+        assertEquals(resultado, 500);
     }
 }

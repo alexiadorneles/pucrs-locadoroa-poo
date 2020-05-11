@@ -18,6 +18,6 @@ class ModeloNacionalTest {
         final double resultado = modelo.calcularValorModelo();
 
         // assert
-        assertEquals(resultado, 150000);
+        assertEquals(resultado, 162);
     }
 }
