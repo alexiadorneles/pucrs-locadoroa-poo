@@ -1,6 +1,7 @@
 package repository;
 
 import domain.Cliente;
+
 import java.util.Iterator;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.function.Predicate;
 import static java.util.stream.Collectors.toList;
 
 public class ClienteRepository implements Repository<Cliente> {
-    private List<Cliente> clientes = new ArrayList<>();
+    private List<Cliente> clientes;
     private static ClienteRepository instance = null;
 
     private ClienteRepository() {
@@ -39,11 +40,8 @@ public class ClienteRepository implements Repository<Cliente> {
         return this.clientes.stream().filter(fn).collect(toList());
     }
 
-    public void listaClientes (){
-        for (Iterator<Cliente> iterator = clientes.iterator(); iterator.hasNext(); ) {
-            Cliente clientes = iterator.next();
-            System.out.println (clientes.getNome());
-        }
+    public List<Cliente> findAll() {
+        return this.clientes;
     }
 
 }
