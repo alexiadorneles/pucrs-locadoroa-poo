@@ -42,4 +42,13 @@ public class MarcaRepository implements Repository<Marca> {
     public List<Marca> findAll() {
         return this.marcas;
     }
+
+    @Override
+    public String toString() {
+        String listaMarcas="";
+        for (Marca marca : marcas){
+            listaMarcas+= marca.toString()+'\'';
+        }
+        return listaMarcas;
+    }
 }

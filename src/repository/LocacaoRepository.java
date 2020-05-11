@@ -44,4 +44,13 @@ public class LocacaoRepository implements Repository<Locacao> {
     public List<Locacao> findAll() {
         return this.locacoes;
     }
+
+    @Override
+    public String toString() {
+        String listaLocacao="";
+        for(Locacao locacao: locacoes){
+            listaLocacao+= locacao.toString() +'\'';
+        }
+        return listaLocacao;
+    }
 }

@@ -16,10 +16,10 @@ public class ModeloNacional extends Modelo {
 
     @Override
     public String toString() {
-        return   '\'' +"  IPI: " + ipi+ '\''
+        return  "  IPI: " + ipi+ '\''
                 + "  Modelo: " + this.getNome()+ '\''
                 + "  Valor: " + this.getValor()+ '\''
-                + "  Categoria: " + this.getCategoria()+ '\''
+                + "  Categoria: " + this.getCategoria()
                 ;
     }
 }

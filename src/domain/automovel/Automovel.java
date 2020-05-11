@@ -56,6 +56,6 @@ public class Automovel {
                 "Ano: " + ano + '\'' +
                 "Valor diaria: " + valorDiaria + '\''+
                 "Disponibilidade: " + disponivel + '\''+
-                "Modelo: " + modelo+ '\'';
+                "Modelo: " + modelo;
     }
 }

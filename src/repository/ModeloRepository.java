@@ -42,4 +42,13 @@ public class ModeloRepository implements Repository<Modelo> {
     public List<Modelo> findAll() {
         return this.modelos;
     }
+
+    @Override
+    public String toString() {
+        String listaModelos="";
+        for (Modelo model : modelos){
+            listaModelos+=model.toString()+'\'';
+        }
+        return listaModelos;
+    }
 }

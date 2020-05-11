@@ -46,4 +46,14 @@ public class AutomovelRepository implements Repository<Automovel> {
     public boolean removeByPlaca(String placa) {
         return this.automoveis.remove(this.findOne(placa));
     }
+
+
+    @Override
+    public String toString() {
+        String listaAutomoveis = "";
+        for(Automovel auto :automoveis){
+            listaAutomoveis += auto.toString()+'\'';
+    }
+        return listaAutomoveis;
+    }
 }

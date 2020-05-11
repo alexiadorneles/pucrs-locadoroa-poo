@@ -43,4 +43,12 @@ public class ClienteRepository implements Repository<Cliente> {
         return this.clientes;
     }
 
+    @Override
+    public String toString() {
+        String listaCLientes="";
+        for (Cliente cliente : clientes){
+            listaCLientes+= cliente.toString()+'\'';
+        }
+        return listaCLientes;
+    }
 }
