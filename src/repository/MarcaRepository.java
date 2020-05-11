@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 import static java.util.stream.Collectors.toList;
 
 public class MarcaRepository implements Repository<Marca> {
-    private List<Marca> marcas;
+    private final List<Marca> marcas;
     private static MarcaRepository instance = null;
 
     private MarcaRepository() {

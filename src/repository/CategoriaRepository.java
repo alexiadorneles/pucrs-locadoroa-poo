@@ -10,7 +10,7 @@ import static java.util.stream.Collectors.toList;
 
 public class CategoriaRepository implements Repository<Categoria> {
 
-    private List<Categoria> categorias;
+    private final List<Categoria> categorias;
     private static CategoriaRepository instance = null;
 
     private CategoriaRepository() {

@@ -1,8 +1,8 @@
 package domain.cliente;
 
 public class Cliente {
-    private String nome;
-    private String telefone;
+    private final String nome;
+    private final String telefone;
 
     public Cliente(String nome, String telefone) {
         this.nome = nome;

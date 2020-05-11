@@ -4,11 +4,11 @@ import java.time.LocalDate;
 
 public class Automovel {
     private static final int LIMITE_ANOS_FROTA = 5;
-    private String placa;
-    private int ano;
-    private double valorDiaria;
+    private final String placa;
+    private final int ano;
+    private final double valorDiaria;
     private boolean disponivel;
-    private Modelo modelo;
+    private final Modelo modelo;
 
     public double calcularValorFixo() {
         return this.modelo.calcularValorModelo() / 1000;

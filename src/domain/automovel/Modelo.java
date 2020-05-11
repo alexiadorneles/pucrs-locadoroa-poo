@@ -1,10 +1,10 @@
 package domain.automovel;
 
 public abstract class Modelo {
-    private String nome;
-    private Categoria categoria;
-    private Marca marca;
-    private double valor;
+    private final String nome;
+    private final Categoria categoria;
+    private final Marca marca;
+    private final double valor;
 
     public abstract double calcularValorModelo();
 

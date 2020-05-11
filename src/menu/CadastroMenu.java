@@ -10,18 +10,18 @@ import java.util.Scanner;
 
 public class CadastroMenu {
 
-    private final ModeloRepository modeloRepository;
-    private final AutomovelRepository automovelRepository;
-    private final ClienteRepository clienteRepository;
-    private final MarcaRepository marcaRepository;
-    private final CategoriaRepository categoriaRepository;
+    private final Repository<Modelo> modeloRepository;
+    private final Repository<Automovel> automovelRepository;
+    private final Repository<Cliente> clienteRepository;
+    private final Repository<Marca> marcaRepository;
+    private final Repository<Categoria> categoriaRepository;
 
     public CadastroMenu(
-            ModeloRepository modeloRepository,
-            AutomovelRepository automovelRepository,
-            ClienteRepository clienteRepository,
-            MarcaRepository marcaRepository,
-            CategoriaRepository categoriaRepository
+            Repository<Modelo> modeloRepository,
+            Repository<Automovel> automovelRepository,
+            Repository<Cliente> clienteRepository,
+            Repository<Marca> marcaRepository,
+            Repository<Categoria> categoriaRepository
     ) {
         this.modeloRepository = modeloRepository;
         this.automovelRepository = automovelRepository;

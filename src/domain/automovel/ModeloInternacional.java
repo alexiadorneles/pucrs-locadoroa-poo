@@ -1,7 +1,7 @@
 package domain.automovel;
 
 public class ModeloInternacional extends Modelo {
-    private double taxaImportacao;
+    private final double taxaImportacao;
 
     public ModeloInternacional(String nome, double valor, Categoria categoria, Marca marca, double taxaImportacao) {
         super(nome, valor, categoria, marca);

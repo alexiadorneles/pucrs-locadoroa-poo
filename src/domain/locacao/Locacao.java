@@ -10,11 +10,11 @@ import java.util.Random;
 
 
 public class Locacao {
-    private String codigo;
-    private Cliente cliente;
-    private String dataInicial;
-    private String dataFinal;
-    private Automovel auto;
+    private final String codigo;
+    private final Cliente cliente;
+    private final String dataInicial;
+    private final String dataFinal;
+    private final Automovel auto;
     private boolean finalizada;
 
     public Locacao(Cliente cliente, String dataInicial, String dataFinal, Automovel auto) {

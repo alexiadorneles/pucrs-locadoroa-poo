@@ -4,10 +4,7 @@ import domain.automovel.Automovel;
 import domain.automovel.Categoria;
 import domain.cliente.Cliente;
 import domain.locacao.Locacao;
-import repository.AutomovelRepository;
-import repository.CategoriaRepository;
-import repository.ClienteRepository;
-import repository.LocacaoRepository;
+import repository.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -15,10 +12,10 @@ import java.util.Scanner;
 
 public class ConsultaMenu {
 
-    private final AutomovelRepository automovelRepository;
-    private final LocacaoRepository locacaoRepository;
+    private final Repository<Automovel> automovelRepository;
+    private final Repository<Locacao> locacaoRepository;
 
-    public ConsultaMenu(AutomovelRepository automovelRepository, LocacaoRepository locacaoRepository) {
+    public ConsultaMenu(Repository<Automovel> automovelRepository, Repository<Locacao> locacaoRepository) {
         this.automovelRepository = automovelRepository;
         this.locacaoRepository = locacaoRepository;
     }

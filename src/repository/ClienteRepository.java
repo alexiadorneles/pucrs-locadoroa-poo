@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 import static java.util.stream.Collectors.toList;
 
 public class ClienteRepository implements Repository<Cliente> {
-    private List<Cliente> clientes;
+    private final List<Cliente> clientes;
     private static ClienteRepository instance = null;
 
     private ClienteRepository() {

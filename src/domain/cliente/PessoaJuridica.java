@@ -2,7 +2,7 @@ package domain.cliente;
 
 public class PessoaJuridica extends Cliente {
     private static final int PORCENTAGEM_DESCONTO_PJ = 5;
-    private String CNPJ;
+    private final String CNPJ;
 
     public PessoaJuridica(String nome, String telefone, String cnpj) {
         super(nome, telefone);

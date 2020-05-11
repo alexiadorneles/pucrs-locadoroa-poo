@@ -1,7 +1,7 @@
 package domain.automovel;
 
 public class Marca {
-    private String nome;
+    private final String nome;
 
     public Marca(String nome) {
         this.nome = nome;

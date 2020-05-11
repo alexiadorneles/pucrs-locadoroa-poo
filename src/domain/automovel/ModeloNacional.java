@@ -1,7 +1,7 @@
 package domain.automovel;
 
 public class ModeloNacional extends Modelo {
-    private double ipi;
+    private final double ipi;
 
     public ModeloNacional(String nome, double valor, Categoria categoria, Marca marca, double ipi) {
         super(nome, valor, categoria, marca);

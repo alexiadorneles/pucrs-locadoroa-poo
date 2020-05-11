@@ -1,7 +1,7 @@
 package domain.cliente;
 
 public class PessoaFisica extends Cliente {
-    private String CFP;
+    private final String CFP;
 
     public PessoaFisica(String nome, String telefone, String cpf){
         super(nome, telefone);

@@ -4,27 +4,26 @@ import domain.automovel.Automovel;
 import domain.cliente.Cliente;
 import domain.locacao.Locacao;
 import repository.AutomovelRepository;
-import repository.ClienteRepository;
-import repository.LocacaoRepository;
+import repository.Repository;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Menu {
-    private Scanner in;
-    private final LocacaoRepository locacaoRepository;
-    private final ClienteRepository clienteRepository;
+    private final Scanner in;
+    private final Repository<Locacao> locacaoRepository;
+    private final Repository<Cliente> clienteRepository;
+    private final AutomovelRepository automovelRepository;
     private final ConsultaMenu consultaMenu;
     private final CadastroMenu cadastroMenu;
-    private final AutomovelRepository automovelRepository;
 
     public Menu(
             CadastroMenu cadastroMenu,
             ConsultaMenu consultaMenu,
             AutomovelRepository automovelRepository,
-            LocacaoRepository locacaoRepository,
-            ClienteRepository clienteRepository
+            Repository<Locacao> locacaoRepository,
+            Repository<Cliente> clienteRepository
     ) {
         this.in = new Scanner(System.in);
         this.cadastroMenu = cadastroMenu;

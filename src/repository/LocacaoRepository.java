@@ -5,12 +5,11 @@ import domain.locacao.Locacao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
 public class LocacaoRepository implements Repository<Locacao> {
-    private List<Locacao> locacoes;
+    private final List<Locacao> locacoes;
 
     private static LocacaoRepository instance = null;
 

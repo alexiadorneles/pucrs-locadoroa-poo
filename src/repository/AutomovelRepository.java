@@ -10,7 +10,7 @@ import static java.util.stream.Collectors.toList;
 
 public class AutomovelRepository implements Repository<Automovel> {
     private static AutomovelRepository instance = null;
-    private List<Automovel> automoveis;
+    private final List<Automovel> automoveis;
 
     private AutomovelRepository() {
         this.automoveis = new ArrayList<>();

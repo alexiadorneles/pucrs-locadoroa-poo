@@ -10,7 +10,7 @@ import static java.util.stream.Collectors.toList;
 
 public class ModeloRepository implements Repository<Modelo> {
     private static ModeloRepository instance = null;
-    private List<Modelo> modelos;
+    private final List<Modelo> modelos;
 
     private ModeloRepository() {
         this.modelos = new ArrayList<>();
