@@ -18,7 +18,7 @@ public class ModeloInternacional extends Modelo {
         return  "Taxa de importacao: " + taxaImportacao + '\''
                 + "   Modelo: " + this.getNome()+ '\''
                 + "   Valor: " + this.getValor()+ '\''
-                + "   Categoria: " + this.getCategoria()'
+                + "   Categoria: " + this.getCategoria()
                 ;
     }
 }

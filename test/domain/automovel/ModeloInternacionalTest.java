@@ -10,14 +10,14 @@ class ModeloInternacionalTest {
     void calcularValorModelo() {
         // arrange
         Modelo modelo = new ModeloInternacional(
-                "Compass", 120000,
-                new Categoria("SUV Médio"), new Marca("Jeep"), 25
+                "Cherokee", 250000,
+                new Categoria("SUV Médio"), new Marca("Jeep"), 75
         );
 
         // act
         final double resultado = modelo.calcularValorModelo();
 
         // assert
-        assertEquals(resultado, 150000);
+        assertEquals(resultado, 437500);
     }
 }
