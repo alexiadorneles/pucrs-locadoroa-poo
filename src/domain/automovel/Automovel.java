@@ -1,6 +1,9 @@
 package domain.automovel;
 
+import java.time.LocalDate;
+
 public class Automovel {
+    private static final int LIMITE_ANOS_FROTA = 5;
     private String placa;
     private int ano;
     private double valorDiaria;
@@ -8,7 +11,7 @@ public class Automovel {
     private Modelo modelo;
 
     public double calcularValorFixo() {
-        return this.modelo.calcularValorModelo();
+        return this.modelo.calcularValorModelo() / 1000;
     }
 
     public Automovel(String placa, int ano, double valorDiaria, boolean disponivel, Modelo modelo) {
@@ -19,6 +22,10 @@ public class Automovel {
         this.modelo = modelo;
     }
 
+    public boolean isVelhoDemaisParaAFrota() {
+        return LocalDate.now().getYear() - this.ano >= LIMITE_ANOS_FROTA;
+    }
+
     public String getPlaca() {
         return placa;
     }
@@ -27,16 +34,20 @@ public class Automovel {
         return ano;
     }
 
-    protected double getValorDiaria() {
+    public double getValorDiaria() {
         return valorDiaria;
     }
 
-    protected boolean isDisponivel() {
+    public boolean isDisponivel() {
         return disponivel;
     }
 
     public Modelo getModelo() {
         return modelo;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
     }
 
     @Override

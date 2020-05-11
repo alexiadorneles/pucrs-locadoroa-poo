@@ -1,8 +1,6 @@
 package repository;
 
-import domain.Cliente;
-
-import java.util.Iterator;
+import domain.cliente.Cliente;
 
 import java.util.ArrayList;
 import java.util.List;

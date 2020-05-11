@@ -1,9 +1,9 @@
-package domain;
+package domain.cliente;
 
-public class PessoaF  extends Cliente {
+public class PessoaFisica extends Cliente {
     private String CFP;
 
-    public PessoaF (String nome, String telefone, String cpf){
+    public PessoaFisica(String nome, String telefone, String cpf){
         super(nome, telefone);
         this.CFP = cpf;
     }

@@ -1,14 +1,12 @@
-import domain.PessoaJ;
+import domain.locacao.Locacao;
+import domain.cliente.PessoaJuridica;
 import domain.automovel.*;
-import domain.PessoaF;
-import repository.AutomovelRepository;
-import repository.CategoriaRepository;
-import repository.MarcaRepository;
-import repository.ModeloRepository;
-import repository.ClienteRepository;
-import domain.Cliente;
+import domain.cliente.PessoaFisica;
+import repository.*;
+import domain.cliente.Cliente;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Menu {
@@ -22,87 +20,143 @@ public class Menu {
 
         System.out.println("1 - Atendendente");
         System.out.println("2 - Gerente");
-        int opcao1 = in.nextInt();
+        int tipoUsuario = in.nextInt();
         in.nextLine();
         int opcao2;
 
+        do {
+            System.out.println("-------------------------------------------");
+            if (tipoUsuario == 1) this.mostrarOpcoesAtendente();
+            if (tipoUsuario == 2) this.mostrarOpcoesGerente();
+            opcao2 = in.nextInt();
+            in.nextLine();
+            switch (opcao2) {
+//       1 - Cadastrar cliente
+                case 1:
+                    cadastrarCliente(in);
+                    break;
+//       2 - Consultar Disponibilidade de Automóvel por Categoria
+                case 2:
+                    consultaDisponibilidadeCategoria(in);
+                    break;
+//       3 - Consultar o Valor de uma Locaçao
+                case 3:
+                    this.consultarValorLocacao(in);
+                    break;
+//       4 - Realizar locação
+                case 4:
+                    this.realizarLocacao(in);
+                    break;
+//       5 - Finalizar Locação
+                case 5:
+                    this.finalizarLocacao(in);
+                    break;
+//       6 - Cadastrar Nova Categoria Automóvel
+                case 6:
+                    this.cadastrarCategoria(in);
+                    break;
+//       7 - Cadastrar Nova Marca do Automóvel
+                case 7:
+                    this.cadastrarMarca(in);
+                    break;
+//       8 - Cadastrar Novo Modelo do Automóvel
+                case 8:
+                    this.cadastrarModelo(in);
+                    break;
+//       9 - Cadastrar Novo Automóvel
+                case 9:
+                    this.cadastrarAutomovel(in);
+                    break;
+//       10 - Remover Automóvel
+                case 10:
+                    this.removerAutomovel(in);
+                    break;
+//       11 - Consultar Locações
+                case 11:
+                    this.consultarLocacoes();
+                    break;
+//       12 - Consultar Clientes Cadastrados
+                case 12:
+                    this.consultarClientesCadastrados();
+                    break;
+                case 13:
+                    this.consultarAutomoveis();
+                    break;
+            }
+        } while (opcao2 != 99);
+    }
 
-        if (opcao1 == 1) {
-            do {
-                System.out.println("-------------------------------------------");
-                this.mostrarOpcoesAtendente();
-                opcao2 = in.nextInt();
-                in.nextLine();
-                switch (opcao2) {
-//                    1 - Cadastrar nomo domain.Cliente
-                    case 1:
-                        cadastrarCliente(in);
-                        break;
-//                    2-Consultar Disponibilidade de Automóvel por Categoria
-                    case 2:
-                        consultaDisponibilidadeCategoria(in);
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
-                }
-            } while (opcao2 != 99);
-        } else {
-            do {
-                System.out.println("-------------------------------------------");
-                this.mostrarOpcoesGerente();
-                opcao2 = in.nextInt();
-                in.nextLine();
-                switch (opcao2) {
-                    case 1:
-                        cadastrarCliente(in);
-                        break;
-//                    2-Consultar Disponibilidade de Automóvel por Categoria
-                    case 2:
-                        consultaDisponibilidadeCategoria(in);
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
-//            6 - Cadastrar Nova Categoria Automóvel
-                    case 6:
-                        this.cadastrarCategoria(in);
-                        break;
-//            7 - Cadastrar Nova Marca do Automóvel
-                    case 7:
-                        this.cadastrarMarca(in);
-                        break;
-//            8 - Cadastrar Novo Modelo do Automóvel
-                    case 8:
-                        this.cadastrarModelo(in);
-                        break;
-//            9 - Cadastrar Novo Automóvel
-                    case 9:
-                        this.cadastrarAutomovel(in);
-                        break;
-//            10 - Remover Automóvel
-                    case 10:
-                        this.removerAutomovel(in);
-                        break;
-                    case 11:
-                        break;
-//            12 - Consultar Clientes Cadastrados
-                    case 12:
-                        this.consultarClientesCadastrados();
-                        break;
-                    case 13:
-                        this.consultarAutomoveis();
-                        break;
-                }
-            } while (opcao2 != 99);
+    private void consultarValorLocacao(Scanner in) {
+        System.out.println("Essas são as locações disponíveis no sistema: ");
+        this.consultarLocacoes();
+        Locacao locacao;
+        do {
+            System.out.println("Por favor digite o código de uma locação pra consultar seu valor total: ");
+            locacao = LocacaoRepository.getInstance().findOne(in.nextLine());
+        } while (Objects.isNull(locacao));
+
+        System.out.println("O valor da sua locação é: " + locacao.calcularValorLocacao());
+    }
+
+    private void consultarLocacoes() {
+        LocacaoRepository.getInstance().findAll().forEach(System.out::println);
+    }
+
+    private void finalizarLocacao(Scanner in) {
+        List<Locacao> locacoes = LocacaoRepository.getInstance().filter(locacao -> !locacao.isFinalizada());
+        if (locacoes.isEmpty()) {
+            System.out.println("Nenhuma locação para ser finalizada");
         }
+        System.out.println("Essas são a locações disponíveis do sistema: ");
+        locacoes.forEach(System.out::println);
+        System.out.println();
+        System.out.println("Por favor digite o código da que deseja finalizar: ");
+        String codigo = in.nextLine();
+        Locacao locacao = locacoes.stream().filter(loc -> loc.getCodigo().equals(codigo)).findFirst().orElse(null);
+        System.out.println("Houve algum acidente com o veiculo desta locação?");
+        System.out.println("1 - Sim. \t 2 - Não");
+        int acidente = in.nextInt();
+        if (acidente == 1 || locacao.getAuto().isVelhoDemaisParaAFrota()) {
+            AutomovelRepository.getInstance().removeByPlaca(locacao.getAuto().getPlaca());
+            System.out.println("O veículo não está mais em condições de operar e foi removido da frota");
+            System.out.println("Motivo: " + (acidente == 1 ? "acidente." : "veículo velho demais para a frota"));
+        }
+        locacao.finalizar();
+    }
 
+    /*
+     *   Cada vez que um cliente deseja locar um automóvel ele deve indicar a data inicial, data final, a categoria do
+     *   automóvel para a locação; se houver automóveis disponíveis da categoria desejada para a locação, o cliente
+     *   seleciona um automóvel, e uma locação é realizada e o valor final da locação é informado ao cliente.
+     */
+    private void realizarLocacao(Scanner in) {
+        System.out.println("Digite a data inicial da locação (no formado dia/mês/ano. Ex: 02/05/2020)");
+        String dataInicial = in.next();
+        System.out.println("Digite a data final da locação (no formado dia/mês/ano. Ex: 02/05/2020)");
+        String dataFinal = in.next();
+        in.nextLine();
+        boolean possuiDestaCategoria = this.consultaDisponibilidadeCategoria(in);
+        if (!possuiDestaCategoria) return;
+        Automovel automovel;
+        Cliente cliente;
+
+        do {
+            System.out.println("Por favor selecione um automóvel acima, digitando sua placa");
+            String placa = in.nextLine();
+            automovel = AutomovelRepository.getInstance().findOne(placa);
+        } while (Objects.isNull(automovel));
+
+        System.out.println("Esses são nossos clientes cadastrados: ");
+        this.consultarClientesCadastrados();
+        do {
+            System.out.println();
+            System.out.println("Por favor digite o nome do cliente");
+            cliente = ClienteRepository.getInstance().findOne(in.nextLine());
+        } while (Objects.isNull(cliente));
+
+        Locacao locacao = new Locacao(cliente, dataInicial, dataFinal, automovel);
+        System.out.println("Valor total da locação: " + locacao.calcularValorLocacao());
+        LocacaoRepository.getInstance().save(locacao);
     }
 
     private void consultarAutomoveis() {
@@ -181,26 +235,29 @@ public class Menu {
         if (escolha == 1) {
             System.out.println("CPF: ");
             String cpf = in.nextLine();
-            cliente = new PessoaF(nome, telefone, cpf);
+            cliente = new PessoaFisica(nome, telefone, cpf);
         } else {
             System.out.println("CNPJ: ");
             String cnpj = in.nextLine();
-            cliente = new PessoaJ(nome, telefone, cnpj);
+            cliente = new PessoaJuridica(nome, telefone, cnpj);
         }
 
         ClienteRepository.getInstance().save(cliente);
         System.out.println("Cadastro concluído.");
     }
 
-    private void consultaDisponibilidadeCategoria(Scanner in) {
+    private boolean consultaDisponibilidadeCategoria(Scanner in) {
         System.out.println("Digite a categoria: ");
         Categoria categoria = CategoriaRepository.getInstance().findOne(in.nextLine());
-        List<Automovel> automoveisDestaCategoria = AutomovelRepository.getInstance()
-                .filter(automovel -> automovel.getModelo().getCategoria().equals(categoria));
-        if (automoveisDestaCategoria.isEmpty())
+        List<Automovel> automoveisDisponiveisDestaCategoria = AutomovelRepository.getInstance()
+                .filter(automovel -> automovel.getModelo().getCategoria().equals(categoria) && automovel.isDisponivel());
+        if (automoveisDisponiveisDestaCategoria.isEmpty()) {
             System.out.println("Não há automoveis dessa categoria");
-        else
-            System.out.println(automoveisDestaCategoria);
+            return false;
+        }
+
+        automoveisDisponiveisDestaCategoria.forEach(System.out::println);
+        return true;
     }
 
     private void consultarClientesCadastrados() {

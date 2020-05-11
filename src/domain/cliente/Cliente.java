@@ -1,4 +1,4 @@
-package domain;
+package domain.cliente;
 
 public class Cliente {
     private String nome;
@@ -9,7 +9,13 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public String getNome() { return nome; }
+    public double aplicarDesconto(double valor) {
+        return valor;
+    }
+
+    public String getNome() {
+        return nome;
+    }
 
     public String getTelefone() {
         return telefone;
