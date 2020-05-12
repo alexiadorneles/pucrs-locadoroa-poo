@@ -13,6 +13,11 @@ public class ModeloNacional extends Modelo {
         return this.getValor() * ((this.ipi) / 100.0);
     }
 
+    @Override
+    public double getModificador() {
+        return 0.1;
+    }
+
 
     @Override
     public String toString() {

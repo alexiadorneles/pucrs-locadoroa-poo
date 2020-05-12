@@ -14,6 +14,11 @@ public class ModeloInternacional extends Modelo {
     }
 
     @Override
+    public double getModificador() {
+        return 0.25;
+    }
+
+    @Override
     public String toString() {
         return "Taxa de importacao: " + taxaImportacao + '\n'
                 + "   Modelo: " + this.getNome() + '\n'

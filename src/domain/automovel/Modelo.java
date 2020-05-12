@@ -7,6 +7,7 @@ public abstract class Modelo {
     private final double valor;
 
     public abstract double calcularValorAdicao();
+    public abstract double getModificador();
 
     protected Modelo(String nome, double valor, Categoria categoria, Marca marca) {
         this.nome = nome;

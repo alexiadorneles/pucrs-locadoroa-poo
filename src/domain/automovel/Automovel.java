@@ -11,8 +11,8 @@ public class Automovel {
     private final Modelo modelo;
 
     public double calcularValorFixo() {
-        double ipiDoCarro = this.modelo.calcularValorAdicao();
-        return (this.getModelo().getValor() + (ipiDoCarro * 0.1)) / 1000;
+        double adicao = this.modelo.calcularValorAdicao();
+        return (this.getModelo().getValor() + (adicao * this.getModelo().getModificador())) / 1000;
     }
 
     public Automovel(String placa, int ano, double valorDiaria, boolean disponivel, Modelo modelo) {

@@ -20,7 +20,7 @@ public class LocacaoTest {
         Locacao locar = new Locacao(cliente, "02/01/2020", "04/01/2020", automovel);
         double resultado = locar.calcularValorLocacao();
 
-        assertEquals(468.75, resultado);
+        assertEquals(496.875, resultado);
     }
 
     @Test
