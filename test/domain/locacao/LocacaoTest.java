@@ -3,6 +3,7 @@ package domain.locacao;
 import domain.automovel.*;
 import domain.cliente.Cliente;
 import domain.cliente.PessoaFisica;
+import domain.cliente.PessoaJuridica;
 import domain.locacao.Locacao;
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +34,18 @@ public class LocacaoTest {
         double resultado = locar.calcularValorLocacao();
 
         assertEquals(201, resultado);
+    }
+
+    @Test
+    public void calcularValorLocacaoDeveRetornar192() {
+        Cliente cliente = new PessoaJuridica("HP", "0900", "029307");
+        Modelo modelo = new ModeloInternacional("Classe A", 100000, new Categoria("Sedan"),
+                new Marca("Mercedes"), 10);
+        Automovel automovel = new Automovel("BBB-5B55", 2019, 10, true, modelo);
+        Locacao locar = new Locacao(cliente, "02/01/2020", "12/01/2020", automovel);
+        double resultado = locar.calcularValorLocacao();
+
+        assertEquals(192.38, resultado);
     }
 
 }
