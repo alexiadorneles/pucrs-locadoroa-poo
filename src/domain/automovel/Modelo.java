@@ -6,7 +6,7 @@ public abstract class Modelo {
     private final Marca marca;
     private final double valor;
 
-    public abstract double calcularValorModelo();
+    public abstract double calcularValorAdicao();
 
     protected Modelo(String nome, double valor, Categoria categoria, Marca marca) {
         this.nome = nome;

@@ -9,16 +9,16 @@ public class ModeloNacional extends Modelo {
     }
 
     @Override
-    public double calcularValorModelo() {
-        return (this.getValor() * (1 + ((this.ipi+10) / 100.0)))/1000.0;
+    public double calcularValorAdicao() {
+        return this.getValor() * ((this.ipi) / 100.0);
     }
 
 
     @Override
     public String toString() {
-        return  "  IPI: " + ipi+ '\n'
-                + "  Modelo: " + this.getNome()+ '\n'
-                + "  Valor: " + this.getValor()+ '\n'
+        return "  IPI: " + ipi + '\n'
+                + "  Modelo: " + this.getNome() + '\n'
+                + "  Valor: " + this.getValor() + '\n'
                 + "  Categoria: " + this.getCategoria()
                 ;
     }

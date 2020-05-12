@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ModeloInternacionalTest {
 
     @Test
-    void calcularValorModelo() {
+    void calcularValorAdicao() {
         // arrange
         Modelo modelo = new ModeloInternacional(
                 "Cherokee", 250000,
@@ -15,9 +15,9 @@ class ModeloInternacionalTest {
         );
 
         // act
-        final double resultado = modelo.calcularValorModelo();
+        final double resultado = modelo.calcularValorAdicao();
 
         // assert
-        assertEquals(resultado, 500);
+        assertEquals(resultado, 187500.0);
     }
 }

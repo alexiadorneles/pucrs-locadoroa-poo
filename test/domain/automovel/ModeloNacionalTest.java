@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ModeloNacionalTest {
 
     @Test
-    void calcularValorModelo() {
+    void calcularValorAdicao() {
         // arrange
         Modelo modelo = new ModeloNacional(
                 "Compass", 120000,
@@ -15,9 +15,9 @@ class ModeloNacionalTest {
         );
 
         // act
-        final double resultado = modelo.calcularValorModelo();
+        final double resultado = modelo.calcularValorAdicao();
 
         // assert
-        assertEquals(resultado, 162);
+        assertEquals(resultado, 30000.0);
     }
 }
