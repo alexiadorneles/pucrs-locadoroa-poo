@@ -42,7 +42,7 @@ public class CadastroMenu {
         System.out.println("Digite o nome do modelo: ");
         String nomeModelo = in.nextLine();
         Automovel automovel = new Automovel(
-                placa, ano, valorDiaria, true,
+                placa, ano, valorDiaria,
                 this.modeloRepository.findOne(nomeModelo)
         );
         this.automovelRepository.save(automovel);

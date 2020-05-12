@@ -15,12 +15,12 @@ public class Automovel {
         return (this.getModelo().getValor() + (adicao * this.getModelo().getModificador())) / 1000;
     }
 
-    public Automovel(String placa, int ano, double valorDiaria, boolean disponivel, Modelo modelo) {
+    public Automovel(String placa, int ano, double valorDiaria, Modelo modelo) {
         this.placa = placa;
         this.ano = ano;
         this.valorDiaria = valorDiaria;
-        this.disponivel = disponivel;
         this.modelo = modelo;
+        this.disponivel = true;
     }
 
     public boolean isVelhoDemaisParaAFrota() {
