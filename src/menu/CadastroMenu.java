@@ -10,18 +10,18 @@ import java.util.Scanner;
 
 public class CadastroMenu {
 
-    private final Repository<Modelo> modeloRepository;
-    private final Repository<Automovel> automovelRepository;
-    private final Repository<Cliente> clienteRepository;
-    private final Repository<Marca> marcaRepository;
-    private final Repository<Categoria> categoriaRepository;
+    private final Repository<Modelo, Integer> modeloRepository;
+    private final Repository<Automovel, String> automovelRepository;
+    private final Repository<Cliente, String> clienteRepository;
+    private final Repository<Marca, Integer> marcaRepository;
+    private final Repository<Categoria, Integer> categoriaRepository;
 
     public CadastroMenu(
-            Repository<Modelo> modeloRepository,
-            Repository<Automovel> automovelRepository,
-            Repository<Cliente> clienteRepository,
-            Repository<Marca> marcaRepository,
-            Repository<Categoria> categoriaRepository
+            Repository<Modelo, Integer> modeloRepository,
+            Repository<Automovel, String> automovelRepository,
+            Repository<Cliente, String> clienteRepository,
+            Repository<Marca, Integer> marcaRepository,
+            Repository<Categoria, Integer> categoriaRepository
     ) {
         this.modeloRepository = modeloRepository;
         this.automovelRepository = automovelRepository;
@@ -43,7 +43,7 @@ public class CadastroMenu {
         String nomeModelo = in.nextLine();
         Automovel automovel = new Automovel(
                 placa, ano, valorDiaria,
-                this.modeloRepository.findOne(nomeModelo)
+                this.modeloRepository.findOne(Integer.valueOf(nomeModelo))
         );
         this.automovelRepository.save(automovel);
     }
@@ -98,10 +98,10 @@ public class CadastroMenu {
         in.nextLine();
 
         System.out.println("Escolha a categoria");
-        Categoria categoria = this.categoriaRepository.findOne(in.nextLine());
+        Categoria categoria = this.categoriaRepository.findOne(Integer.valueOf(in.nextLine()));
 
         System.out.println("Escolha a marca");
-        Marca marca = this.marcaRepository.findOne(in.nextLine());
+        Marca marca = this.marcaRepository.findOne(Integer.valueOf(in.nextLine()));
 
 
         System.out.println("Escolha o tipo de modelo: \n 1 - Nacional \t 2 - Internacional");

@@ -8,6 +8,15 @@ public class ModeloNacional extends Modelo {
         this.ipi = ipi;
     }
 
+    public ModeloNacional(Integer codigo, String nome, double valor, Categoria categoria, Marca marca, double ipi) {
+        super(codigo, nome, valor, categoria, marca);
+        this.ipi = ipi;
+    }
+
+    public double getIpi() {
+        return ipi;
+    }
+
     @Override
     public double calcularValorAdicao() {
         return this.getValor() * ((this.ipi) / 100.0);

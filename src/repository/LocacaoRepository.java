@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.toList;
 
-public class LocacaoRepository implements Repository<Locacao> {
+public class LocacaoRepository implements Repository<Locacao, Integer> {
     private final List<Locacao> locacoes;
 
     private static LocacaoRepository instance = null;
@@ -31,7 +31,7 @@ public class LocacaoRepository implements Repository<Locacao> {
     }
 
     @Override
-    public Locacao findOne(String codigo) {
+    public Locacao findOne(Integer codigo) {
         return this.filter(locacao -> locacao.getCodigo().equals(codigo)).get(0);
     }
 
@@ -47,9 +47,9 @@ public class LocacaoRepository implements Repository<Locacao> {
 
     @Override
     public String toString() {
-        String listaLocacao="";
-        for(Locacao locacao: locacoes){
-            listaLocacao+= locacao.toString() +'\n';
+        String listaLocacao = "";
+        for (Locacao locacao : locacoes) {
+            listaLocacao += locacao.toString() + '\n';
         }
         return listaLocacao;
     }

@@ -12,10 +12,10 @@ import java.util.Scanner;
 
 public class ConsultaMenu {
 
-    private final Repository<Automovel> automovelRepository;
-    private final Repository<Locacao> locacaoRepository;
+    private final Repository<Automovel, String> automovelRepository;
+    private final Repository<Locacao, Integer> locacaoRepository;
 
-    public ConsultaMenu(Repository<Automovel> automovelRepository, Repository<Locacao> locacaoRepository) {
+    public ConsultaMenu(Repository<Automovel, String> automovelRepository, Repository<Locacao, Integer> locacaoRepository) {
         this.automovelRepository = automovelRepository;
         this.locacaoRepository = locacaoRepository;
     }
@@ -26,7 +26,7 @@ public class ConsultaMenu {
         Locacao locacao;
         do {
             System.out.println("Por favor digite o código de uma locação pra consultar seu valor total: ");
-            locacao = this.locacaoRepository.findOne(in.nextLine());
+            locacao = this.locacaoRepository.findOne(Integer.valueOf(in.nextLine()));
         } while (Objects.isNull(locacao));
 
         System.out.println("O valor da sua locação é: " + locacao.calcularValorLocacao());
@@ -43,7 +43,7 @@ public class ConsultaMenu {
 
     public boolean consultaDisponibilidadeCategoria(Scanner in) {
         System.out.println("Digite a categoria: ");
-        Categoria categoria = CategoriaRepository.getInstance().findOne(in.nextLine());
+        Categoria categoria = CategoriaRepository.getInstance().findOne(Integer.valueOf(in.nextLine()));
         List<Automovel> autoDisponiveisCategoria = this.automovelRepository.filter(auto -> this.getAutomovelByCategoriaAndDisponivel(categoria, auto));
         if (autoDisponiveisCategoria.isEmpty()) {
             System.out.println("Não há automoveis dessa categoria");

@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.toList;
 
-public class MarcaRepository implements Repository<Marca> {
+public class MarcaRepository implements Repository<Marca, Integer> {
     private final List<Marca> marcas;
     private static MarcaRepository instance = null;
 
@@ -29,8 +29,8 @@ public class MarcaRepository implements Repository<Marca> {
     }
 
     @Override
-    public Marca findOne(String nome) {
-        return this.marcas.stream().filter(marca -> marca.getNome().equals(nome)).findFirst().orElse(null);
+    public Marca findOne(Integer codigo) {
+        return this.marcas.stream().filter(marca -> marca.getCodigo().equals(codigo)).findFirst().orElse(null);
     }
 
     @Override

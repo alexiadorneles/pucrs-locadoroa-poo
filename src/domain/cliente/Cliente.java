@@ -1,6 +1,6 @@
 package domain.cliente;
 
-public class Cliente {
+public abstract class Cliente {
     private final String nome;
     private final String telefone;
 
@@ -8,6 +8,8 @@ public class Cliente {
         this.nome = nome;
         this.telefone = telefone;
     }
+
+    public abstract String getCPFCNPJ();
 
     public double aplicarDesconto(double valor) {
         return valor;
@@ -17,9 +19,6 @@ public class Cliente {
         return nome;
     }
 
-    public String getTelefone() {
-        return telefone;
-    }
 
     @Override
     public String toString() {

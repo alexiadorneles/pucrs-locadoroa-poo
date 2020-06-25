@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.toList;
 
-public class ClienteRepository implements Repository<Cliente> {
+public class ClienteRepository implements Repository<Cliente, String> {
     private final List<Cliente> clientes;
     private static ClienteRepository instance = null;
 
@@ -29,8 +29,8 @@ public class ClienteRepository implements Repository<Cliente> {
     }
 
     @Override
-    public Cliente findOne(String nome) {
-        return this.clientes.stream().filter(cliente -> cliente.getNome().equals(nome)).findFirst().orElse(null);
+    public Cliente findOne(String id) {
+        return this.clientes.stream().filter(cliente -> cliente.getCPFCNPJ().equals(id)).findFirst().orElse(null);
     }
 
     @Override
@@ -45,9 +45,9 @@ public class ClienteRepository implements Repository<Cliente> {
 
     @Override
     public String toString() {
-        String listaCLientes="";
-        for (Cliente cliente : clientes){
-            listaCLientes+= cliente.toString()+'\n';
+        String listaCLientes = "";
+        for (Cliente cliente : clientes) {
+            listaCLientes += cliente.toString() + '\n';
         }
         return listaCLientes;
     }

@@ -1,6 +1,7 @@
 package domain.locacao;
 
 import domain.automovel.Automovel;
+import domain.automovel.Categoria;
 import domain.cliente.Cliente;
 
 import java.time.LocalDate;
@@ -10,20 +11,29 @@ import java.util.Random;
 
 
 public class Locacao {
-    private final String codigo;
+    private final Integer codigo;
     private final Cliente cliente;
+    private Categoria categoria;
     private final String dataInicial;
     private final String dataFinal;
-    private final Automovel auto;
+    private Automovel auto;
     private boolean finalizada;
 
     public Locacao(Cliente cliente, String dataInicial, String dataFinal, Automovel auto) {
-        this.codigo = String.valueOf(new Random().nextInt());
+        this.codigo = new Random().nextInt();
         this.cliente = cliente;
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
         this.auto = auto;
         this.auto.setDisponivel(false);
+    }
+
+    public Locacao(Integer codigo, Cliente cliente, String dataInicial, String dataFinal, Categoria categoria) {
+        this.codigo = codigo;
+        this.cliente = cliente;
+        this.dataInicial = dataInicial;
+        this.dataFinal = dataFinal;
+        this.categoria = categoria;
     }
 
     public double calcularValorLocacao() {
@@ -36,7 +46,7 @@ public class Locacao {
         this.auto.setDisponivel(true);
     }
 
-    public String getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
@@ -69,12 +79,16 @@ public class Locacao {
 
     @Override
     public String toString() {
-        return  "Locacao: " +
+        return "Locacao: " +
                 " Codigo: " + codigo + '\'' +
                 " Cliente" + cliente +
                 " Data inicio da locação: " + dataInicial + '\'' +
                 " Data final da locação" + dataFinal + '\'' +
-                " Automovel: " + auto + '\''+
+                " Automovel: " + auto + '\'' +
                 " Status: " + finalizada;
+    }
+
+    public Categoria getCategoria() {
+        return this.categoria;
     }
 }

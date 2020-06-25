@@ -1,15 +1,16 @@
 package domain.cliente;
 
 public class PessoaFisica extends Cliente {
-    private final String CFP;
+    private final String cpf;
 
-    public PessoaFisica(String nome, String telefone, String cpf){
+    public PessoaFisica(String nome, String telefone, String cpf) {
         super(nome, telefone);
-        this.CFP = cpf;
+        this.cpf = cpf;
     }
 
-    public String getCFP() {
-        return CFP;
+    @Override
+    public String getCPFCNPJ() {
+        return this.cpf;
     }
 
     @Override
