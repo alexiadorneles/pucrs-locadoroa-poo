@@ -12,8 +12,8 @@ import java.util.Scanner;
 
 public class Menu {
     private final Scanner in;
-    private final Repository<Locacao> locacaoRepository;
-    private final Repository<Cliente> clienteRepository;
+    private final Repository<Locacao, Integer> locacaoRepository;
+    private final Repository<Cliente, String> clienteRepository;
     private final AutomovelRepository automovelRepository;
     private final ConsultaMenu consultaMenu;
     private final CadastroMenu cadastroMenu;
@@ -22,8 +22,8 @@ public class Menu {
             CadastroMenu cadastroMenu,
             ConsultaMenu consultaMenu,
             AutomovelRepository automovelRepository,
-            Repository<Locacao> locacaoRepository,
-            Repository<Cliente> clienteRepository
+            Repository<Locacao, Integer> locacaoRepository,
+            Repository<Cliente, String> clienteRepository
     ) {
         this.in = new Scanner(System.in);
         this.cadastroMenu = cadastroMenu;

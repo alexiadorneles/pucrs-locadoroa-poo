@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.toList;
 
-public class AutomovelRepository implements Repository<Automovel> {
+public class AutomovelRepository implements Repository<Automovel, String> {
     private static AutomovelRepository instance = null;
     private final List<Automovel> automoveis;
 

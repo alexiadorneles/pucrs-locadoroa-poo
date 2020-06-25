@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.toList;
 
-public class ModeloRepository implements Repository<Modelo> {
+public class ModeloRepository implements Repository<Modelo, Integer> {
     private static ModeloRepository instance = null;
     private final List<Modelo> modelos;
 
@@ -29,8 +29,8 @@ public class ModeloRepository implements Repository<Modelo> {
     }
 
     @Override
-    public Modelo findOne(String nome) {
-        return this.modelos.stream().filter(modelo -> modelo.getNome().equals(nome)).findFirst().orElse(null);
+    public Modelo findOne(Integer codigo) {
+        return this.modelos.stream().filter(modelo -> modelo.getCodigo().equals(codigo)).findFirst().orElse(null);
     }
 
     @Override
@@ -45,9 +45,9 @@ public class ModeloRepository implements Repository<Modelo> {
 
     @Override
     public String toString() {
-        String listaModelos="";
-        for (Modelo model : modelos){
-            listaModelos+=model.toString()+'\n';
+        String listaModelos = "";
+        for (Modelo model : modelos) {
+            listaModelos += model.toString() + '\n';
         }
         return listaModelos;
     }

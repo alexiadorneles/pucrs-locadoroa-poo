@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.toList;
 
-public class CategoriaRepository implements Repository<Categoria> {
+public class CategoriaRepository implements Repository<Categoria, Integer> {
 
     private final List<Categoria> categorias;
     private static CategoriaRepository instance = null;
@@ -30,8 +30,8 @@ public class CategoriaRepository implements Repository<Categoria> {
     }
 
     @Override
-    public Categoria findOne(String nome) {
-        return this.categorias.stream().filter(categoria -> categoria.getNome().equals(nome)).findFirst().orElse(null);
+    public Categoria findOne(Integer codigo) {
+        return this.categorias.stream().filter(categoria -> categoria.getCodigo().equals(codigo)).findFirst().orElse(null);
     }
 
     @Override
@@ -46,9 +46,9 @@ public class CategoriaRepository implements Repository<Categoria> {
 
     @Override
     public String toString() {
-        String listaCategoria="";
-        for (Categoria categoria : categorias){
-            listaCategoria+=categoria.toString()+'\n';
+        String listaCategoria = "";
+        for (Categoria categoria : categorias) {
+            listaCategoria += categoria.toString() + '\n';
         }
         return listaCategoria;
     }
