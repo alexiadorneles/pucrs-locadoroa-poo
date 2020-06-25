@@ -2,11 +2,16 @@ package domain.cliente;
 
 public class PessoaJuridica extends Cliente {
     private static final int PORCENTAGEM_DESCONTO_PJ = 5;
-    private final String CNPJ;
+    private final String cnpj;
 
     public PessoaJuridica(String nome, String telefone, String cnpj) {
         super(nome, telefone);
-        this.CNPJ = cnpj;
+        this.cnpj = cnpj;
+    }
+
+    @Override
+    public String getCPFCNPJ() {
+        return this.cnpj;
     }
 
     @Override
@@ -14,12 +19,8 @@ public class PessoaJuridica extends Cliente {
         return valor * (1 - (PORCENTAGEM_DESCONTO_PJ / 100.0));
     }
 
-    public String getCNPJ() {
-        return CNPJ;
-    }
-
     @Override
     public String toString() {
-        return  super.toString();
+        return super.toString();
     }
 }
