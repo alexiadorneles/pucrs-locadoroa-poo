@@ -23,6 +23,14 @@ public class Automovel {
         this.disponivel = true;
     }
 
+    public Automovel(String placa, int ano, double valorDiaria, Modelo modelo, boolean isDisponivel) {
+        this.placa = placa;
+        this.ano = ano;
+        this.valorDiaria = valorDiaria;
+        this.modelo = modelo;
+        this.disponivel = isDisponivel;
+    }
+
     public boolean isVelhoDemaisParaAFrota() {
         return LocalDate.now().getYear() - this.ano >= LIMITE_ANOS_FROTA;
     }
@@ -31,7 +39,7 @@ public class Automovel {
         return placa;
     }
 
-    protected int getAno() {
+    public int getAno() {
         return ano;
     }
 
