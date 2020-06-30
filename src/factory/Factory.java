@@ -1,7 +1,7 @@
 package factory;
 
 public interface Factory<T> {
-    void create(String line);
+    void createFromTxt(String line);
 
     T build(String line);
 

@@ -5,10 +5,10 @@ import repository.MarcaRepository;
 
 import static domain.Constants.PONTO_E_VIRGULA;
 
-public class MarcaFactory implements Factory<Marca> {
-    @Override
-    public void create(String line) {
-        MarcaRepository.getInstance().save(this.build(line));
+public class MarcaFactory extends BaseFactory<Marca, Integer> {
+
+    public MarcaFactory() {
+        super(MarcaRepository.getInstance());
     }
 
     @Override

@@ -7,10 +7,10 @@ import repository.ClienteRepository;
 
 import static domain.Constants.PONTO_E_VIRGULA;
 
-public class ClienteFactory implements Factory<Cliente> {
-    @Override
-    public void create(String line) {
-        ClienteRepository.getInstance().save(this.build(line));
+public class ClienteFactory extends BaseFactory<Cliente, String> {
+
+    public ClienteFactory() {
+        super(ClienteRepository.getInstance());
     }
 
     @Override

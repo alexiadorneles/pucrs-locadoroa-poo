@@ -31,7 +31,7 @@ public class TxtReader {
                         System.out.println("Lendo linha " + linha);
                         Optional<Factory<?>> factory = this.factories.stream().filter(b -> b.verify(type)).findAny();
                         String finalLinha = linha;
-                        factory.ifPresent(factory1 -> factory1.create(finalLinha));
+                        factory.ifPresent(factory1 -> factory1.createFromTxt(finalLinha));
                         System.out.println(type.substring(1, type.length() - 1) + " criado com sucesso");
                         linha = reader.readLine();
                     }

@@ -5,10 +5,10 @@ import repository.CategoriaRepository;
 
 import static domain.Constants.PONTO_E_VIRGULA;
 
-public class CategoriaFactory implements Factory<Categoria> {
-    @Override
-    public void create(String line) {
-        CategoriaRepository.getInstance().save(this.build(line));
+public class CategoriaFactory extends BaseFactory<Categoria, Integer> {
+
+    public CategoriaFactory() {
+        super(CategoriaRepository.getInstance());
     }
 
     @Override

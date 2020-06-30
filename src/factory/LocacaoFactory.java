@@ -9,10 +9,10 @@ import repository.LocacaoRepository;
 
 import static domain.Constants.PONTO_E_VIRGULA;
 
-public class LocacaoFactory implements Factory<Locacao> {
-    @Override
-    public void create(String line) {
-        LocacaoRepository.getInstance().save(this.build(line));
+public class LocacaoFactory extends BaseFactory<Locacao, Integer> {
+
+    public LocacaoFactory() {
+        super(LocacaoRepository.getInstance());
     }
 
     @Override

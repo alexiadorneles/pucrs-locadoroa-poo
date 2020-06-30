@@ -7,10 +7,10 @@ import repository.ModeloRepository;
 
 import static domain.Constants.PONTO_E_VIRGULA;
 
-public class AutomovelFactory implements Factory<Automovel> {
-    @Override
-    public void create(String line) {
-        AutomovelRepository.getInstance().save(this.build(line));
+public class AutomovelFactory extends BaseFactory<Automovel, String> {
+
+    public AutomovelFactory() {
+        super(AutomovelRepository.getInstance());
     }
 
     @Override
