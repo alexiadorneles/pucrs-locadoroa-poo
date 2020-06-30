@@ -1,4 +1,4 @@
-package builder;
+package factory;
 
 import domain.automovel.Automovel;
 import domain.automovel.Modelo;

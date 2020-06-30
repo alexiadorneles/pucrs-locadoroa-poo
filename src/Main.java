@@ -1,4 +1,4 @@
-import builder.*;
+import factory.*;
 import menu.CadastroMenu;
 import menu.ConsultaMenu;
 import menu.Menu;

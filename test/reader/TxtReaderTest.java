@@ -1,6 +1,6 @@
 package reader;
 
-import builder.*;
+import factory.*;
 import domain.automovel.*;
 import domain.cliente.Cliente;
 import domain.cliente.PessoaFisica;

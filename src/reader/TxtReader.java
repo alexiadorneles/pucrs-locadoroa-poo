@@ -1,6 +1,6 @@
 package reader;
 
-import builder.Factory;
+import factory.Factory;
 
 import java.io.BufferedReader;
 import java.io.IOException;

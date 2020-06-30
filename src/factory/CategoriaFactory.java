@@ -1,4 +1,4 @@
-package builder;
+package factory;
 
 import domain.automovel.Categoria;
 import repository.CategoriaRepository;

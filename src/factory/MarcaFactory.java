@@ -1,4 +1,4 @@
-package builder;
+package factory;
 
 import domain.automovel.Marca;
 import repository.MarcaRepository;
