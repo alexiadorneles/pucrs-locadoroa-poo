@@ -3,3 +3,5 @@
 /.idea
 locadora.iml
 /out
+
+resources/unittest.json
