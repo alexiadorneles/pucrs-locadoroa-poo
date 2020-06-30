@@ -3,6 +3,7 @@ package menu;
 import domain.automovel.Automovel;
 import domain.cliente.Cliente;
 import domain.locacao.Locacao;
+import reader.TxtReader;
 import repository.AutomovelRepository;
 import repository.Repository;
 
@@ -17,13 +18,15 @@ public class Menu {
     private final AutomovelRepository automovelRepository;
     private final ConsultaMenu consultaMenu;
     private final CadastroMenu cadastroMenu;
+    private final TxtReader reader;
 
     public Menu(
             CadastroMenu cadastroMenu,
             ConsultaMenu consultaMenu,
             AutomovelRepository automovelRepository,
             Repository<Locacao, Integer> locacaoRepository,
-            Repository<Cliente, String> clienteRepository
+            Repository<Cliente, String> clienteRepository,
+            TxtReader reader
     ) {
         this.in = new Scanner(System.in);
         this.cadastroMenu = cadastroMenu;
@@ -31,6 +34,7 @@ public class Menu {
         this.automovelRepository = automovelRepository;
         this.locacaoRepository = locacaoRepository;
         this.clienteRepository = clienteRepository;
+        this.reader = reader;
     }
 
     public void mostrar() {
@@ -96,11 +100,21 @@ public class Menu {
                 case 12:
                     this.consultaMenu.consultarClientesCadastrados();
                     break;
+//      13 - Consultar Automóveis Cadastrados
                 case 13:
                     this.consultaMenu.consultarAutomoveis();
                     break;
+                case 14:
+                    this.realizarCargaDeDados(in);
+                    break;
             }
         } while (opcao2 != 99);
+    }
+
+    private void realizarCargaDeDados(Scanner in) {
+        System.out.println("Por favor, digite o nome do arquivo (ele deve estar em resources)");
+        String fileName = in.nextLine();
+        reader.read(fileName);
     }
 
 
@@ -183,6 +197,7 @@ public class Menu {
         System.out.println("11 - Consultar Locações");
         System.out.println("12 - Consultar Clientes");
         System.out.println("13 - Consultar Automóveis Cadastrados");
+        System.out.println("14 - Carga de dados");
         System.out.println("99 - Sair");
     }
 

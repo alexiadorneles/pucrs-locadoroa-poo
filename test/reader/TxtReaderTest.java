@@ -20,10 +20,7 @@ class TxtReaderTest {
     @Test
     void read() {
         // arrange
-        TxtReader reader = new TxtReader();
-
-        // act
-        reader.read("carga", Arrays.asList(
+        TxtReader reader = new TxtReader(Arrays.asList(
                 new AutomovelFactory(),
                 new CategoriaFactory(),
                 new ClienteFactory(),
@@ -31,6 +28,9 @@ class TxtReaderTest {
                 new MarcaFactory(),
                 new ModeloFactory()
         ));
+
+        // act
+        reader.read("carga");
 
         // assert
         checkCategoriasWereCreated();
