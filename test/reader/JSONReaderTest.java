@@ -16,7 +16,7 @@ class JSONReaderTest {
         Integer random = new Random().nextInt();
         String randomStr = new Random().toString();
         Categoria categoria = new Categoria(random, randomStr);
-        JSONReader reader = new JSONReader();
+        JSONReader<Categoria> reader = new JSONReader<>();
 
         // act
         reader.write("resources/unittest.json", categoria);
