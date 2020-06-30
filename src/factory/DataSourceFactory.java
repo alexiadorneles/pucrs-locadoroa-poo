@@ -14,7 +14,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 public class DataSourceFactory implements JSONFactory<DataSource> {
-    private IJSONReader<DataSource> reader;
+    private final IJSONReader<DataSource> reader;
 
     public DataSourceFactory(IJSONReader<DataSource> reader) {
         this.reader = reader;
@@ -36,7 +36,7 @@ public class DataSourceFactory implements JSONFactory<DataSource> {
     }
 
     @Override
-    public String generateJSON() {
+    public DataSource createToJSON() {
         List<Categoria> categorias = CategoriaRepository.getInstance().findAll();
         List<Marca> marcas = MarcaRepository.getInstance().findAll();
         List<Automovel> automoveis = AutomovelRepository.getInstance().findAll();
@@ -65,7 +65,7 @@ public class DataSourceFactory implements JSONFactory<DataSource> {
                 .map(cliente -> (PessoaJuridica) cliente)
                 .collect(toList());
         List<Locacao> locacoes = LocacaoRepository.getInstance().findAll();
-        DataSource dataSource = new DataSource(
+        return new DataSource(
                 categorias,
                 marcas,
                 modelosNacionais,
@@ -75,6 +75,5 @@ public class DataSourceFactory implements JSONFactory<DataSource> {
                 locacoes,
                 automoveis
         );
-        return this.reader.toJSON(dataSource);
     }
 }

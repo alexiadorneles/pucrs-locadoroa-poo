@@ -26,8 +26,4 @@ public class JSONReader<T> implements IJSONReader<T> {
         writer.jsonValue(json);
         writer.close();
     }
-
-    public String toJSON(T object) {
-        return gson.toJson(object);
-    }
 }
