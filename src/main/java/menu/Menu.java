@@ -1,4 +1,20 @@
 package menu;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import domain.automovel.Automovel;
 import domain.cliente.Cliente;
@@ -7,11 +23,12 @@ import reader.TxtReader;
 import repository.AutomovelRepository;
 import repository.Repository;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Menu {
+public class Menu extends Application{
     private final Scanner in;
     private final Repository<Locacao, Integer> locacaoRepository;
     private final Repository<Cliente, String> clienteRepository;
@@ -36,79 +53,108 @@ public class Menu {
         this.clienteRepository = clienteRepository;
         this.reader = reader;
     }
+    @Override
+    public void start(Stage menuStage) throws Exception {
+        menuStage.setTitle("---------- LOCADORA AJE ----------");
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(100, 100, 100, 100));
 
-    public void mostrar() {
-        System.out.println("---------- LOCADORA AJE ----------");
-        System.out.println("1 - Atendendente");
-        System.out.println("2 - Gerente");
-        int tipoUsuario = in.nextInt();
-        in.nextLine();
-        int opcao2;
+        Text sceneTitle = new Text("Menu");
+        sceneTitle.setId("text");
+        sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        grid.add(sceneTitle, 0, 0);
 
-        do {
-            System.out.println("-------------------------------------------");
-            if (tipoUsuario == 1) this.mostrarOpcoesAtendente();
-            if (tipoUsuario == 2) this.mostrarOpcoesGerente();
-            opcao2 = in.nextInt();
-            in.nextLine();
-            switch (opcao2) {
-//       1 - Cadastrar cliente
-                case 1:
-                    this.cadastroMenu.cadastrarCliente(in);
-                    break;
-//       2 - Consultar Disponibilidade de Automóvel por Categoria
-                case 2:
-                    this.consultaMenu.consultaDisponibilidadeCategoria(in);
-                    break;
-//       3 - Consultar o Valor de uma Locaçao
-                case 3:
-                    this.consultaMenu.consultarValorLocacao(in);
-                    break;
-//       4 - Realizar locação
-                case 4:
-                    this.realizarLocacao(in);
-                    break;
-//       5 - Finalizar Locação
-                case 5:
-                    this.finalizarLocacao(in);
-                    break;
-//       6 - Cadastrar Nova Categoria Automóvel
-                case 6:
-                    this.cadastroMenu.cadastrarCategoria(in);
-                    break;
-//       7 - Cadastrar Nova Marca do Automóvel
-                case 7:
-                    this.cadastroMenu.cadastrarMarca(in);
-                    break;
-//       8 - Cadastrar Novo Modelo do Automóvel
-                case 8:
-                    this.cadastroMenu.cadastrarModelo(in);
-                    break;
-//       9 - Cadastrar Novo Automóvel
-                case 9:
-                    this.cadastroMenu.cadastrarAutomovel(in);
-                    break;
-//       10 - Remover Automóvel
-                case 10:
-                    this.removerAutomovel(in);
-                    break;
-//       11 - Consultar Locações
-                case 11:
-                    this.consultaMenu.consultarLocacoes();
-                    break;
-//       12 - Consultar Clientes Cadastrados
-                case 12:
-                    this.consultaMenu.consultarClientesCadastrados();
-                    break;
-//      13 - Consultar Automóveis Cadastrados
-                case 13:
-                    this.consultaMenu.consultarAutomoveis();
-                    break;
-                case 14:
-                    this.realizarCargaDeDados(in);
-                    break;
-            }
-        } while (opcao2 != 99);
+        Button atendente = new Button("ATENDENTE");
+        HBox hbBtn = new HBox(10);
+        hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+        hbBtn.getChildren().add(atendente);
+        grid.add(hbBtn, 1, 4);
+
+        Button gerente = new Button("GERENTE");
+        HBox gerentBt = new HBox(10);
+        gerentBt.setAlignment(Pos.BOTTOM_LEFT);
+        gerentBt.getChildren().add(gerente);
+        grid.add(gerentBt, 0, 4);
+        Scene scene = new Scene(grid);
+        menuStage.setScene(scene);
+        menuStage.show();
+    }
+
+    public void mostrar(String [] arg) {
+        launch(arg);
+//        System.out.println("1 - Atendendente");
+//        System.out.println("2 - Gerente");
+//        int tipoUsuario = in.nextInt();
+//        in.nextLine();
+//        int opcao2;
+//
+//        do {
+//            System.out.println("-------------------------------------------");
+//            if (tipoUsuario == 1) this.mostrarOpcoesAtendente();
+//            if (tipoUsuario == 2) this.mostrarOpcoesGerente();
+//            opcao2 = in.nextInt();
+//            in.nextLine();
+//            switch (opcao2) {
+////       1 - Cadastrar cliente
+//                case 1:
+//                    this.cadastroMenu.cadastrarCliente(in);
+//                    break;
+////       2 - Consultar Disponibilidade de Automóvel por Categoria
+//                case 2:
+//                    this.consultaMenu.consultaDisponibilidadeCategoria(in);
+//                    break;
+////       3 - Consultar o Valor de uma Locaçao
+//                case 3:
+//                    this.consultaMenu.consultarValorLocacao(in);
+//                    break;
+////       4 - Realizar locação
+//                case 4:
+//                    this.realizarLocacao(in);
+//                    break;
+////       5 - Finalizar Locação
+//                case 5:
+//                    this.finalizarLocacao(in);
+//                    break;
+////       6 - Cadastrar Nova Categoria Automóvel
+//                case 6:
+//                    this.cadastroMenu.cadastrarCategoria(in);
+//                    break;
+////       7 - Cadastrar Nova Marca do Automóvel
+//                case 7:
+//                    this.cadastroMenu.cadastrarMarca(in);
+//                    break;
+////       8 - Cadastrar Novo Modelo do Automóvel
+//                case 8:
+//                    this.cadastroMenu.cadastrarModelo(in);
+//                    break;
+////       9 - Cadastrar Novo Automóvel
+//                case 9:
+//                    this.cadastroMenu.cadastrarAutomovel(in);
+//                    break;
+////       10 - Remover Automóvel
+//                case 10:
+//                    this.removerAutomovel(in);
+//                    break;
+////       11 - Consultar Locações
+//                case 11:
+//                    this.consultaMenu.consultarLocacoes();
+//                    break;
+////       12 - Consultar Clientes Cadastrados
+//                case 12:
+//                    this.consultaMenu.consultarClientesCadastrados();
+//                    break;
+////      13 - Consultar Automóveis Cadastrados
+//                case 13:
+//                    this.consultaMenu.consultarAutomoveis();
+//                    break;
+//                case 14:
+//                    this.realizarCargaDeDados(in);
+//                    break;
+//            }
+//        } while (opcao2 != 99);
     }
 
     private void realizarCargaDeDados(Scanner in) {
@@ -209,5 +255,4 @@ public class Menu {
         System.out.println("5 - Finalizar Locação ");
         System.out.println("99 - Sair ");
     }
-
 }
