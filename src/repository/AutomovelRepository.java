@@ -43,6 +43,11 @@ public class AutomovelRepository implements Repository<Automovel, String> {
         return this.automoveis;
     }
 
+    @Override
+    public void clear() {
+        this.automoveis.clear();
+    }
+
     public boolean removeByPlaca(String placa) {
         return this.automoveis.remove(this.findOne(placa));
     }
@@ -51,9 +56,9 @@ public class AutomovelRepository implements Repository<Automovel, String> {
     @Override
     public String toString() {
         String listaAutomoveis = "";
-        for(Automovel auto :automoveis){
-            listaAutomoveis += auto.toString()+'\n';
-    }
+        for (Automovel auto : automoveis) {
+            listaAutomoveis += auto.toString() + '\n';
+        }
         return listaAutomoveis;
     }
 }

@@ -44,6 +44,11 @@ public class ModeloRepository implements Repository<Modelo, Integer> {
     }
 
     @Override
+    public void clear() {
+        this.modelos.clear();
+    }
+
+    @Override
     public String toString() {
         String listaModelos = "";
         for (Modelo model : modelos) {

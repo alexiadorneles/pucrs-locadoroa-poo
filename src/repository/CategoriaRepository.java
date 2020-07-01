@@ -45,6 +45,11 @@ public class CategoriaRepository implements Repository<Categoria, Integer> {
     }
 
     @Override
+    public void clear() {
+        this.categorias.clear();
+    }
+
+    @Override
     public String toString() {
         String listaCategoria = "";
         for (Categoria categoria : categorias) {

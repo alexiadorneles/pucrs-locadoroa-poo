@@ -11,4 +11,6 @@ public interface Repository<T, ID> {
     List<T> filter(Predicate<? super T> fn);
 
     List<T> findAll();
+
+    void clear();
 }

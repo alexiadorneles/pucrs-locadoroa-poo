@@ -46,6 +46,11 @@ public class LocacaoRepository implements Repository<Locacao, Integer> {
     }
 
     @Override
+    public void clear() {
+        this.locacoes.clear();
+    }
+
+    @Override
     public String toString() {
         String listaLocacao = "";
         for (Locacao locacao : locacoes) {

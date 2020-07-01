@@ -44,10 +44,15 @@ public class MarcaRepository implements Repository<Marca, Integer> {
     }
 
     @Override
+    public void clear() {
+        this.marcas.clear();
+    }
+
+    @Override
     public String toString() {
-        String listaMarcas="";
-        for (Marca marca : marcas){
-            listaMarcas+= marca.toString()+'\n';
+        String listaMarcas = "";
+        for (Marca marca : marcas) {
+            listaMarcas += marca.toString() + '\n';
         }
         return listaMarcas;
     }

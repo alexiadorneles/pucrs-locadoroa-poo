@@ -44,6 +44,11 @@ public class ClienteRepository implements Repository<Cliente, String> {
     }
 
     @Override
+    public void clear() {
+        this.clientes.clear();
+    }
+
+    @Override
     public String toString() {
         String listaCLientes = "";
         for (Cliente cliente : clientes) {
