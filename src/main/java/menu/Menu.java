@@ -11,9 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 
 import domain.automovel.Automovel;
@@ -23,6 +21,7 @@ import reader.TxtReader;
 import repository.AutomovelRepository;
 import repository.Repository;
 
+import javax.swing.*;
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.Objects;
@@ -62,8 +61,7 @@ public class Menu extends Application{
         grid.setVgap(10);
         grid.setPadding(new Insets(100, 100, 100, 100));
 
-        Text sceneTitle = new Text("Menu");
-        sceneTitle.setId("text");
+        Text sceneTitle = new Text("MENU");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(sceneTitle, 0, 0);
 
@@ -72,19 +70,177 @@ public class Menu extends Application{
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(atendente);
         grid.add(hbBtn, 1, 4);
+        atendente.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                GridPane opcoeAtendente = new GridPane();
+                opcoeAtendente.setAlignment(Pos.CENTER);
+                opcoeAtendente.setHgap(10);
+                opcoeAtendente.setVgap(10);
+                opcoeAtendente.setPadding(new Insets(50, 100, 100, 100));
+
+
+                Text title = new Text("MENU ATENDENTE");
+                title.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title.setTextAlignment(TextAlignment.CENTER);
+                opcoeAtendente.add(title,0,0);
+
+                Button cadastroCliente = new Button("CADASTRAR CLIENTE");
+                HBox button1 = new HBox(10);
+                button1.setAlignment(Pos.BOTTOM_LEFT);
+                button1.getChildren().add(cadastroCliente);
+                opcoeAtendente.add(button1,0,1);
+
+                Button consulta = new Button("CONSULTAR DISPONIBILIDADE DE AUTOMOVEL POR CATEGORIA");
+                HBox button2 = new HBox(10);
+                button2.setAlignment(Pos.BOTTOM_LEFT);
+                button2.getChildren().add(consulta);
+                opcoeAtendente.add(button2,0,2);
+
+                Button consultaLocacao = new Button("CONSULTAR O VALOR DE UM LOCAÇÃO");
+                HBox button3 = new HBox(10);
+                button3.setAlignment(Pos.BOTTOM_LEFT);
+                button3.getChildren().add(consultaLocacao);
+                opcoeAtendente.add(button3,0,3);
+
+                Button realizarLocacao = new Button("REALIZAR LOCAÇÃO");
+                HBox button4 = new HBox(10);
+                button4.setAlignment(Pos.BOTTOM_LEFT);
+                button4.getChildren().add(realizarLocacao);
+                opcoeAtendente.add(button4,0,4);
+
+                Button  finalizarLocacao= new Button("FINALIZAR LOCAÇÃO");
+                HBox button5 = new HBox(10);
+                button5.setAlignment(Pos.BOTTOM_LEFT);
+                button5.getChildren().add(finalizarLocacao);
+                opcoeAtendente.add(button5,0,5);
+
+                Scene atendentesOpcao = new Scene(opcoeAtendente);
+                menuStage.setScene(atendentesOpcao);
+                menuStage.show();
+            }
+        });
 
         Button gerente = new Button("GERENTE");
         HBox gerentBt = new HBox(10);
-        gerentBt.setAlignment(Pos.BOTTOM_LEFT);
+        gerentBt.setAlignment(Pos.BOTTOM_RIGHT);
         gerentBt.getChildren().add(gerente);
         grid.add(gerentBt, 0, 4);
+        gerente.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                GridPane opcoeGerente = new GridPane();
+                opcoeGerente.setAlignment(Pos.CENTER);
+                opcoeGerente.setHgap(10);
+                opcoeGerente.setVgap(10);
+                opcoeGerente.setPadding(new Insets(50, 100, 100, 100));
+
+
+                Text title = new Text("MENU GERENTE");
+                title.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title.setTextAlignment(TextAlignment.CENTER);
+                opcoeGerente.add(title,0,0);
+
+                Button cadastroCliente = new Button("CADASTRAR CLIENTE");
+                HBox button1 = new HBox(10);
+                button1.setAlignment(Pos.BOTTOM_LEFT);
+                button1.getChildren().add(cadastroCliente);
+                opcoeGerente.add(button1,0,1);
+
+                Button consulta = new Button("CONSULTAR DISPONIBILIDADE DE AUTOMOVEL POR CATEGORIA");
+                HBox button2 = new HBox(10);
+                button2.setAlignment(Pos.BOTTOM_LEFT);
+                button2.getChildren().add(consulta);
+                opcoeGerente.add(button2,0,2);
+
+                Button consultaLocacao = new Button("CONSULTAR O VALOR DE UM LOCAÇÃO");
+                HBox button3 = new HBox(10);
+                button3.setAlignment(Pos.BOTTOM_LEFT);
+                button3.getChildren().add(consultaLocacao);
+                opcoeGerente.add(button3,0,3);
+
+                Button realizarLocacao = new Button("REALIZAR LOCAÇÃO");
+                HBox button4 = new HBox(10);
+                button4.setAlignment(Pos.BOTTOM_LEFT);
+                button4.getChildren().add(realizarLocacao);
+                opcoeGerente.add(button4,0,4);
+
+                Button  finalizarLocacao= new Button("FINALIZAR LOCAÇÃO");
+                HBox button5 = new HBox(10);
+                button5.setAlignment(Pos.BOTTOM_LEFT);
+                button5.getChildren().add(finalizarLocacao);
+                opcoeGerente.add(button5,0,5);
+
+                Button cadastrarCategoria = new Button("CADASTRAR NOVA CATEGORIA DE AUTOMOVEL");
+                HBox button6 = new HBox(10);
+                button6.setAlignment(Pos.BOTTOM_LEFT);
+                button6.getChildren().add(cadastrarCategoria);
+                opcoeGerente.add(button6,0,6);
+
+                Button  cadastrarMarca= new Button("CADASTRAR NOVA MARCA DE AUTOMOVEL");
+                HBox button7 = new HBox(10);
+                button7.setAlignment(Pos.BOTTOM_LEFT);
+                button7.getChildren().add(cadastrarMarca);
+                opcoeGerente.add(button7,0,7);
+
+                Button cadastrarModelo= new Button("CADASTRAR NOVO MODELO DE AUTOMOVEL");
+                HBox button8 = new HBox(10);
+                button8.setAlignment(Pos.BOTTOM_LEFT);
+                button8.getChildren().add(cadastrarModelo);
+                opcoeGerente.add(button8,0,8);
+
+                Button  cadastrarAutomovel= new Button("CADASTRAR NOVO AUTOMOVEL");
+                HBox button9 = new HBox(10);
+                button9.setAlignment(Pos.BOTTOM_LEFT);
+                button9.getChildren().add(cadastrarAutomovel);
+                opcoeGerente.add(button9,0,9);
+//                    System.out.println("13 - Consultar Automóveis Cadastrados");
+//                    System.out.println("14 - Carga de dados");
+
+                Button  removerAutomovel= new Button("REMOVER AUTOMÓVEL");
+                HBox button10 = new HBox(10);
+                button10.setAlignment(Pos.BOTTOM_LEFT);
+                button10.getChildren().add(removerAutomovel);
+                opcoeGerente.add(button10,0,10);
+
+                Button  consultarLocacoes= new Button("CONSULTAR LOCAÇÕES");
+                HBox button11 = new HBox(10);
+                button11.setAlignment(Pos.BOTTOM_LEFT);
+                button11.getChildren().add(consultarLocacoes);
+                opcoeGerente.add(button11,0,11);
+
+                Button  consultarClientes= new Button("CONSULTAR CLIENTES");
+                HBox button12 = new HBox(10);
+                button12.setAlignment(Pos.BOTTOM_LEFT);
+                button12.getChildren().add(consultarClientes);
+                opcoeGerente.add(button12,0,12);
+
+                Button  consultarAutomoveis= new Button("CONSULTAR AUTOMOVEIS CADASTRADOS");
+                HBox button13 = new HBox(10);
+                button13.setAlignment(Pos.BOTTOM_LEFT);
+                button13.getChildren().add(consultarAutomoveis);
+                opcoeGerente.add(button13,0,13);
+
+                Button cargaDeDados = new Button("CARGA DE DADOS");
+                HBox button14 = new HBox(10);
+                button14.setAlignment(Pos.BOTTOM_LEFT);
+                button14.getChildren().add(cargaDeDados);
+                opcoeGerente.add(button14,0,14);
+
+                Scene gerenteOpcao = new Scene(opcoeGerente);
+                menuStage.setScene(gerenteOpcao);
+                menuStage.show();
+
+            }
+        });
+
         Scene scene = new Scene(grid);
         menuStage.setScene(scene);
         menuStage.show();
     }
-
-    public void mostrar(String [] arg) {
-        launch(arg);
+//
+//    public void mostrar(String [] arg) {
+//        launch(arg);
 //        System.out.println("1 - Atendendente");
 //        System.out.println("2 - Gerente");
 //        int tipoUsuario = in.nextInt();
@@ -94,7 +250,7 @@ public class Menu extends Application{
 //        do {
 //            System.out.println("-------------------------------------------");
 //            if (tipoUsuario == 1) this.mostrarOpcoesAtendente();
-//            if (tipoUsuario == 2) this.mostrarOpcoesGerente();
+ //       if (tipoUsuario == 2) this.mostrarOpcoesGerente();
 //            opcao2 = in.nextInt();
 //            in.nextLine();
 //            switch (opcao2) {
@@ -155,7 +311,7 @@ public class Menu extends Application{
 //                    break;
 //            }
 //        } while (opcao2 != 99);
-    }
+//    }
 
     private void realizarCargaDeDados(Scanner in) {
         System.out.println("Por favor, digite o nome do arquivo (ele deve estar em resources)");
@@ -226,33 +382,5 @@ public class Menu extends Application{
         System.out.println("Digite a placa do automóvel que deseja remover");
         boolean result = this.automovelRepository.removeByPlaca(in.nextLine());
         System.out.println(result ? "Removido com sucesso!" : "Um automóvel com essa placa não existe");
-    }
-
-
-    private void mostrarOpcoesGerente() {
-        System.out.println("1 - Cadastrar Cliente");
-        System.out.println("2 - Consultar Disponibilidade de Automóvel por Categoria");
-        System.out.println("3 - Consultar o Valor de uma Locaçao ");
-        System.out.println("4 - Realizar Locação");
-        System.out.println("5 - Finalizar Locação ");
-        System.out.println("6 - Cadastrar Nova Categoria Automóvel");
-        System.out.println("7 - Cadastrar Nova Marca do Automóvel");
-        System.out.println("8 - Cadastrar Novo Modelo do Automóvel");
-        System.out.println("9 - Cadastrar Novo Automóvel");
-        System.out.println("10 - Remover Automóvel");
-        System.out.println("11 - Consultar Locações");
-        System.out.println("12 - Consultar Clientes");
-        System.out.println("13 - Consultar Automóveis Cadastrados");
-        System.out.println("14 - Carga de dados");
-        System.out.println("99 - Sair");
-    }
-
-    private void mostrarOpcoesAtendente() {
-        System.out.println("1 - Cadastrar Cliente");
-        System.out.println("2 - Consultar Disponibilidade de Automóvel por Categoria");
-        System.out.println("3 - Consultar o Valor de uma Locaçao ");
-        System.out.println("4 - Realizar Locação");
-        System.out.println("5 - Finalizar Locação ");
-        System.out.println("99 - Sair ");
     }
 }
