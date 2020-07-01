@@ -1,7 +1,9 @@
 package reader;
 
 import domain.DataSource;
+import domain.TestHelper;
 import factory.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repository.*;
 
@@ -11,6 +13,12 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class IntegrationTest {
+
+    @BeforeEach
+    public void setup() {
+        TestHelper.getAllRepositories().forEach(Repository::clear);
+    }
+
     @Test
     public void integradeLoadAndJSON() throws IOException {
         // arrange
@@ -29,8 +37,9 @@ public class IntegrationTest {
         // act
         txtReader.read("carga");
         DataSource json = dataSourceFactory.createToJSON();
-        jsonReader.write("resources/db.json", json);
-        DataSource result = dataSourceFactory.createFromJSON();
+        jsonReader.write("resources/teste.json", json);
+        TestHelper.getAllRepositories().forEach(Repository::clear);
+        DataSource result = dataSourceFactory.createFromJSON("resources/teste.json");
 
         // assert
         assertEquals(CategoriaRepository.getInstance().findAll().size(), result.getCategorias().size());
