@@ -1,12 +1,15 @@
 package domain.cliente;
 
 public abstract class Cliente {
-    private final String nome;
-    private final String telefone;
+    private String nome;
+    private String telefone;
 
     public Cliente(String nome, String telefone) {
         this.nome = nome;
         this.telefone = telefone;
+    }
+
+    public Cliente() {
     }
 
     public abstract String getCPFCNPJ();

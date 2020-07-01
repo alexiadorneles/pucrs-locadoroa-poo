@@ -1,29 +1,32 @@
 package domain.automovel;
 
+import repository.CategoriaRepository;
+import repository.MarcaRepository;
+
 public abstract class Modelo {
     private Integer codigo;
     private final String nome;
-    private final Categoria categoria;
-    private final Marca marca;
+    private final Integer codCategoria;
+    private final Integer codMarca;
     private final double valor;
 
     public abstract double calcularValorAdicao();
 
     public abstract double getModificador();
 
-    protected Modelo(String nome, double valor, Categoria categoria, Marca marca) {
+    protected Modelo(String nome, double valor, Integer categoria, Integer marca) {
         this.nome = nome;
         this.valor = valor;
-        this.categoria = categoria;
-        this.marca = marca;
+        this.codCategoria = categoria;
+        this.codMarca = marca;
     }
 
-    protected Modelo(Integer codigo, String nome, double valor, Categoria categoria, Marca marca) {
+    protected Modelo(Integer codigo, String nome, double valor, Integer categoria, Integer marca) {
         this.codigo = codigo;
         this.nome = nome;
         this.valor = valor;
-        this.categoria = categoria;
-        this.marca = marca;
+        this.codCategoria = categoria;
+        this.codMarca = marca;
     }
 
     public String getNome() {
@@ -31,11 +34,11 @@ public abstract class Modelo {
     }
 
     public Categoria getCategoria() {
-        return categoria;
+        return CategoriaRepository.getInstance().findOne(this.codCategoria);
     }
 
     public Marca getMarca() {
-        return marca;
+        return MarcaRepository.getInstance().findOne(this.codMarca);
     }
 
     public Integer getCodigo() {

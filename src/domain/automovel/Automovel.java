@@ -1,5 +1,7 @@
 package domain.automovel;
 
+import repository.ModeloRepository;
+
 import java.time.LocalDate;
 
 public class Automovel {
@@ -8,26 +10,26 @@ public class Automovel {
     private final int ano;
     private final double valorDiaria;
     private boolean disponivel;
-    private final Modelo modelo;
+    private Integer codModelo;
 
     public double calcularValorFixo() {
-        double adicao = this.modelo.calcularValorAdicao();
+        double adicao = this.getModelo().calcularValorAdicao();
         return (this.getModelo().getValor() + (adicao * this.getModelo().getModificador())) / 1000;
     }
 
-    public Automovel(String placa, int ano, double valorDiaria, Modelo modelo) {
+    public Automovel(String placa, int ano, double valorDiaria, Integer modelo) {
         this.placa = placa;
         this.ano = ano;
         this.valorDiaria = valorDiaria;
-        this.modelo = modelo;
+        this.codModelo = modelo;
         this.disponivel = true;
     }
 
-    public Automovel(String placa, int ano, double valorDiaria, Modelo modelo, boolean isDisponivel) {
+    public Automovel(String placa, int ano, double valorDiaria, Integer modelo, boolean isDisponivel) {
         this.placa = placa;
         this.ano = ano;
         this.valorDiaria = valorDiaria;
-        this.modelo = modelo;
+        this.codModelo = modelo;
         this.disponivel = isDisponivel;
     }
 
@@ -52,7 +54,7 @@ public class Automovel {
     }
 
     public Modelo getModelo() {
-        return modelo;
+        return ModeloRepository.getInstance().findOne(this.codModelo);
     }
 
     public void setDisponivel(boolean disponivel) {
@@ -65,6 +67,6 @@ public class Automovel {
                 "Ano: " + ano + '\n' +
                 "Valor diaria: " + valorDiaria + '\n' +
                 "Disponibilidade: " + disponivel + '\n' +
-                "Modelo: " + modelo;
+                "Modelo: " + this.getModelo().getNome();
     }
 }

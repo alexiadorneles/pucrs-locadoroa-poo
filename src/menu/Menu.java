@@ -170,7 +170,7 @@ public class Menu {
             cliente = this.clienteRepository.findOne(in.nextLine());
         } while (Objects.isNull(cliente));
 
-        Locacao locacao = new Locacao(cliente, dataInicial, dataFinal, automovel);
+        Locacao locacao = new Locacao(cliente.getCPFCNPJ(), dataInicial, dataFinal, automovel.getPlaca());
         System.out.println("Valor total da locação: " + locacao.calcularValorLocacao());
         this.locacaoRepository.save(locacao);
     }

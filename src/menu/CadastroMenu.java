@@ -43,7 +43,7 @@ public class CadastroMenu {
         String nomeModelo = in.nextLine();
         Automovel automovel = new Automovel(
                 placa, ano, valorDiaria,
-                this.modeloRepository.findOne(Integer.valueOf(nomeModelo))
+                Integer.valueOf(nomeModelo)
         );
         this.automovelRepository.save(automovel);
     }
@@ -108,11 +108,11 @@ public class CadastroMenu {
         int tipoModelo = in.nextInt();
         if (tipoModelo == 1) {
             System.out.println("Digite a porcentagem de ipi");
-            Modelo modelo = new ModeloNacional(nome, valor, categoria, marca, in.nextDouble());
+            Modelo modelo = new ModeloNacional(nome, valor, categoria.getCodigo(), marca.getCodigo(), in.nextDouble());
             this.modeloRepository.save(modelo);
         } else {
             System.out.println("Digite a porcentagem de taxa de importação");
-            Modelo modelo = new ModeloInternacional(nome, valor, categoria, marca, in.nextDouble());
+            Modelo modelo = new ModeloInternacional(nome, valor, categoria.getCodigo(), marca.getCodigo(), in.nextDouble());
             this.modeloRepository.save(modelo);
         }
     }

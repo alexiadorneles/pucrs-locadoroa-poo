@@ -3,12 +3,12 @@ package domain.automovel;
 public class ModeloInternacional extends Modelo {
     private final double taxaImportacao;
 
-    public ModeloInternacional(String nome, double valor, Categoria categoria, Marca marca, double taxaImportacao) {
+    public ModeloInternacional(String nome, double valor, Integer categoria, Integer marca, double taxaImportacao) {
         super(nome, valor, categoria, marca);
         this.taxaImportacao = taxaImportacao;
     }
 
-    public ModeloInternacional(Integer codigo, String nome, double valor, Categoria categoria, Marca marca, double taxaImportacao) {
+    public ModeloInternacional(Integer codigo, String nome, double valor, Integer categoria, Integer marca, double taxaImportacao) {
         super(codigo, nome, valor, categoria, marca);
         this.taxaImportacao = taxaImportacao;
     }

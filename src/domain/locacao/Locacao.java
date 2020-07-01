@@ -3,6 +3,9 @@ package domain.locacao;
 import domain.automovel.Automovel;
 import domain.automovel.Categoria;
 import domain.cliente.Cliente;
+import repository.AutomovelRepository;
+import repository.CategoriaRepository;
+import repository.ClienteRepository;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -12,38 +15,37 @@ import java.util.Random;
 
 public class Locacao {
     private final Integer codigo;
-    private final Cliente cliente;
-    private Categoria categoria;
+    private final String clienteId;
+    private Integer categoriaId;
     private final String dataInicial;
     private final String dataFinal;
-    private Automovel auto;
+    private String autoPlaca;
     private boolean finalizada;
 
-    public Locacao(Cliente cliente, String dataInicial, String dataFinal, Automovel auto) {
+    public Locacao(String cliente, String dataInicial, String dataFinal, String auto) {
         this.codigo = new Random().nextInt();
-        this.cliente = cliente;
+        this.clienteId = cliente;
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
-        this.auto = auto;
-        this.auto.setDisponivel(false);
+        this.autoPlaca = auto;
     }
 
-    public Locacao(Integer codigo, Cliente cliente, String dataInicial, String dataFinal, Categoria categoria) {
+    public Locacao(Integer codigo, String cliente, String dataInicial, String dataFinal, Integer categoria) {
         this.codigo = codigo;
-        this.cliente = cliente;
+        this.clienteId = cliente;
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
-        this.categoria = categoria;
+        this.categoriaId = categoria;
     }
 
     public double calcularValorLocacao() {
-        double valorDiaria = this.cliente.aplicarDesconto(this.auto.getValorDiaria());
-        return this.auto.calcularValorFixo() + (this.calcularNumeroDeDiarias() * valorDiaria);
+        double valorDiaria = this.getCliente().aplicarDesconto(this.getAuto().getValorDiaria());
+        return this.getAuto().calcularValorFixo() + (this.calcularNumeroDeDiarias() * valorDiaria);
     }
 
     public void finalizar() {
         this.finalizada = true;
-        this.auto.setDisponivel(true);
+        this.getAuto().setDisponivel(true);
     }
 
     public Integer getCodigo() {
@@ -51,7 +53,7 @@ public class Locacao {
     }
 
     public Cliente getCliente() {
-        return cliente;
+        return ClienteRepository.getInstance().findOne(this.clienteId);
     }
 
     public String getDataInicial() {
@@ -63,7 +65,7 @@ public class Locacao {
     }
 
     public Automovel getAuto() {
-        return auto;
+        return AutomovelRepository.getInstance().findOne(this.autoPlaca);
     }
 
     public boolean isFinalizada() {
@@ -81,14 +83,14 @@ public class Locacao {
     public String toString() {
         return "Locacao: " +
                 " Codigo: " + codigo + '\'' +
-                " Cliente" + cliente +
+                " Cliente" + clienteId +
                 " Data inicio da locação: " + dataInicial + '\'' +
                 " Data final da locação" + dataFinal + '\'' +
-                " Automovel: " + auto + '\'' +
+                " Automovel: " + autoPlaca + '\'' +
                 " Status: " + finalizada;
     }
 
     public Categoria getCategoria() {
-        return this.categoria;
+        return CategoriaRepository.getInstance().findOne(this.categoriaId);
     }
 }
