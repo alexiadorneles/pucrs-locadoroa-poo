@@ -4,17 +4,18 @@ import domain.locacao.Locacao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 import java.util.function.Predicate;
 
 import static java.util.stream.Collectors.toList;
 
 public class LocacaoRepository implements Repository<Locacao, Integer> {
-    private final List<Locacao> locacoes;
+    private final Stack<Locacao> locacoes;
 
     private static LocacaoRepository instance = null;
 
     private LocacaoRepository() {
-        this.locacoes = new ArrayList<>();
+        this.locacoes = new Stack<>();
     }
 
     public static LocacaoRepository getInstance() {
