@@ -1,6 +1,8 @@
 package domain.automovel;
 
 import org.junit.jupiter.api.Test;
+import repository.CategoriaRepository;
+import repository.MarcaRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,9 +11,14 @@ class ModeloNacionalTest {
     @Test
     void calcularValorAdicao() {
         // arrange
-        Modelo modelo = new ModeloNacional("Civic", 100000, new Categoria("Qualquer"),
-                new Marca("Honda"), 10);
+        Categoria categoria = new Categoria(1, "Qualquer");
+        CategoriaRepository.getInstance().save(categoria);
 
+        Marca marca = new Marca(1, "Honda");
+        MarcaRepository.getInstance().save(marca);
+
+        Modelo modelo = new ModeloNacional("Civic", 100000, 1,
+                1, 10);
 
         // act
         final double resultado = modelo.calcularValorAdicao();
