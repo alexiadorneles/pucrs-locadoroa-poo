@@ -21,9 +21,7 @@ public class LocacaoFactory extends BaseFactory<Locacao, Integer> {
         Integer codigo = Integer.parseInt(props[0]);
         String codCliente = props[1];
         Integer codCategoria = Integer.parseInt(props[2]);
-        Categoria categoria = CategoriaRepository.getInstance().findOne(codCategoria);
-        Cliente cliente = ClienteRepository.getInstance().findOne(codCliente);
-        return new Locacao(codigo, cliente, props[3], props[4], categoria);
+        return new Locacao(codigo, codCliente, props[3], props[4], codCategoria);
     }
 
     @Override

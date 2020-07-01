@@ -22,8 +22,8 @@ public class DataSourceFactory implements JSONFactory<DataSource> {
 
 
     @Override
-    public DataSource createFromJSON() throws FileNotFoundException {
-        DataSource data = reader.read("resources/db.json", DataSource.class);
+    public DataSource createFromJSON(String fileName) throws FileNotFoundException {
+        DataSource data = reader.read(fileName, DataSource.class);
         data.getCategorias().forEach(categoria -> CategoriaRepository.getInstance().save(categoria));
         data.getMarcas().forEach(marca -> MarcaRepository.getInstance().save(marca));
         data.getModelosInternacionais().forEach(modelo -> ModeloRepository.getInstance().save(modelo));

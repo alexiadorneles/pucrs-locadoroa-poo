@@ -17,8 +17,8 @@ public class ModeloFactory extends BaseFactory<Modelo, Integer> {
     public Modelo build(String line) {
         String[] props = line.split(PONTO_E_VIRGULA);
         String tipo = props[5];
-        Categoria categoria = CategoriaRepository.getInstance().findOne(Integer.valueOf(props[3]));
-        Marca marca = MarcaRepository.getInstance().findOne(Integer.valueOf(props[4]));
+        Integer categoria = Integer.valueOf(props[3]);
+        Integer marca = Integer.valueOf(props[4]);
         Integer codigo = Integer.valueOf(props[0]);
         String nome = props[1];
         double valor = Double.parseDouble(props[2]);
