@@ -200,44 +200,47 @@ public class CadastroMenu extends Application{
                     }
                 });
 
+
                 Scene scene = new Scene(grid);
                 menuCadastro.setScene(scene);
                 menuCadastro.show();
                 break;
+            case 2:
 
+                break;
         }
     }
-
-
-    public void cadastrarCliente(Scanner in) {
-        int escolha;
-        do {
-            System.out.println("Escolha o tipo de cliente: ");
-            System.out.println("1- Pessoa fisica ");
-            System.out.println("2- Pessoa juridica");
-            escolha = in.nextInt();
-        } while (escolha > 2 || escolha < 1);
-
-        Cliente cliente;
-        System.out.println("Digite os dados do cliente: ");
-        in.nextLine();
-        System.out.println("Nome: ");
-        String nome = in.nextLine();
-        System.out.println("Telefone: ");
-        String telefone = in.nextLine();
-
-        if (escolha == 1) {
-            System.out.println("CPF: ");
-            String cpf = in.nextLine();
-            cliente = new PessoaFisica(nome, telefone, cpf);
-        } else {
-            System.out.println("CNPJ: ");
-            String cnpj = in.nextLine();
-            cliente = new PessoaJuridica(nome, telefone, cnpj);
-        }
-        this.clienteRepository.save(cliente);
-        System.out.println("Cadastro concluído.");
-    }
+//
+//
+//    public void cadastrarCliente(Scanner in) {
+//        int escolha;
+//        do {
+//            System.out.println("Escolha o tipo de cliente: ");
+//            System.out.println("1- Pessoa fisica ");
+//            System.out.println("2- Pessoa juridica");
+//            escolha = in.nextInt();
+//        } while (escolha > 2 || escolha < 1);
+//
+//        Cliente cliente;
+//        System.out.println("Digite os dados do cliente: ");
+//        in.nextLine();
+//        System.out.println("Nome: ");
+//        String nome = in.nextLine();
+//        System.out.println("Telefone: ");
+//        String telefone = in.nextLine();
+//
+//        if (escolha == 1) {
+//            System.out.println("CPF: ");
+//            String cpf = in.nextLine();
+//            cliente = new PessoaFisica(nome, telefone, cpf);
+//        } else {
+//            System.out.println("CNPJ: ");
+//            String cnpj = in.nextLine();
+//            cliente = new PessoaJuridica(nome, telefone, cnpj);
+//        }
+//        this.clienteRepository.save(cliente);
+//        System.out.println("Cadastro concluído.");
+//    }
 
 
     public void cadastrarAutomovel(Scanner in) {
@@ -260,10 +263,9 @@ public class CadastroMenu extends Application{
 
 
 
-    public void cadastrarCategoria(Scanner in) {
+    public void cadastrarCategoria(String in) {
         System.out.println("Digite o nome da categoria: ");
-        String nomeCategoria = in.nextLine();
-        this.categoriaRepository.save(new Categoria(nomeCategoria));
+        this.categoriaRepository.save(new Categoria(in));
     }
 
     public void cadastrarMarca(Scanner in) {
