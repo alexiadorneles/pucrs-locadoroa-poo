@@ -1,4 +1,18 @@
 package menu;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.*;
+import javafx.stage.Stage;
 
 import domain.automovel.*;
 import domain.cliente.Cliente;
@@ -8,8 +22,9 @@ import repository.*;
 
 import java.util.Scanner;
 
-public class CadastroMenu {
+public class CadastroMenu extends Application{
 
+    private int button = 0;
     private final Repository<Modelo, Integer> modeloRepository;
     private final Repository<Automovel, String> automovelRepository;
     private final Repository<Cliente, String> clienteRepository;
@@ -30,23 +45,169 @@ public class CadastroMenu {
         this.categoriaRepository = categoriaRepository;
     }
 
-    public void cadastrarAutomovel(Scanner in) {
-        System.out.println("Digite a placa: ");
-        String placa = in.nextLine();
-        System.out.println("Digite o ano: ");
-        int ano = in.nextInt();
-        in.nextLine();
-        System.out.println("Digite o valor diária: ");
-        double valorDiaria = in.nextDouble();
-        in.nextLine();
-        System.out.println("Digite o nome do modelo: ");
-        String nomeModelo = in.nextLine();
-        Automovel automovel = new Automovel(
-                placa, ano, valorDiaria,
-                Integer.valueOf(nomeModelo)
-        );
-        this.automovelRepository.save(automovel);
+
+    public void setButton(int i){
+        if(i>0 && i<15) button=i;
+        else button = 0;
     }
+    @Override
+    public void start(Stage menuCadastro) throws Exception {
+        menuCadastro.setTitle("---------- LOCADORA AJE ----------");
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(100, 100, 100, 100));
+
+        switch (button){
+            case 1:
+                Text title = new Text("CADASTRAR CLIENTE");
+                title.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title.setTextAlignment(TextAlignment.CENTER);
+                grid.add(title,0,0);
+
+                Text text = new Text("ESCOLHA O TIPO DE CLIENTE");
+
+                Button pf = new Button("PESSOA FISICA");
+                HBox button1 = new HBox(10);
+                button1.setAlignment(Pos.BOTTOM_LEFT);
+                button1.getChildren().add(pf);
+                grid.add(button1,0,1);
+                pf.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        GridPane pf = new GridPane();
+                        pf.setAlignment(Pos.CENTER);
+                        pf.setHgap(10);
+                        pf.setVgap(10);
+                        pf.setPadding(new Insets(100, 100, 100, 100));
+
+                        Text title = new Text("DADOS DO CLIENTE");
+                        title.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                        title.setTextAlignment(TextAlignment.CENTER);
+                        pf.add(title,0,0);
+
+                        Label nome = new Label("Nome: ");
+                        pf.add(nome,0,1);
+
+                        TextField nomeCliente = new TextField();
+                        pf.add(nomeCliente,1,1);
+
+                        Label telefone = new Label("Telefone: ");
+                        pf.add(telefone,0,2);
+
+                        TextField telefoneCliente = new TextField();
+                        pf.add(telefoneCliente,1,2);
+
+                        Label cpf = new Label("CPF: ");
+                        pf.add(cpf,0,3);
+
+                        TextField cpfCliente = new TextField();
+                        pf.add(cpfCliente,1,3);
+
+                        Button confirmarCadastro = new Button("CADASTRAR");
+                        HBox btn = new HBox(10);
+                        btn.setAlignment(Pos.BOTTOM_RIGHT);
+                        btn.getChildren().add(confirmarCadastro);
+                        pf.add(btn,1,5);
+
+                        final Text actiontarget = new Text();
+                        pf.add(actiontarget, 1, 6);
+                        actiontarget.setId("actiontarget");
+
+                        confirmarCadastro.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent actionEvent) {
+                                actiontarget.setFill(Color.FIREBRICK);
+                                if(nomeCliente.getText().trim().isEmpty() || telefoneCliente.getText().isEmpty() ||
+                                        cpfCliente.getText().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
+                                else {
+                                    actiontarget.setText("Cadastro concluido");
+                                    Cliente cliente = new PessoaFisica(nomeCliente.getText(), telefoneCliente.getText(), cpfCliente.getText());
+                                    clienteRepository.save(cliente);
+                                    System.out.println(cliente.toString());
+                                }
+                            }
+                        });
+                        menuCadastro.setScene(new Scene(pf));
+                        menuCadastro.show();
+                    }
+                });
+
+                Button pj = new Button("PESSOA JURIDICA");
+                HBox button2 = new HBox(10);
+                button2.setAlignment(Pos.BOTTOM_LEFT);
+                button2.getChildren().add(pj);
+                grid.add(button2,1,1);
+                pj.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        GridPane pj = new GridPane();
+                        pj.setAlignment(Pos.CENTER);
+                        pj.setHgap(10);
+                        pj.setVgap(10);
+                        pj.setPadding(new Insets(100, 100, 100, 100));
+
+                        Text title = new Text("DADOS DO CLIENTE");
+                        title.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                        title.setTextAlignment(TextAlignment.CENTER);
+                        pj.add(title,0,0);
+
+                        Label nome = new Label("Nome: ");
+                        pj.add(nome,0,1);
+
+                        TextField nomeCliente = new TextField();
+                        pj.add(nomeCliente,1,1);
+
+                        Label telefone = new Label("Telefone: ");
+                        pj.add(telefone,0,2);
+
+                        TextField telefoneCliente = new TextField();
+                        pj.add(telefoneCliente,1,2);
+
+                        Label cnpj = new Label("CNPJ: ");
+                        pj.add(cnpj,0,3);
+
+                        TextField cnpjCliente = new TextField();
+                        pj.add(cnpjCliente,1,3);
+
+                        Button confirmarCadastro = new Button("CADASTRAR");
+                        HBox btn = new HBox(10);
+                        btn.setAlignment(Pos.BOTTOM_RIGHT);
+                        btn.getChildren().add(confirmarCadastro);
+                        pj.add(btn,1,5);
+
+                        final Text actiontarget = new Text();
+                        pj.add(actiontarget, 1, 6);
+                        actiontarget.setId("actiontarget");
+
+                        confirmarCadastro.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent actionEvent) {
+                                actiontarget.setFill(Color.FIREBRICK);
+                                if(nomeCliente.getText().trim().isEmpty() || telefoneCliente.getText().isEmpty() ||
+                                        cnpjCliente.getText().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
+                                else {
+                                    actiontarget.setText("Cadastro concluido");
+                                    Cliente cliente = new PessoaJuridica(nomeCliente.getText(), telefoneCliente.getText(), cnpjCliente.getText());
+                                    clienteRepository.save(cliente);
+                                    System.out.println(cliente.toString());
+                                }
+                            }
+                        });
+                        menuCadastro.setScene(new Scene(pj));
+                        menuCadastro.show();
+                    }
+                });
+
+                Scene scene = new Scene(grid);
+                menuCadastro.setScene(scene);
+                menuCadastro.show();
+                break;
+
+        }
+    }
+
 
     public void cadastrarCliente(Scanner in) {
         int escolha;
@@ -74,10 +235,30 @@ public class CadastroMenu {
             String cnpj = in.nextLine();
             cliente = new PessoaJuridica(nome, telefone, cnpj);
         }
-
         this.clienteRepository.save(cliente);
         System.out.println("Cadastro concluído.");
     }
+
+
+    public void cadastrarAutomovel(Scanner in) {
+        System.out.println("Digite a placa: ");
+        String placa = in.nextLine();
+        System.out.println("Digite o ano: ");
+        int ano = in.nextInt();
+        in.nextLine();
+        System.out.println("Digite o valor diária: ");
+        double valorDiaria = in.nextDouble();
+        in.nextLine();
+        System.out.println("Digite o nome do modelo: ");
+        String nomeModelo = in.nextLine();
+        Automovel automovel = new Automovel(
+                placa, ano, valorDiaria,
+                Integer.valueOf(nomeModelo)
+        );
+        this.automovelRepository.save(automovel);
+    }
+
+
 
     public void cadastrarCategoria(Scanner in) {
         System.out.println("Digite o nome da categoria: ");
@@ -116,5 +297,4 @@ public class CadastroMenu {
             this.modeloRepository.save(modelo);
         }
     }
-
 }

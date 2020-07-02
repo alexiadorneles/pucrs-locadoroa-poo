@@ -6,11 +6,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
 
@@ -21,8 +18,6 @@ import reader.TxtReader;
 import repository.AutomovelRepository;
 import repository.Repository;
 
-import javax.swing.*;
-import java.security.SecureRandom;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -90,6 +85,15 @@ public class Menu extends Application{
                 button1.setAlignment(Pos.BOTTOM_LEFT);
                 button1.getChildren().add(cadastroCliente);
                 opcoeAtendente.add(button1,0,1);
+                cadastroCliente.setOnAction(actionEvent1 -> {
+                    try {
+                        cadastroMenu.setButton(1);
+                        cadastroMenu.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
 
                 Button consulta = new Button("CONSULTAR DISPONIBILIDADE DE AUTOMOVEL POR CATEGORIA");
                 HBox button2 = new HBox(10);
@@ -135,7 +139,6 @@ public class Menu extends Application{
                 opcoeGerente.setVgap(10);
                 opcoeGerente.setPadding(new Insets(50, 100, 100, 100));
 
-
                 Text title = new Text("MENU GERENTE");
                 title.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
                 title.setTextAlignment(TextAlignment.CENTER);
@@ -146,6 +149,14 @@ public class Menu extends Application{
                 button1.setAlignment(Pos.BOTTOM_LEFT);
                 button1.getChildren().add(cadastroCliente);
                 opcoeGerente.add(button1,0,1);
+                cadastroCliente.setOnAction(actionEvent1 -> {
+                    try {
+                        cadastroMenu.setButton(1);
+                        cadastroMenu.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
                 Button consulta = new Button("CONSULTAR DISPONIBILIDADE DE AUTOMOVEL POR CATEGORIA");
                 HBox button2 = new HBox(10);
@@ -194,8 +205,6 @@ public class Menu extends Application{
                 button9.setAlignment(Pos.BOTTOM_LEFT);
                 button9.getChildren().add(cadastrarAutomovel);
                 opcoeGerente.add(button9,0,9);
-//                    System.out.println("13 - Consultar Automóveis Cadastrados");
-//                    System.out.println("14 - Carga de dados");
 
                 Button  removerAutomovel= new Button("REMOVER AUTOMÓVEL");
                 HBox button10 = new HBox(10);
@@ -250,7 +259,7 @@ public class Menu extends Application{
 //        do {
 //            System.out.println("-------------------------------------------");
 //            if (tipoUsuario == 1) this.mostrarOpcoesAtendente();
- //       if (tipoUsuario == 2) this.mostrarOpcoesGerente();
+//      if (tipoUsuario == 2) this.mostrarOpcoesGerente();
 //            opcao2 = in.nextInt();
 //            in.nextLine();
 //            switch (opcao2) {
