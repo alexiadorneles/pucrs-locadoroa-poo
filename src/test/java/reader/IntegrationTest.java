@@ -2,6 +2,10 @@ package reader;
 
 import domain.DataSource;
 import domain.TestHelper;
+import domain.automovel.Categoria;
+import domain.automovel.Marca;
+import domain.automovel.Modelo;
+import domain.locacao.Locacao;
 import factory.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +13,7 @@ import repository.*;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -43,10 +48,14 @@ public class IntegrationTest {
 
         // assert
         assertEquals(CategoriaRepository.getInstance().findAll().size(), result.getCategorias().size());
+        assertEquals(IDGenerator.getInstance().getIdFor(Categoria.class.getName()), CategoriaRepository.getInstance().findAll().size());
         assertEquals(MarcaRepository.getInstance().findAll().size(), result.getMarcas().size());
+        assertEquals(IDGenerator.getInstance().getIdFor(Marca.class.getName()), MarcaRepository.getInstance().findAll().size());
         assertEquals(AutomovelRepository.getInstance().findAll().size(), result.getAutomoveis().size());
         assertEquals(ModeloRepository.getInstance().findAll().size(), result.getModelosInternacionais().size() + result.getModelosNacionais().size());
+        assertEquals(IDGenerator.getInstance().getIdFor(Modelo.class.getName()), ModeloRepository.getInstance().findAll().size());
         assertEquals(LocacaoRepository.getInstance().findAll().size(), result.getLocacoes().size());
+        assertEquals(IDGenerator.getInstance().getIdFor(Locacao.class.getName()), LocacaoRepository.getInstance().findAll().size());
         assertEquals(ClienteRepository.getInstance().findAll().size(), result.getClientePF().size() + result.getClientePJ().size());
     }
 }

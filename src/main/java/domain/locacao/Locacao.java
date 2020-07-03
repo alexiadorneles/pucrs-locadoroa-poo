@@ -33,6 +33,7 @@ public class Locacao {
 
     public Locacao(Integer codigo, String cliente, String dataInicial, String dataFinal, Integer categoria) {
         this.codigo = codigo;
+        IDGenerator.getInstance().registerTopFor(this.getClass().getName(), codigo);
         this.clienteId = cliente;
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;

@@ -15,6 +15,7 @@ public class Categoria {
 
     public Categoria(Integer codigo, String nome) {
         this.codigo = codigo;
+        IDGenerator.getInstance().registerTopFor(this.getClass().getName(), codigo);
         this.nome = nome;
     }
 

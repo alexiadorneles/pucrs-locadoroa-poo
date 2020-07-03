@@ -27,6 +27,7 @@ public abstract class Modelo {
 
     protected Modelo(Integer codigo, String nome, double valor, Integer categoria, Integer marca) {
         this.codigo = codigo;
+        IDGenerator.getInstance().registerTopFor(this.getClass().getName(), codigo);
         this.nome = nome;
         this.valor = valor;
         this.codCategoria = categoria;

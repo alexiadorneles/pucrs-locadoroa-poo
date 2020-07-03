@@ -15,6 +15,7 @@ public class Marca {
 
     public Marca(Integer codigo, String nome) {
         this.codigo = codigo;
+        IDGenerator.getInstance().registerTopFor(this.getClass().getName(), codigo);
         this.nome = nome;
     }
 
