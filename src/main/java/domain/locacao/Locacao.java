@@ -6,6 +6,7 @@ import domain.cliente.Cliente;
 import repository.AutomovelRepository;
 import repository.CategoriaRepository;
 import repository.ClienteRepository;
+import repository.IDGenerator;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +24,7 @@ public class Locacao {
     private boolean finalizada;
 
     public Locacao(String cliente, String dataInicial, String dataFinal, String auto) {
-        this.codigo = new Random().nextInt();
+        this.codigo = IDGenerator.getInstance().getIdFor(this.getClass().getName());
         this.clienteId = cliente;
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;

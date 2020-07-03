@@ -7,3 +7,7 @@ locadora.iml
 resources/unittest.json
 
 resources/teste.json
+
+*.class
+
+*.lst
