@@ -113,7 +113,10 @@ public class ConsultaMenu extends Application{
                 locacaoDisponivel.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
                 locacaoDisponivel.setTextAlignment(TextAlignment.CENTER);
                 grid.add(locacaoDisponivel,0,5);
-                locacaoRepository.findAll().forEach(str -> locacaoDisponivel.setText(str.toString()));
+                Text locacaod = new Text("");
+                locacaod.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                locacaoRepository.findAll().forEach(str -> locacaod.setText(str.toString()));
+                grid.add(locacaod,0,6);
 
                 Label text2 = new Label("Codigo: ");
                 grid.add(text2,0,1);
@@ -154,8 +157,8 @@ public class ConsultaMenu extends Application{
                 break;
         }
     }
-    public boolean consultaDisponibilidadeCategoria(Scanner in){
-        Categoria categoria = CategoriaRepository.getInstance().findOne(Integer.valueOf(in.nextLine()));
+    public boolean consultaDisponibilidadeCategoria(String codigo){
+        Categoria categoria = CategoriaRepository.getInstance().findOne(Integer.valueOf(codigo));
         List<Automovel> autoDisponiveisCategoria = this.automovelRepository.filter(auto -> this.getAutomovelByCategoriaAndDisponivel(categoria, auto));
         if (autoDisponiveisCategoria.isEmpty()) {
             return false;
@@ -163,17 +166,17 @@ public class ConsultaMenu extends Application{
         autoDisponiveisCategoria.forEach(System.out::println);
         return true;
     }
-    public void consultarValorLocacao(Scanner in){
-        System.out.println("Essas são as locações disponíveis no sistema: ");
-        this.consultarLocacoes();
-        Locacao locacao;
-            do {
-            System.out.println("Por favor digite o código de uma locação pra consultar seu valor total: ");
-                locacao = locacaoRepository.findOne(Integer.valueOf(in.nextLine()));
-            } while (Objects.isNull(locacao));
-
-        System.out.println("O valor da sua locação é: " + locacao.calcularValorLocacao());
-    }
+//    public void consultarValorLocacao(Scanner in){
+//        System.out.println("Essas são as locações disponíveis no sistema: ");
+//        this.consultarLocacoes();
+//        Locacao locacao;
+//            do {
+//            System.out.println("Por favor digite o código de uma locação pra consultar seu valor total: ");
+//                locacao = locacaoRepository.findOne(Integer.valueOf(in.nextLine()));
+//            } while (Objects.isNull(locacao));
+//
+//        System.out.println("O valor da sua locação é: " + locacao.calcularValorLocacao());
+//    }
 
     public void consultarLocacoes() {
         this.locacaoRepository.findAll().forEach(System.out::println);

@@ -20,10 +20,10 @@ import domain.cliente.PessoaFisica;
 import domain.cliente.PessoaJuridica;
 import repository.*;
 
+
 import java.util.Scanner;
 
 public class CadastroMenu extends Application{
-
     private int button = 0;
     private final Repository<Modelo, Integer> modeloRepository;
     private final Repository<Automovel, String> automovelRepository;
@@ -44,7 +44,6 @@ public class CadastroMenu extends Application{
         this.marcaRepository = marcaRepository;
         this.categoriaRepository = categoriaRepository;
     }
-
 
     public void setButton(int i){
         if(i>0 && i<15) button=i;
@@ -67,6 +66,9 @@ public class CadastroMenu extends Application{
                 grid.add(title,0,0);
 
                 Text text = new Text("ESCOLHA O TIPO DE CLIENTE");
+                text.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                text.setTextAlignment(TextAlignment.CENTER);
+                grid. add(text,1,0);
 
                 Button pf = new Button("PESSOA FISICA");
                 HBox button1 = new HBox(10);
@@ -148,56 +150,56 @@ public class CadastroMenu extends Application{
                         pj.setVgap(10);
                         pj.setPadding(new Insets(100, 100, 100, 100));
 
-                        Text title = new Text("DADOS DO CLIENTE");
+                    Text title = new Text("DADOS DO CLIENTE");
                         title.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
                         title.setTextAlignment(TextAlignment.CENTER);
                         pj.add(title,0,0);
 
-                        Label nome = new Label("Nome: ");
+                    Label nome = new Label("Nome: ");
                         pj.add(nome,0,1);
 
-                        TextField nomeCliente = new TextField();
+                    TextField nomeCliente = new TextField();
                         pj.add(nomeCliente,1,1);
 
-                        Label telefone = new Label("Telefone: ");
+                    Label telefone = new Label("Telefone: ");
                         pj.add(telefone,0,2);
 
-                        TextField telefoneCliente = new TextField();
+                    TextField telefoneCliente = new TextField();
                         pj.add(telefoneCliente,1,2);
 
-                        Label cnpj = new Label("CNPJ: ");
+                    Label cnpj = new Label("CNPJ: ");
                         pj.add(cnpj,0,3);
 
-                        TextField cnpjCliente = new TextField();
+                    TextField cnpjCliente = new TextField();
                         pj.add(cnpjCliente,1,3);
 
-                        Button confirmarCadastro = new Button("CADASTRAR");
-                        HBox btn = new HBox(10);
+                    Button confirmarCadastro = new Button("CADASTRAR");
+                    HBox btn = new HBox(10);
                         btn.setAlignment(Pos.BOTTOM_RIGHT);
                         btn.getChildren().add(confirmarCadastro);
                         pj.add(btn,1,5);
 
-                        final Text actiontarget = new Text();
+                    final Text actiontarget = new Text();
                         pj.add(actiontarget, 1, 6);
                         actiontarget.setId("actiontarget");
 
                         confirmarCadastro.setOnAction(new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent actionEvent) {
-                                actiontarget.setFill(Color.FIREBRICK);
-                                if(nomeCliente.getText().trim().isEmpty() || telefoneCliente.getText().isEmpty() ||
-                                        cnpjCliente.getText().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
-                                else {
-                                    actiontarget.setText("Cadastro concluido");
-                                    Cliente cliente = new PessoaJuridica(nomeCliente.getText(), telefoneCliente.getText(), cnpjCliente.getText());
-                                    clienteRepository.save(cliente);
-                                    System.out.println(cliente.toString());
-                                }
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            actiontarget.setFill(Color.FIREBRICK);
+                            if(nomeCliente.getText().trim().isEmpty() || telefoneCliente.getText().isEmpty() ||
+                                    cnpjCliente.getText().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
+                            else {
+                                actiontarget.setText("Cadastro concluido");
+                                Cliente cliente = new PessoaJuridica(nomeCliente.getText(), telefoneCliente.getText(), cnpjCliente.getText());
+                                clienteRepository.save(cliente);
+                                System.out.println(cliente.toString());
                             }
-                        });
+                        }
+                    });
                         menuCadastro.setScene(new Scene(pj));
                         menuCadastro.show();
-                    }
+                }
                 });
 
 

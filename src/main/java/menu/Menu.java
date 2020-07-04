@@ -1,4 +1,7 @@
 package menu;
+import domain.automovel.*;
+import domain.cliente.PessoaFisica;
+import domain.cliente.PessoaJuridica;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -6,17 +9,18 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
 
-import domain.automovel.Automovel;
 import domain.cliente.Cliente;
 import domain.locacao.Locacao;
 import reader.TxtReader;
-import repository.AutomovelRepository;
-import repository.Repository;
+import repository.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -129,6 +133,158 @@ public class Menu extends Application{
                 button4.setAlignment(Pos.BOTTOM_LEFT);
                 button4.getChildren().add(realizarLocacao);
                 opcoeAtendente.add(button4,0,4);
+                realizarLocacao.setOnAction(actionEvent1 -> {
+                    GridPane locacao = new GridPane();
+                    locacao.setAlignment(Pos.CENTER);
+                    locacao.setHgap(10);
+                    locacao.setVgap(10);
+                    locacao.setPadding(new Insets(100, 100, 100, 100));
+
+                    Text realizaLocacao = new Text("REALIZAR A LOCACÃO");
+                    realizaLocacao.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                    realizaLocacao.setTextAlignment(TextAlignment.CENTER);
+                    locacao.add(realizaLocacao,0,0);
+
+                    Label dataInicial = new Label("Data inicial (DD/MM/AAA) ");
+                    locacao.add(dataInicial,0,1);
+
+                    TextField datainitial = new TextField();
+                    locacao.add(datainitial,1,1);
+
+                    Label dataFinal = new Label("Data final (DD/MM/AAA): ");
+                    locacao.add(dataFinal,0,2);
+
+                    TextField datafinal = new TextField();
+                    locacao.add(datafinal,1,2);
+
+                    Label category = new Label("Codigo da Categoria: ");
+                    locacao.add(category,0,3);
+
+                    TextField codigoCategoria = new TextField();
+                    locacao.add(codigoCategoria,1,3);
+
+                    Button confirmarCadastro = new Button("CONTINUAR");
+                    HBox btn = new HBox(10);
+                    btn.setAlignment(Pos.BOTTOM_RIGHT);
+                    btn.getChildren().add(confirmarCadastro);
+                    locacao.add(btn,1,5);
+
+                    final Text actiontarget = new Text();
+                    locacao.add(actiontarget, 1, 6);
+                    actiontarget.setId("actiontarget");
+
+                    confirmarCadastro.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            actiontarget.setFill(Color.FIREBRICK);
+                            if(datainitial.getText().trim().isEmpty() || datafinal.getText().isEmpty() ||
+                                    codigoCategoria.getText().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
+                            else {
+                                boolean possuiDestaCategoria = consultaMenu.consultaDisponibilidadeCategoria(codigoCategoria.getText());
+                                if (!possuiDestaCategoria) actiontarget.setText("Não possui automoveis dessa categoria");
+                                else {
+                                    GridPane newLocacao = new GridPane();
+                                    newLocacao.setAlignment(Pos.CENTER);
+                                    newLocacao.setHgap(10);
+                                    newLocacao.setVgap(10);
+                                    newLocacao.setPadding(new Insets(100, 100, 100, 100));
+
+                                    Text locacaoDisponivel = new Text("Automoveis disponiveis");
+                                    locacaoDisponivel.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                    locacaoDisponivel.setTextAlignment(TextAlignment.CENTER);
+                                    newLocacao.add(locacaoDisponivel,0,0);
+
+                                    Text locacaod = new Text("");
+                                    locacaod.setFont(Font.font("Tahoma",FontWeight.NORMAL,14));
+                                    automovelRepository.findAll().forEach(str -> locacaod.setText(str.toString()));
+                                    newLocacao.add(locacaod,0,1);
+
+                                    Label label = new Label("Digite uma placa");
+                                    newLocacao.add(label,0,4);
+
+                                    TextField placa = new TextField();
+                                    newLocacao.add(placa, 1, 4);
+
+                                    Button confirma = new Button("LOCAR");
+                                    HBox btn = new HBox(10);
+                                    btn.setAlignment(Pos.BOTTOM_RIGHT);
+                                    btn.getChildren().add(confirma);
+                                    newLocacao.add(btn,1,6);
+
+                                    final Text action = new Text();
+                                    newLocacao.add(action, 1, 7);
+                                    action.setId("action");
+
+                                    menuStage.setScene(new Scene(newLocacao));
+                                    menuStage.show();
+
+                                    confirma.setOnAction(actionEvent2 -> {
+                                        GridPane cli = new GridPane();
+                                        cli.setAlignment(Pos.CENTER);
+                                        cli.setHgap(10);
+                                        cli.setVgap(10);
+                                        cli.setPadding(new Insets(100, 100, 100, 100));
+                                        action.setFill(Color.FIREBRICK);
+                                        if (placa.getText().isEmpty()) action.setText("Preencha os campos");
+                                        if (automovelRepository.findOne(placa.getText())==null) action.setText("Por favor coloque uma placa valida");
+                                        else {
+                                            Text clienteDisponivel = new Text("Clientes Cadastrados");
+                                            clienteDisponivel.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                            clienteDisponivel.setTextAlignment(TextAlignment.CENTER);
+                                            cli.add(clienteDisponivel,0,0);
+
+                                            final Automovel automovel;
+                                            automovel = automovelRepository.findOne(placa.getText());
+                                            List<Cliente> clientes = ClienteRepository.getInstance().findAll();
+                                            Text loc = new Text("");
+                                            loc.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                            clientes.forEach(cliente1 -> loc.setText(cliente1.getNome()));
+                                            cli.add(loc,0,1);
+
+                                            Label client = new Label("Escolha um cliente");
+                                            cli.add(client,0,2);
+
+                                            TextField clienteEscolhido = new TextField();
+                                            cli.add(clienteEscolhido,1,2);
+
+                                            final Text actiontarget = new Text();
+                                            cli.add(actiontarget, 1, 7);
+                                            actiontarget.setId("actiontarget");
+
+                                            Button concluir = new Button("CONCLUIR");
+                                            HBox bttn = new HBox(10);
+                                            bttn.setAlignment(Pos.BOTTOM_RIGHT);
+                                            bttn.getChildren().add(concluir);
+
+                                            cli.add(concluir,1,5);
+                                            concluir.setOnAction(actionEvent3 -> {
+                                                actiontarget.setFill(Color.FIREBRICK);
+                                                if(clienteEscolhido.getText().isEmpty())
+                                                    actiontarget.setText("Preencha com um nome valido");
+                                                else {
+                                                    final Cliente cliente;
+                                                    actiontarget.setText("Cadastro concluído");
+                                                    cliente = clienteRepository.findOne(clienteEscolhido.getText());
+                                                    Locacao locacao = new Locacao(cliente.getCPFCNPJ(), datainitial.getText(),
+                                                            datafinal.getText(), automovel.getPlaca());
+
+                                                    Text t2 = new Text("O valor da locação é " + locacao.calcularValorLocacao());
+                                                    t2.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                                    cli.add(t2,0,8);
+                                                    locacaoRepository.save(locacao);
+                                                }
+                                            });
+                                            menuStage.setScene(new Scene(cli));
+                                            menuStage.show();
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                    menuStage.setScene(new Scene(locacao));
+                    menuStage.show();
+                });
 
                 Button  finalizarLocacao= new Button("FINALIZAR LOCAÇÃO");
                 HBox button5 = new HBox(10);
@@ -208,7 +364,193 @@ public class Menu extends Application{
                 button4.setAlignment(Pos.BOTTOM_LEFT);
                 button4.getChildren().add(realizarLocacao);
                 opcoeGerente.add(button4,0,4);
+                realizarLocacao.setOnAction(actionEvent1 -> {
+                    GridPane locacao = new GridPane();
+                    locacao.setAlignment(Pos.CENTER);
+                    locacao.setHgap(10);
+                    locacao.setVgap(10);
+                    locacao.setPadding(new Insets(100, 100, 100, 100));
 
+                    Text realizaLocacao = new Text("REALIZAR A LOCACÃO");
+                    realizaLocacao.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                    realizaLocacao.setTextAlignment(TextAlignment.CENTER);
+                    locacao.add(realizaLocacao,0,0);
+
+                    Label dataInicial = new Label("Data inicial (DD/MM/AAA) ");
+                    locacao.add(dataInicial,0,1);
+
+                    TextField datainitial = new TextField();
+                    locacao.add(datainitial,1,1);
+
+                    Label dataFinal = new Label("Data final (DD/MM/AAA): ");
+                    locacao.add(dataFinal,0,2);
+
+                    TextField datafinal = new TextField();
+                    locacao.add(datafinal,1,2);
+
+                    Label category = new Label("Codigo da Categoria: ");
+                    locacao.add(category,0,3);
+
+                    TextField codigoCategoria = new TextField();
+                    locacao.add(codigoCategoria,1,3);
+
+                    Button confirmarCadastro = new Button("CONTINUAR");
+                    HBox btn = new HBox(10);
+                    btn.setAlignment(Pos.BOTTOM_RIGHT);
+                    btn.getChildren().add(confirmarCadastro);
+                    locacao.add(btn,1,5);
+
+                    final Text actiontarget = new Text();
+                    locacao.add(actiontarget, 1, 6);
+                    actiontarget.setId("actiontarget");
+
+                    confirmarCadastro.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            actiontarget.setFill(Color.FIREBRICK);
+                            if(datainitial.getText().trim().isEmpty() || datafinal.getText().isEmpty() ||
+                                    codigoCategoria.getText().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
+                            else {
+                                boolean possuiDestaCategoria = consultaMenu.consultaDisponibilidadeCategoria(codigoCategoria.getText());
+                            if (!possuiDestaCategoria) actiontarget.setText("Não possui automoveis dessa categoria");
+                                else {
+                                    GridPane newLocacao = new GridPane();
+                                    newLocacao.setAlignment(Pos.CENTER);
+                                    newLocacao.setHgap(10);
+                                    newLocacao.setVgap(10);
+                                    newLocacao.setPadding(new Insets(100, 100, 100, 100));
+
+                                    Text locacaoDisponivel = new Text("Automoveis disponiveis");
+                                    locacaoDisponivel.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                    locacaoDisponivel.setTextAlignment(TextAlignment.CENTER);
+                                    newLocacao.add(locacaoDisponivel,0,0);
+
+                                    Text locacaod = new Text("");
+                                    locacaod.setFont(Font.font("Tahoma",FontWeight.NORMAL,14));
+                                    automovelRepository.findAll().forEach(str -> locacaod.setText(str.toString()));
+                                    newLocacao.add(locacaod,0,1);
+
+                                    Label label = new Label("Digite uma placa");
+                                    newLocacao.add(label,0,4);
+
+                                    TextField placa = new TextField();
+                                    newLocacao.add(placa, 1, 4);
+
+                                    Button confirma = new Button("LOCAR");
+                                    HBox btn = new HBox(10);
+                                    btn.setAlignment(Pos.BOTTOM_RIGHT);
+                                    btn.getChildren().add(confirma);
+                                    newLocacao.add(btn,1,6);
+
+                                    final Text action = new Text();
+                                    newLocacao.add(action, 1, 7);
+                                    action.setId("action");
+
+                                    menuStage.setScene(new Scene(newLocacao));
+                                    menuStage.show();
+
+                                    confirma.setOnAction(actionEvent2 -> {
+                                        GridPane cli = new GridPane();
+                                        cli.setAlignment(Pos.CENTER);
+                                        cli.setHgap(10);
+                                        cli.setVgap(10);
+                                        cli.setPadding(new Insets(100, 100, 100, 100));
+                                        action.setFill(Color.FIREBRICK);
+                                        if (placa.getText().isEmpty()) action.setText("Preencha os campos");
+                                        if (automovelRepository.findOne(placa.getText())==null) action.setText("Por favor coloque uma placa valida");
+                                        else {
+                                            Text clienteDisponivel = new Text("Clientes Cadastrados");
+                                            clienteDisponivel.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                            clienteDisponivel.setTextAlignment(TextAlignment.CENTER);
+                                            cli.add(clienteDisponivel,0,0);
+
+                                            final Automovel automovel;
+                                            automovel = automovelRepository.findOne(placa.getText());
+                                            List<Cliente> clientes = ClienteRepository.getInstance().findAll();
+                                            Text loc = new Text("");
+                                            loc.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                            clientes.forEach(cliente1 -> loc.setText(cliente1.getNome()));
+                                            cli.add(loc,0,1);
+
+                                            Label client = new Label("Escolha um cliente");
+                                            cli.add(client,0,2);
+
+                                            TextField clienteEscolhido = new TextField();
+                                            cli.add(clienteEscolhido,1,2);
+
+                                            final Text actiontarget = new Text();
+                                            cli.add(actiontarget, 1, 7);
+                                            actiontarget.setId("actiontarget");
+
+                                            Button concluir = new Button("CONCLUIR");
+                                            HBox bttn = new HBox(10);
+                                            bttn.setAlignment(Pos.BOTTOM_RIGHT);
+                                            bttn.getChildren().add(concluir);
+
+                                            cli.add(concluir,1,5);
+                                            concluir.setOnAction(actionEvent3 -> {
+                                                actiontarget.setFill(Color.FIREBRICK);
+                                                if(clienteEscolhido.getText().isEmpty())
+                                                    actiontarget.setText("Preencha com um nome valido");
+                                                else {
+                                                    final Cliente cliente;
+                                                    actiontarget.setText("Cadastro concluído");
+                                                    cliente = clienteRepository.findOne(clienteEscolhido.getText());
+                                                    Locacao locacao = new Locacao(cliente.getCPFCNPJ(), datainitial.getText(),
+                                                            datafinal.getText(), automovel.getPlaca());
+
+                                                    Text t2 = new Text("O valor da locação é " + locacao.calcularValorLocacao());
+                                                    t2.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                                    cli.add(t2,0,8);
+                                                    locacaoRepository.save(locacao);
+                                                }
+                                            });
+                                            menuStage.setScene(new Scene(cli));
+                                            menuStage.show();
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                    menuStage.setScene(new Scene(locacao));
+                    menuStage.show();
+                });
+
+                /*
+                 *   Cada vez que um cliente deseja locar um automóvel ele deve indicar a data inicial, data final, a categoria do
+                 *   automóvel para a locação; se houver automóveis disponíveis da categoria desejada para a locação, o cliente
+                 *   seleciona um automóvel, e uma locação é realizada e o valor final da locação é informado ao cliente.
+                 */
+//                private void realizarLocacao(Scanner in){
+//                    System.out.println("Digite a data inicial da locação (no formado dia/mês/ano. Ex: 02/05/2020)");
+//                    String dataInicial = in.next();
+//                    System.out.println("Digite a data final da locação (no formado dia/mês/ano. Ex: 02/05/2020)");
+//                    String dataFinal = in.next();
+//                    in.nextLine();
+//                   boolean possuiDestaCategoria = this.consultaMenu.consultaDisponibilidadeCategoria(in);
+//                    if (!possuiDestaCategoria) return;
+//                    Automovel automovel;
+//                    Cliente cliente;
+//
+//                    do {
+//                        System.out.println("Por favor selecione um automóvel acima, digitando sua placa");
+//                        String placa = in.nextLine();
+//                        automovel = this.automovelRepository.findOne(placa);
+//                    } while (Objects.isNull(automovel));
+//
+//                    System.out.println("Esses são nossos clientes cadastrados: ");
+//                    this.consultaMenu.consultarClientesCadastrados();
+//                    do {
+//                        System.out.println();
+//                        System.out.println("Por favor digite o nome do cliente");
+//                        cliente = this.clienteRepository.findOne(in.nextLine());
+//                    } while (Objects.isNull(cliente));
+//
+//                    Locacao locacao = new Locacao(cliente.getCPFCNPJ(), dataInicial, dataFinal, automovel.getPlaca());
+//                    System.out.println("Valor total da locação: " + locacao.calcularValorLocacao());
+//                    this.locacaoRepository.save(locacao);
+//                }
                 Button  finalizarLocacao= new Button("FINALIZAR LOCAÇÃO");
                 HBox button5 = new HBox(10);
                 button5.setAlignment(Pos.BOTTOM_LEFT);
@@ -384,40 +726,6 @@ public class Menu extends Application{
         locacao.finalizar();
     }
 
-    /*
-     *   Cada vez que um cliente deseja locar um automóvel ele deve indicar a data inicial, data final, a categoria do
-     *   automóvel para a locação; se houver automóveis disponíveis da categoria desejada para a locação, o cliente
-     *   seleciona um automóvel, e uma locação é realizada e o valor final da locação é informado ao cliente.
-     */
-    private void realizarLocacao(Scanner in){
-        System.out.println("Digite a data inicial da locação (no formado dia/mês/ano. Ex: 02/05/2020)");
-        String dataInicial = in.next();
-        System.out.println("Digite a data final da locação (no formado dia/mês/ano. Ex: 02/05/2020)");
-        String dataFinal = in.next();
-        in.nextLine();
-        boolean possuiDestaCategoria = this.consultaMenu.consultaDisponibilidadeCategoria(in);
-        if (!possuiDestaCategoria) return;
-        Automovel automovel;
-        Cliente cliente;
-
-        do {
-            System.out.println("Por favor selecione um automóvel acima, digitando sua placa");
-            String placa = in.nextLine();
-            automovel = this.automovelRepository.findOne(placa);
-        } while (Objects.isNull(automovel));
-
-        System.out.println("Esses são nossos clientes cadastrados: ");
-        this.consultaMenu.consultarClientesCadastrados();
-        do {
-            System.out.println();
-            System.out.println("Por favor digite o nome do cliente");
-            cliente = this.clienteRepository.findOne(in.nextLine());
-        } while (Objects.isNull(cliente));
-
-        Locacao locacao = new Locacao(cliente.getCPFCNPJ(), dataInicial, dataFinal, automovel.getPlaca());
-        System.out.println("Valor total da locação: " + locacao.calcularValorLocacao());
-        this.locacaoRepository.save(locacao);
-    }
 
 
     private void removerAutomovel(Scanner in) {
