@@ -102,8 +102,6 @@ public class Menu extends Application{
                 opcoeAtendente.add(button2,0,2);
                 consulta.setOnAction(actionEvent1 -> {
                     try {
-                        cadastroMenu.cadastrarCategoria("teste");
-                        cadastroMenu.cadastrarCategoria("teste2");
                         consultaMenu.setButton(2);
                         consultaMenu.start(menuStage);
                     } catch (Exception e) {
@@ -116,6 +114,14 @@ public class Menu extends Application{
                 button3.setAlignment(Pos.BOTTOM_LEFT);
                 button3.getChildren().add(consultaLocacao);
                 opcoeAtendente.add(button3,0,3);
+                consultaLocacao.setOnAction(actionEvent1 -> {
+                    try {
+                        consultaMenu.setButton(3);
+                        consultaMenu.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
 
                 Button realizarLocacao = new Button("REALIZAR LOCAÇÃO");
@@ -176,8 +182,8 @@ public class Menu extends Application{
                 opcoeGerente.add(button2,0,2);
                 consulta.setOnAction(actionEvent1 -> {
                     try {
-                        cadastroMenu.setButton(2);
-                        cadastroMenu.start(menuStage);
+                        consultaMenu.setButton(2);
+                        consultaMenu.start(menuStage);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -188,6 +194,14 @@ public class Menu extends Application{
                 button3.setAlignment(Pos.BOTTOM_LEFT);
                 button3.getChildren().add(consultaLocacao);
                 opcoeGerente.add(button3,0,3);
+                consultaLocacao.setOnAction(actionEvent1 -> {
+                    try {
+                        consultaMenu.setButton(3);
+                        consultaMenu.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
                 Button realizarLocacao = new Button("REALIZAR LOCAÇÃO");
                 HBox button4 = new HBox(10);
