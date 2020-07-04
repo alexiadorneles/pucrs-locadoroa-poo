@@ -3,9 +3,6 @@ package menu;
 import factory.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import menu.CadastroMenu;
-import menu.ConsultaMenu;
-import menu.Menu;
 import reader.TxtReader;
 import repository.*;
 

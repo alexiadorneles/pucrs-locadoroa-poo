@@ -21,7 +21,6 @@ import domain.cliente.Cliente;
 import domain.locacao.Locacao;
 import repository.*;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -57,7 +56,7 @@ public class ConsultaMenu extends Application{
                 title.setTextAlignment(TextAlignment.CENTER);
                 grid.add(title,0,0);
 
-                Label text = new Label("Nome: ");
+                Label text = new Label("Codigo (números): ");
                 grid.add(text,0,1);
 
                 TextField categoria = new TextField();
@@ -68,7 +67,7 @@ public class ConsultaMenu extends Application{
                 HBox button1 = new HBox(10);
                 button1.setAlignment(Pos.BOTTOM_LEFT);
                 button1.getChildren().add(verificar);
-                grid.add(button1,0,1);
+                grid.add(button1,1,2);
 
                 final Text actiontarget = new Text();
                 grid.add(actiontarget, 1, 6);

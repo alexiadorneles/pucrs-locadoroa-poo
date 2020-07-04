@@ -102,8 +102,6 @@ public class Menu extends Application{
                 opcoeAtendente.add(button2,0,2);
                 consulta.setOnAction(actionEvent1 -> {
                     try {
-                        cadastroMenu.cadastrarCategoria("teste");
-                        cadastroMenu.cadastrarCategoria("teste2");
                         consultaMenu.setButton(2);
                         consultaMenu.start(menuStage);
                     } catch (Exception e) {
@@ -176,8 +174,8 @@ public class Menu extends Application{
                 opcoeGerente.add(button2,0,2);
                 consulta.setOnAction(actionEvent1 -> {
                     try {
-                        cadastroMenu.setButton(2);
-                        cadastroMenu.start(menuStage);
+                        consultaMenu.setButton(2);
+                        consultaMenu.start(menuStage);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
