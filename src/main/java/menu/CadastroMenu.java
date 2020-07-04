@@ -1,4 +1,5 @@
 package menu;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,7 +23,7 @@ import repository.*;
 
 import java.util.Scanner;
 
-public class CadastroMenu extends Application{
+public class CadastroMenu extends Application {
 
     private int button = 0;
     private final Repository<Modelo, Integer> modeloRepository;
