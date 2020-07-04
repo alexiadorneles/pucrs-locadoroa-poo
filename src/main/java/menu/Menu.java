@@ -114,6 +114,14 @@ public class Menu extends Application{
                 button3.setAlignment(Pos.BOTTOM_LEFT);
                 button3.getChildren().add(consultaLocacao);
                 opcoeAtendente.add(button3,0,3);
+                consultaLocacao.setOnAction(actionEvent1 -> {
+                    try {
+                        consultaMenu.setButton(3);
+                        consultaMenu.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
 
                 Button realizarLocacao = new Button("REALIZAR LOCAÇÃO");
@@ -186,6 +194,14 @@ public class Menu extends Application{
                 button3.setAlignment(Pos.BOTTOM_LEFT);
                 button3.getChildren().add(consultaLocacao);
                 opcoeGerente.add(button3,0,3);
+                consultaLocacao.setOnAction(actionEvent1 -> {
+                    try {
+                        consultaMenu.setButton(3);
+                        consultaMenu.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
                 Button realizarLocacao = new Button("REALIZAR LOCAÇÃO");
                 HBox button4 = new HBox(10);
