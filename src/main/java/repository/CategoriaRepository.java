@@ -30,7 +30,7 @@ public class CategoriaRepository implements Repository<Categoria, Integer> {
     }
 
     @Override
-    public Categoria findOne(Integer codigo) {
+    public Categoria findOne(Integer codigo){
         return this.categorias.stream().filter(categoria -> categoria.getCodigo().equals(codigo)).findFirst().orElse(null);
     }
 

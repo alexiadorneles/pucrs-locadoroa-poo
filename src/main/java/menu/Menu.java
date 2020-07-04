@@ -100,12 +100,23 @@ public class Menu extends Application{
                 button2.setAlignment(Pos.BOTTOM_LEFT);
                 button2.getChildren().add(consulta);
                 opcoeAtendente.add(button2,0,2);
+                consulta.setOnAction(actionEvent1 -> {
+                    try {
+                        cadastroMenu.cadastrarCategoria("teste");
+                        cadastroMenu.cadastrarCategoria("teste2");
+                        consultaMenu.setButton(2);
+                        consultaMenu.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
                 Button consultaLocacao = new Button("CONSULTAR O VALOR DE UM LOCAÇÃO");
                 HBox button3 = new HBox(10);
                 button3.setAlignment(Pos.BOTTOM_LEFT);
                 button3.getChildren().add(consultaLocacao);
                 opcoeAtendente.add(button3,0,3);
+
 
                 Button realizarLocacao = new Button("REALIZAR LOCAÇÃO");
                 HBox button4 = new HBox(10);
@@ -163,6 +174,14 @@ public class Menu extends Application{
                 button2.setAlignment(Pos.BOTTOM_LEFT);
                 button2.getChildren().add(consulta);
                 opcoeGerente.add(button2,0,2);
+                consulta.setOnAction(actionEvent1 -> {
+                    try {
+                        cadastroMenu.setButton(2);
+                        cadastroMenu.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
                 Button consultaLocacao = new Button("CONSULTAR O VALOR DE UM LOCAÇÃO");
                 HBox button3 = new HBox(10);
@@ -356,7 +375,7 @@ public class Menu extends Application{
      *   automóvel para a locação; se houver automóveis disponíveis da categoria desejada para a locação, o cliente
      *   seleciona um automóvel, e uma locação é realizada e o valor final da locação é informado ao cliente.
      */
-    private void realizarLocacao(Scanner in) {
+    private void realizarLocacao(Scanner in){
         System.out.println("Digite a data inicial da locação (no formado dia/mês/ano. Ex: 02/05/2020)");
         String dataInicial = in.next();
         System.out.println("Digite a data final da locação (no formado dia/mês/ano. Ex: 02/05/2020)");

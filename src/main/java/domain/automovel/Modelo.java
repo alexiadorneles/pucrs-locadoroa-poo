@@ -1,7 +1,10 @@
 package domain.automovel;
 
 import repository.CategoriaRepository;
+import repository.IDGenerator;
 import repository.MarcaRepository;
+
+import java.util.Random;
 
 public abstract class Modelo {
     private Integer codigo;
@@ -19,10 +22,12 @@ public abstract class Modelo {
         this.valor = valor;
         this.codCategoria = categoria;
         this.codMarca = marca;
+        this.codigo = IDGenerator.getInstance().getIdFor(this.getClass().getName());
     }
 
     protected Modelo(Integer codigo, String nome, double valor, Integer categoria, Integer marca) {
         this.codigo = codigo;
+        IDGenerator.getInstance().registerTopFor(this.getClass().getName(), codigo);
         this.nome = nome;
         this.valor = valor;
         this.codCategoria = categoria;
