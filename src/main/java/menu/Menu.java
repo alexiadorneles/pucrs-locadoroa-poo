@@ -40,7 +40,7 @@ public class Menu extends Application{
             CadastroMenu cadastroMenu,
             ConsultaMenu consultaMenu,
             AutomovelRepository automovelRepository,
-            Repository<Locacao, Integer> locacaoRepository,
+            CategoriaRepository instance, Repository<Locacao, Integer> locacaoRepository,
             Repository<Cliente, String> clienteRepository,
             TxtReader reader
     ) {
@@ -667,18 +667,42 @@ public class Menu extends Application{
                 button6.setAlignment(Pos.BOTTOM_LEFT);
                 button6.getChildren().add(cadastrarCategoria);
                 opcoeGerente.add(button6,0,6);
+                cadastrarCategoria.setOnAction(actionEvent1 -> {
+                    try {
+                        cadastroMenu.setButton(2);
+                        cadastroMenu.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
                 Button  cadastrarMarca= new Button("CADASTRAR NOVA MARCA DE AUTOMOVEL");
                 HBox button7 = new HBox(10);
                 button7.setAlignment(Pos.BOTTOM_LEFT);
                 button7.getChildren().add(cadastrarMarca);
                 opcoeGerente.add(button7,0,7);
+                cadastrarMarca.setOnAction(actionEvent1 -> {
+                    try {
+                        cadastroMenu.setButton(3);
+                        cadastroMenu.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
                 Button cadastrarModelo= new Button("CADASTRAR NOVO MODELO DE AUTOMOVEL");
                 HBox button8 = new HBox(10);
                 button8.setAlignment(Pos.BOTTOM_LEFT);
                 button8.getChildren().add(cadastrarModelo);
                 opcoeGerente.add(button8,0,8);
+                cadastrarModelo.setOnAction(actionEvent1 -> {
+                    try {
+                        cadastroMenu.setButton(4);
+                        cadastroMenu.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
                 Button  cadastrarAutomovel= new Button("CADASTRAR NOVO AUTOMOVEL");
                 HBox button9 = new HBox(10);
