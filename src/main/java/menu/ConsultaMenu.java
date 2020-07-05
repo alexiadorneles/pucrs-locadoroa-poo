@@ -21,7 +21,6 @@ import domain.cliente.Cliente;
 import domain.locacao.Locacao;
 import repository.*;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -57,7 +56,7 @@ public class ConsultaMenu extends Application{
                 title.setTextAlignment(TextAlignment.CENTER);
                 grid.add(title,0,0);
 
-                Label text = new Label("Nome: ");
+                Label text = new Label("Codigo (números): ");
                 grid.add(text,0,1);
 
                 TextField categoria = new TextField();
@@ -68,7 +67,7 @@ public class ConsultaMenu extends Application{
                 HBox button1 = new HBox(10);
                 button1.setAlignment(Pos.BOTTOM_LEFT);
                 button1.getChildren().add(verificar);
-                grid.add(button1,0,1);
+                grid.add(button1,1,2);
 
                 final Text actiontarget = new Text();
                 grid.add(actiontarget, 1, 6);
@@ -92,9 +91,10 @@ public class ConsultaMenu extends Application{
                             categoriaDisponivel.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
                             categoriaDisponivel.setTextAlignment(TextAlignment.CENTER);
                             grid.add(categoriaDisponivel,0,5);
-                            autoDisponiveisCategoria.forEach(str -> categoriaDisponivel.setText(str.toString()));
-                            autoDisponiveisCategoria.forEach(System.out::println);
-
+                            Text txt = new Text();
+                            txt.setFont(Font.font("Tahoma",FontWeight.NORMAL,14));
+                            autoDisponiveisCategoria.forEach(str -> txt.setText(str.toString()));
+                            grid.add(txt,0,6);
                         }
                     }
                 }) ;
@@ -103,32 +103,80 @@ public class ConsultaMenu extends Application{
                 menuConsulta.show();
 
                 break;
+            case 3:
+                Text title2 = new Text("CONSULTAR O VALOR DE UMA LOCAÇÃO");
+                title2.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title2.setTextAlignment(TextAlignment.CENTER);
+                grid.add(title2,0,0);
+
+                Text locacaoDisponivel = new Text("Locações disponiveis");
+                locacaoDisponivel.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                locacaoDisponivel.setTextAlignment(TextAlignment.CENTER);
+                grid.add(locacaoDisponivel,0,5);
+                Text locacaod = new Text("");
+                locacaod.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                locacaoRepository.findAll().forEach(str -> locacaod.setText(str.toString()));
+                grid.add(locacaod,0,6);
+
+                Label text2 = new Label("Codigo: ");
+                grid.add(text2,0,1);
+
+                TextField codigo = new TextField();
+                grid.add(codigo,1,1);
+
+
+                Button consult = new Button("VERIFICAR");
+                HBox button2 = new HBox(10);
+                button2.setAlignment(Pos.BOTTOM_LEFT);
+                button2.getChildren().add(consult);
+                grid.add(button2,1,2);
+
+                final Text action = new Text();
+                grid.add(action, 1, 6);
+                action.setId("action");
+
+
+                consult.setOnAction(new EventHandler<ActionEvent>()  {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        action.setFill(Color.FIREBRICK);
+                        if (codigo.getText().isEmpty()) action.setText("Por favor preencha todos os campos");
+                        else {
+                            Locacao locacao;
+                            locacao = locacaoRepository.findOne(Integer.valueOf(codigo.getText()));
+                            Text t2 = new Text("O valor da locação é " + locacao.calcularValorLocacao());
+                            t2.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                            grid.add(t2,0,2);
+                        }
+                    }
+                }) ;
+                Scene scene2 = new Scene(grid);
+                menuConsulta.setScene(scene2);
+                menuConsulta.show();
+
+                break;
         }
     }
-
-    public boolean consultaDisponibilidadeCategoria(Scanner in){
-//        System.out.println("Digite a categoria: ");
-        Categoria categoria = CategoriaRepository.getInstance().findOne(Integer.valueOf(in.nextLine()));
+    public boolean consultaDisponibilidadeCategoria(String codigo){
+        Categoria categoria = CategoriaRepository.getInstance().findOne(Integer.valueOf(codigo));
         List<Automovel> autoDisponiveisCategoria = this.automovelRepository.filter(auto -> this.getAutomovelByCategoriaAndDisponivel(categoria, auto));
         if (autoDisponiveisCategoria.isEmpty()) {
-            System.out.println("Não há automoveis dessa categoria");
             return false;
         }
-
         autoDisponiveisCategoria.forEach(System.out::println);
         return true;
     }
-    public void consultarValorLocacao(Scanner in){
-        System.out.println("Essas são as locações disponíveis no sistema: ");
-        this.consultarLocacoes();
-        Locacao locacao;
-        do {
-            System.out.println("Por favor digite o código de uma locação pra consultar seu valor total: ");
-            locacao = this.locacaoRepository.findOne(Integer.valueOf(in.nextLine()));
-        } while (Objects.isNull(locacao));
-
-        System.out.println("O valor da sua locação é: " + locacao.calcularValorLocacao());
-    }
+//    public void consultarValorLocacao(Scanner in){
+//        System.out.println("Essas são as locações disponíveis no sistema: ");
+//        this.consultarLocacoes();
+//        Locacao locacao;
+//            do {
+//            System.out.println("Por favor digite o código de uma locação pra consultar seu valor total: ");
+//                locacao = locacaoRepository.findOne(Integer.valueOf(in.nextLine()));
+//            } while (Objects.isNull(locacao));
+//
+//        System.out.println("O valor da sua locação é: " + locacao.calcularValorLocacao());
+//    }
 
     public void consultarLocacoes() {
         this.locacaoRepository.findAll().forEach(System.out::println);
