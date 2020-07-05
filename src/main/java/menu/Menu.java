@@ -16,6 +16,7 @@ import domain.cliente.Cliente;
 import domain.locacao.Locacao;
 import reader.TxtReader;
 import repository.AutomovelRepository;
+import repository.CategoriaRepository;
 import repository.Repository;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class Menu extends Application{
     private final Repository<Locacao, Integer> locacaoRepository;
     private final Repository<Cliente, String> clienteRepository;
     private final AutomovelRepository automovelRepository;
+    private final CategoriaRepository categoriaRepository;
     private final ConsultaMenu consultaMenu;
     private final CadastroMenu cadastroMenu;
     private final TxtReader reader;
@@ -35,6 +37,7 @@ public class Menu extends Application{
             CadastroMenu cadastroMenu,
             ConsultaMenu consultaMenu,
             AutomovelRepository automovelRepository,
+            CategoriaRepository categoriaRepository,
             Repository<Locacao, Integer> locacaoRepository,
             Repository<Cliente, String> clienteRepository,
             TxtReader reader
@@ -43,6 +46,7 @@ public class Menu extends Application{
         this.cadastroMenu = cadastroMenu;
         this.consultaMenu = consultaMenu;
         this.automovelRepository = automovelRepository;
+        this.categoriaRepository = categoriaRepository;
         this.locacaoRepository = locacaoRepository;
         this.clienteRepository = clienteRepository;
         this.reader = reader;
@@ -206,12 +210,29 @@ public class Menu extends Application{
                 button6.setAlignment(Pos.BOTTOM_LEFT);
                 button6.getChildren().add(cadastrarCategoria);
                 opcoeGerente.add(button6,0,6);
+                cadastrarCategoria.setOnAction(actionEvent1 -> {
+                    try {
+                        cadastroMenu.setButton(2);
+                        cadastroMenu.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
                 Button  cadastrarMarca= new Button("CADASTRAR NOVA MARCA DE AUTOMOVEL");
                 HBox button7 = new HBox(10);
                 button7.setAlignment(Pos.BOTTOM_LEFT);
                 button7.getChildren().add(cadastrarMarca);
                 opcoeGerente.add(button7,0,7);
+                cadastrarMarca.setOnAction(actionEvent1 -> {
+                    try {
+                        cadastroMenu.setButton(3);
+                        cadastroMenu.start(menuStage);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                });
+
 
                 Button cadastrarModelo= new Button("CADASTRAR NOVO MODELO DE AUTOMOVEL");
                 HBox button8 = new HBox(10);

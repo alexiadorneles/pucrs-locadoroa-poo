@@ -27,7 +27,7 @@ public class Principal extends Application {
                 new MarcaFactory(),
                 new ModeloFactory()
         ));
-        menu = new Menu(cadastroMenu, consultaMenu, AutomovelRepository.getInstance(), LocacaoRepository.getInstance(), ClienteRepository.getInstance(), reader);
+        menu = new Menu(cadastroMenu, consultaMenu, AutomovelRepository.getInstance(), CategoriaRepository.getInstance(), LocacaoRepository.getInstance(), ClienteRepository.getInstance(), reader);
         launch(args);
     }
 

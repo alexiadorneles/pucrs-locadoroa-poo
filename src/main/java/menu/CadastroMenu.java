@@ -206,9 +206,93 @@ public class CadastroMenu extends Application {
                 menuCadastro.setScene(scene);
                 menuCadastro.show();
                 break;
-            case 2:
 
+                case 2:
+                    Scene scene1 = new Scene(grid);
+                    menuCadastro.setScene(scene1);
+                    menuCadastro.show();
+
+                    Text title1 = new Text("CADASTRAR NOVA CATEGORIA");
+                    title1.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                    title1.setTextAlignment(TextAlignment.CENTER);
+                    grid.add(title1,0,0);
+
+                    Label nomeCat = new Label("Nome Categoria: ");
+                    grid.add(nomeCat,0,1);
+
+                    TextField cat = new TextField();
+                    grid.add(cat,1,1);
+
+                    Button cadastroCat = new Button("CADASTRAR CATEGORIA");
+                    HBox button3 = new HBox(10);
+                    button3.setAlignment(Pos.BOTTOM_LEFT);
+                    button3.getChildren().add(cadastroCat);
+                    grid.add(button3,0,2);
+
+                    final Text actiontarget = new Text();
+                    grid.add(actiontarget, 1, 6);
+                    actiontarget.setId("actiontarget");
+
+                    cadastroCat.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            actiontarget.setFill(Color.FIREBRICK);
+                            if(cat.getText().trim().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
+                            else {
+                                actiontarget.setText("Cadastro concluido");
+                                Categoria categoria = new Categoria(cat.getText());
+                                categoriaRepository.save(categoria);
+                                System.out.println(categoria.toString());
+                            }
+                        }
+                    });
+                    menuCadastro.setScene(new Scene(grid));
+                    menuCadastro.show();
                 break;
+
+            case 3:
+
+                Scene scene2 = new Scene(grid);
+                menuCadastro.setScene(scene2);
+                menuCadastro.show();
+
+                Text title2 = new Text("CADASTRAR NOVA MARCA");
+                title2.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title2.setTextAlignment(TextAlignment.CENTER);
+                grid.add(title2,0,0);
+
+                Label nomeMarca = new Label("Nome Marca: ");
+                grid.add(nomeMarca,0,1);
+
+                TextField marca = new TextField();
+                grid.add(marca,1,1);
+
+                Button cadastroMarca = new Button("CADASTRAR MARCA");
+                HBox button4 = new HBox(10);
+                button4.setAlignment(Pos.BOTTOM_LEFT);
+                button4.getChildren().add(cadastroMarca);
+                grid.add(button4,0,2);
+
+                final Text actiontarget1 = new Text();
+                grid.add(actiontarget1, 1, 6);
+                actiontarget1.setId("actiontarget");
+
+                cadastroMarca.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        actiontarget1.setFill(Color.FIREBRICK);
+                        if(marca.getText().trim().isEmpty()) actiontarget1.setText("Por favor preencha todos os campos");
+                        else {
+                            actiontarget1.setText("Cadastro concluido");
+                            Marca m = new Marca(marca.getText());
+                            marcaRepository.save(m);
+                            System.out.println(marca.toString());
+                        }
+                    }
+                });
+                break;
+
+
         }
     }
 //
