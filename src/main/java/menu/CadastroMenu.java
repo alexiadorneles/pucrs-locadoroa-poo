@@ -217,7 +217,7 @@ public class CadastroMenu extends Application {
                     title1.setTextAlignment(TextAlignment.CENTER);
                     grid.add(title1,0,0);
 
-                    Label nomeCat = new Label("Nome Categoria: ");
+                    Label nomeCat = new Label("Nome da Categoria: ");
                     grid.add(nomeCat,0,1);
 
                     TextField cat = new TextField();
@@ -261,7 +261,7 @@ public class CadastroMenu extends Application {
                 title2.setTextAlignment(TextAlignment.CENTER);
                 grid.add(title2,0,0);
 
-                Label nomeMarca = new Label("Nome Marca: ");
+                Label nomeMarca = new Label("Nome da Marca: ");
                 grid.add(nomeMarca,0,1);
 
                 TextField marca = new TextField();
