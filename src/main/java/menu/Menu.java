@@ -718,6 +718,14 @@ public class Menu extends Application{
                 button12.setAlignment(Pos.BOTTOM_LEFT);
                 button12.getChildren().add(consultarClientes);
                 opcoeGerente.add(button12,0,12);
+                consultarClientes.setOnAction(actionE1 -> {
+                    try {
+                        consultaMenu.setButton(5);
+                        consultaMenu.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
                 Button  consultarAutomoveis= new Button("CONSULTAR AUTOMOVEIS CADASTRADOS");
                 HBox button13 = new HBox(10);

@@ -183,6 +183,33 @@ public class ConsultaMenu extends Application{
                 menuConsulta.setScene(new Scene(grid));
                 menuConsulta.show();
                 break;
+            case 5:
+                Text title4 = new Text("CONSULTAR CLIENTES");
+                title4.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title4.setTextAlignment(TextAlignment.CENTER);
+                grid.add(title4,0,0);
+
+                Label text3 = new Label("Clientes disponiveis");
+                grid.add(text3,0,1);
+
+                Text action2 = new Text();
+                action2.setId("action");
+                action2.setFill(Color.FIREBRICK);
+                grid.add(action2,0,6);
+
+                List<Cliente> clientes = ClienteRepository.getInstance().findAll();
+                if (clientes.isEmpty()) {
+                    action2.setText("Nenhum cliente disponivel");
+                }else {
+                    Text cli = new Text();
+                    cli.setFont(Font.font("Tahoma",FontWeight.NORMAL,14));
+                    cli.setTextAlignment(TextAlignment.CENTER);
+                    clientes.forEach(str-> cli.setText(str.toString()));
+                    grid.add(cli,0,5);
+                }
+                menuConsulta.setScene(new Scene(grid));
+                menuConsulta.show();
+                break;
         }
     }
     public boolean consultaDisponibilidadeCategoria(String codigo){
