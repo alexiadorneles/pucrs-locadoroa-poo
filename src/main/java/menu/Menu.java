@@ -1,8 +1,8 @@
 package menu;
 
+import domain.DataSource;
 import domain.automovel.*;
-import domain.cliente.PessoaFisica;
-import domain.cliente.PessoaJuridica;
+import factory.DataSourceFactory;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,14 +20,14 @@ import javafx.stage.Stage;
 
 import domain.cliente.Cliente;
 import domain.locacao.Locacao;
+import javafx.stage.WindowEvent;
+import reader.JSONReader;
 import reader.TxtReader;
 import repository.*;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Menu extends Application {
@@ -38,6 +38,8 @@ public class Menu extends Application {
     private final ConsultaMenu consultaMenu;
     private final CadastroMenu cadastroMenu;
     private final TxtReader reader;
+    private final JSONReader jsonReader;
+    private final DataSourceFactory dataSourceFactory;
 
     public Menu(
             CadastroMenu cadastroMenu,
@@ -45,8 +47,9 @@ public class Menu extends Application {
             AutomovelRepository automovelRepository,
             CategoriaRepository instance, Repository<Locacao, Integer> locacaoRepository,
             Repository<Cliente, String> clienteRepository,
-            TxtReader reader
-    ) {
+            TxtReader reader,
+            JSONReader jsonReader, DataSourceFactory dataSourceFactory) {
+        this.jsonReader = jsonReader;
         this.in = new Scanner(System.in);
         this.cadastroMenu = cadastroMenu;
         this.consultaMenu = consultaMenu;
@@ -54,11 +57,25 @@ public class Menu extends Application {
         this.locacaoRepository = locacaoRepository;
         this.clienteRepository = clienteRepository;
         this.reader = reader;
+        this.dataSourceFactory = dataSourceFactory;
     }
 
     @Override
     public void start(Stage menuStage) throws Exception {
         menuStage.setTitle("---------- LOCADORA AJE ----------");
+        DataSourceFactory factory = this.dataSourceFactory;
+        JSONReader<DataSource> jsonReader = this.jsonReader;
+        menuStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                DataSource dataSource = factory.createToJSON();
+                try {
+                    jsonReader.write("resources/db.json", dataSource);
+                } catch (IOException e) {
+                    System.out.println("Erro ao salvar dados");
+                }
+            }
+        });
         GridPane telaCarga = new GridPane();
         telaCarga.setAlignment(Pos.CENTER);
         telaCarga.setHgap(10);
@@ -74,7 +91,7 @@ public class Menu extends Application {
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(atendente);
         telaCarga.add(hbBtn, 1, 4);
-        atendente.setOnAction(new EventHandler<ActionEvent>() {
+        atendente.setOnAction(new EventHandler<>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 GridPane opcoeAtendente = new GridPane();
@@ -820,85 +837,5 @@ public class Menu extends Application {
         Scene scene = new Scene(telaCarga);
         menuStage.setScene(scene);
         menuStage.show();
-    }
-//
-//    public void mostrar(String [] arg) {
-//        launch(arg);
-//        System.out.println("1 - Atendendente");
-//        System.out.println("2 - Gerente");
-//        int tipoUsuario = in.nextInt();
-//        in.nextLine();
-//        int opcao2;
-//
-//        do {
-//            System.out.println("-------------------------------------------");
-//            if (tipoUsuario == 1) this.mostrarOpcoesAtendente();
-//      if (tipoUsuario == 2) this.mostrarOpcoesGerente();
-//            opcao2 = in.nextInt();
-//            in.nextLine();
-//            switch (opcao2) {
-////       1 - Cadastrar cliente
-//                case 1:
-//                    this.cadastroMenu.cadastrarCliente(in);
-//                    break;
-////       2 - Consultar Disponibilidade de Automóvel por Categoria
-//                case 2:
-//                    this.consultaMenu.consultaDisponibilidadeCategoria(in);
-//                    break;
-////       3 - Consultar o Valor de uma Locaçao
-//                case 3:
-//                    this.consultaMenu.consultarValorLocacao(in);
-//                    break;
-////       4 - Realizar locação
-//                case 4:
-//                    this.realizarLocacao(in);
-//                    break;
-////       5 - Finalizar Locação
-//                case 5:
-//                    this.finalizarLocacao(in);
-//                    break;
-////       6 - Cadastrar Nova Categoria Automóvel
-//                case 6:
-//                    this.cadastroMenu.cadastrarCategoria(in);
-//                    break;
-////       7 - Cadastrar Nova Marca do Automóvel
-//                case 7:
-//                    this.cadastroMenu.cadastrarMarca(in);
-//                    break;
-////       8 - Cadastrar Novo Modelo do Automóvel
-//                case 8:
-//                    this.cadastroMenu.cadastrarModelo(in);
-//                    break;
-////       9 - Cadastrar Novo Automóvel
-//                case 9:
-//                    this.cadastroMenu.cadastrarAutomovel(in);
-//                    break;
-////       10 - Remover Automóvel
-//                case 10:
-//                    this.removerAutomovel(in);
-//                    break;
-////       11 - Consultar Locações
-//                case 11:
-//                    this.consultaMenu.consultarLocacoes();
-//                    break;
-////       12 - Consultar Clientes Cadastrados
-//                case 12:
-//                    this.consultaMenu.consultarClientesCadastrados();
-//                    break;
-////      13 - Consultar Automóveis Cadastrados
-//                case 13:
-//                    this.consultaMenu.consultarAutomoveis();
-//                    break;
-//                case 14:
-//                    this.realizarCargaDeDados(in);
-//                    break;
-//            }
-//        } while (opcao2 != 99);
-//    }
-
-    private void removerAutomovel(Scanner in) {
-        System.out.println("Digite a placa do automóvel que deseja remover");
-        boolean result = this.automovelRepository.removeByPlaca(in.nextLine());
-        System.out.println(result ? "Removido com sucesso!" : "Um automóvel com essa placa não existe");
     }
 }
