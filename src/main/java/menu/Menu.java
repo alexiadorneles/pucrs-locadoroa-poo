@@ -55,21 +55,21 @@ public class Menu extends Application{
     @Override
     public void start(Stage menuStage) throws Exception {
         menuStage.setTitle("---------- LOCADORA AJE ----------");
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(100, 100, 100, 100));
+        GridPane telaCarga = new GridPane();
+        telaCarga.setAlignment(Pos.CENTER);
+        telaCarga.setHgap(10);
+        telaCarga.setVgap(10);
+        telaCarga.setPadding(new Insets(100, 100, 100, 100));
 
         Text sceneTitle = new Text("MENU");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        grid.add(sceneTitle, 0, 0);
+        telaCarga.add(sceneTitle, 0, 0);
 
         Button atendente = new Button("ATENDENTE");
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(atendente);
-        grid.add(hbBtn, 1, 4);
+        telaCarga.add(hbBtn, 1, 4);
         atendente.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -303,7 +303,7 @@ public class Menu extends Application{
         HBox gerentBt = new HBox(10);
         gerentBt.setAlignment(Pos.BOTTOM_RIGHT);
         gerentBt.getChildren().add(gerente);
-        grid.add(gerentBt, 0, 4);
+        telaCarga.add(gerentBt, 0, 4);
         gerente.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -728,10 +728,10 @@ public class Menu extends Application{
                 });
 
                 Button  consultarAutomoveis= new Button("CONSULTAR AUTOMOVEIS CADASTRADOS");
-                HBox button13 = new HBox(10);
-                button13.setAlignment(Pos.BOTTOM_LEFT);
-                button13.getChildren().add(consultarAutomoveis);
-                opcoeGerente.add(button13,0,13);
+                HBox button = new HBox(10);
+                button.setAlignment(Pos.BOTTOM_LEFT);
+                button.getChildren().add(consultarAutomoveis);
+                opcoeGerente.add(button,0,13);
                 consultarAutomoveis.setOnAction(actionE-> {
                     try {
                         consultaMenu.setButton(6);
@@ -748,6 +748,51 @@ public class Menu extends Application{
                 button14.getChildren().add(cargaDeDados);
                 opcoeGerente.add(button14,0,14);
 
+//                private void realizarCargaDeDados(Scanner in) {
+//                    System.out.println("Por favor, digite o nome do arquivo (ele deve estar em resources)");
+//                    String fileName = in.nextLine();
+//                    reader.read(fileName);
+//                }
+                cargaDeDados.setOnAction(actionE-> {
+                    GridPane telaCarga = new GridPane();
+                    telaCarga.setAlignment(Pos.CENTER);
+                    telaCarga.setHgap(10);
+                    telaCarga.setVgap(10);
+                    telaCarga.setPadding(new Insets(50, 100, 100, 100));
+                    
+                    Text title1 = new Text("CARGA DE DADOS");
+                    title1.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                    title1.setTextAlignment(TextAlignment.CENTER);
+                    telaCarga.add(title1,0,0);
+
+                    Label text = new Label("Nome do arquivo: ");
+                    telaCarga.add(text,0,1);
+
+                    TextField nomeArquivo = new TextField();
+                    telaCarga.add(nomeArquivo,1,1);
+
+                    Text action = new Text();
+                    action.setId("action");
+                    action.setFill(Color.FIREBRICK);
+                    telaCarga.add(action,0,6);
+
+
+                    Button  carga= new Button("CONFIRMAR");
+                    HBox hbutton = new HBox(10);
+                    hbutton.setAlignment(Pos.BOTTOM_LEFT);
+                    hbutton.getChildren().add(carga);
+                    telaCarga.add(hbutton,0,5);
+                    carga.setOnAction(ac-> {
+                        reader.read(nomeArquivo.getText());
+                        action.setText("Arquivo lido");
+
+
+                    });
+
+                    menuStage.setScene(new Scene(telaCarga));
+                    menuStage.show();
+                });
+
                 Scene gerenteOpcao = new Scene(opcoeGerente);
                 menuStage.setScene(gerenteOpcao);
                 menuStage.show();
@@ -755,7 +800,7 @@ public class Menu extends Application{
             }
         });
 
-        Scene scene = new Scene(grid);
+        Scene scene = new Scene(telaCarga);
         menuStage.setScene(scene);
         menuStage.show();
     }
