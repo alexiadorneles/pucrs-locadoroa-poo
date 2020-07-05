@@ -145,9 +145,15 @@ public class ConsultaMenu extends Application{
                         else {
                             Locacao locacao;
                             locacao = locacaoRepository.findOne(Integer.valueOf(codigo.getText()));
-                            Text t2 = new Text("O valor da locação é " + locacao.calcularValorLocacao());
-                            t2.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
-                            grid.add(t2,0,2);
+                            try {
+                                Text t2 = new Text("O valor da locação é " + locacao.calcularValorLocacao());
+                                t2.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                grid.add(t2,0,2);
+                            } catch (Exception e) {
+                                Text t2 = new Text("Houve um problema ao calcular o valor da locação. Certifique-se que ela esteja ligada a um automóvel.");
+                                t2.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                grid.add(t2,0,2);
+                            }
                         }
                     }
                 }) ;
