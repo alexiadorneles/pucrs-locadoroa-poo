@@ -210,6 +210,34 @@ public class ConsultaMenu extends Application{
                 menuConsulta.setScene(new Scene(grid));
                 menuConsulta.show();
                 break;
+
+            case 6:
+                Text title5 = new Text("CONSULTAR AUTOMOVEIS");
+                title5.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title5.setTextAlignment(TextAlignment.CENTER);
+                grid.add(title5,0,0);
+
+                Label text4 = new Label("Automoveis cadastrados");
+                grid.add(text4,0,1);
+
+                Text action3 = new Text();
+                action3.setId("action");
+                action3.setFill(Color.FIREBRICK);
+                grid.add(action3,0,6);
+
+                List<Automovel> automoveis = this.automovelRepository.findAll();
+                if (automoveis.isEmpty()) {
+                    action3.setText("Nenhum automovel cadastrado");
+                }else {
+                    Text auto = new Text();
+                    auto.setFont(Font.font("Tahoma",FontWeight.NORMAL,14));
+                    auto.setTextAlignment(TextAlignment.CENTER);
+                    automoveis.forEach(str-> auto.setText(str.toString()));
+                    grid.add(auto,0,5);
+                }
+                menuConsulta.setScene(new Scene(grid));
+                menuConsulta.show();
+                break;
         }
     }
     public boolean consultaDisponibilidadeCategoria(String codigo){
@@ -237,16 +265,16 @@ public class ConsultaMenu extends Application{
 //        this.locacaoRepository.findAll().forEach(System.out::println);
 //    }
 
-    public void consultarAutomoveis() {
-        List<Automovel> automoveis = this.automovelRepository.findAll();
-        automoveis.forEach(System.out::println);
-    }
+//    public void consultarAutomoveis() {
+//        List<Automovel> automoveis = this.automovelRepository.findAll();
+//        automoveis.forEach(System.out::println);
+//    }
 
 
-    public void consultarClientesCadastrados() {
-        List<Cliente> clientes = ClienteRepository.getInstance().findAll();
-        clientes.forEach(cliente -> System.out.println(cliente.getNome()));
-    }
+//    public void consultarClientesCadastrados() {
+//        List<Cliente> clientes = ClienteRepository.getInstance().findAll();
+//        clientes.forEach(cliente -> System.out.println(cliente.getNome()));
+//    }
 
     private boolean getAutomovelByCategoriaAndDisponivel(Categoria categoria, Automovel automovel) {
         return automovel.getModelo().getCategoria().equals(categoria) && automovel.isDisponivel();
