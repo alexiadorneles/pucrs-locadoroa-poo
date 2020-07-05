@@ -40,7 +40,7 @@ public class Menu extends Application{
             CadastroMenu cadastroMenu,
             ConsultaMenu consultaMenu,
             AutomovelRepository automovelRepository,
-            Repository<Locacao, Integer> locacaoRepository,
+            CategoriaRepository instance, Repository<Locacao, Integer> locacaoRepository,
             Repository<Cliente, String> clienteRepository,
             TxtReader reader
     ) {
@@ -586,12 +586,13 @@ public class Menu extends Application{
                         hfinal.setAlignment(Pos.BOTTOM_LEFT);
                         hfinal.getChildren().add(finalLocacao);
                         finalizar.add(finalLocacao,0,5);
+                        Text action1=new Text();
+                        action.setId("act1");
+                        finalizar.add(action1,0,5);
                         finalLocacao.setOnAction(act -> {
-                            Text action1=new Text();
-                            action.setId("act1");
-                            String s = codigo.getText();
-                            int codigos = Integer.parseInt(s);
-                            Locacao locacao1 = locacoes.stream().filter(locacao2 -> locacao2.getCodigo()==(codigos)).findFirst().orElse(null);
+
+                            int codigos = Integer.parseInt(codigo.getText());
+                            Locacao locacao1 = locacoes.stream().filter(locacao2 -> locacao2.getCodigo().equals(codigos)).findFirst().orElse(null);
                             if (codigo.getText().isEmpty()||locacao1==null) action1.setText("Preencha com um codigo valido");
                             else {
                                 GridPane finalizando = new GridPane();
@@ -608,7 +609,7 @@ public class Menu extends Application{
                                 Text removido = new Text();
                                 removido.setFont(Font.font("Tahoma",FontWeight.NORMAL,14));
                                 removido.setTextAlignment(TextAlignment.CENTER);
-                                finalizando.add(removido,0,2);
+                                finalizando.add(removido,0,3);
 
                                 Text actiontarget = new Text();
                                 actiontarget.setId("actiontarget");
@@ -622,19 +623,21 @@ public class Menu extends Application{
                                 hsim.getChildren().add(sim);
                                 finalizando.add(sim,0,1);
 
-                                sim.setOnAction(actionEvent3 -> {
-                                    finalizando.add(removido,0,2);
-                                    if(locacao1.getAuto().isVelhoDemaisParaAFrota()){
-                                        removido.setText("O veículo não está mais em condições de operar e foi removido da frota\n" +
-                                                "Pelo motivo de ser velho demais.\nE por ter sofrido um acidente");
-                                    } else{
-                                        removido.setText("O veículo não está mais em condições de operar e foi removido da frota\n" +
-                                                "E por ter sofrido um acidente");
-                                    }
+                                sim.setOnAction(new EventHandler<ActionEvent>() {
+                                    @Override
+                                    public void handle(ActionEvent actionEvent) {
+                                        finalizando.add(removido,0,3);
+                                        if(locacao1.getAuto().isVelhoDemaisParaAFrota()){
+                                            removido.setText("O veículo não está mais em condições de operar e foi removido da frota\n" +
+                                                    "Pelo motivo de ser velho demais.\nE por ter sofrido um acidente");
+                                        } else{
+                                            removido.setText("O veículo não está mais em condições de operar e foi removido da frota\n" +
+                                                    "E por ter sofrido um acidente");
+                                        }
 
-                                    actiontarget.setText("Locação finalizada");
-                                    menuStage.setScene(new Scene(finalizando));
-                                    menuStage.show();
+                                        actiontarget.setText("Locação finalizada");
+                                        menuStage.setScene(new Scene(finalizando));
+                                    }
                                 });
 
                                 Button nao = new Button("NÃO");
@@ -647,13 +650,14 @@ public class Menu extends Application{
                                     if(locacao1.getAuto().isVelhoDemaisParaAFrota()){
                                         removido.setText("O veículo não está mais em condições de operar e foi removido da frota\n" +
                                                 "Por ter sofrido um acidente");
+                                        finalizando.add(removido,0,2);
+
                                     }
                                     actiontarget.setText("Locação finalizada");
                                     menuStage.setScene(new Scene(finalizando));
                                     menuStage.show();
                                 });
                                 menuStage.setScene(new Scene(finalizando));
-                                menuStage.show();
                             }
                         });
 

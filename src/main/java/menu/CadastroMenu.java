@@ -120,8 +120,10 @@ public class CadastroMenu extends Application {
                             @Override
                             public void handle(ActionEvent actionEvent) {
                                 actiontarget.setFill(Color.FIREBRICK);
+                                Cliente c = clienteRepository.findOne(cpfCliente.getText());
+
                                 if(nomeCliente.getText().trim().isEmpty() || telefoneCliente.getText().isEmpty() ||
-                                        cpfCliente.getText().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
+                                        cpfCliente.getText().isEmpty() || c==null) actiontarget.setText("Por favor preencha todos os campos");
                                 else {
                                     actiontarget.setText("Cadastro concluido");
                                     Cliente cliente = new PessoaFisica(nomeCliente.getText(), telefoneCliente.getText(), cpfCliente.getText());
@@ -186,8 +188,9 @@ public class CadastroMenu extends Application {
                             @Override
                             public void handle(ActionEvent actionEvent) {
                                 actiontarget.setFill(Color.FIREBRICK);
+                                Cliente c = clienteRepository.findOne(cnpjCliente.getText());
                                 if(nomeCliente.getText().trim().isEmpty() || telefoneCliente.getText().isEmpty() ||
-                                        cnpjCliente.getText().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
+                                        cnpjCliente.getText().isEmpty() || c==null) actiontarget.setText("Por favor preencha todos os campos");
                                 else {
                                     actiontarget.setText("Cadastro concluido");
                                     Cliente cliente = new PessoaJuridica(nomeCliente.getText(), telefoneCliente.getText(), cnpjCliente.getText());
