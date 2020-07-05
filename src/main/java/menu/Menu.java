@@ -524,26 +524,6 @@ public class Menu extends Application{
                 button5.getChildren().add(finalizarLocacao);
                 opcoeGerente.add(button5,0,5);
                 finalizarLocacao.setOnAction(actionEvent1 -> {
-
-                    Cliente cliente = new PessoaFisica("Maria", "0900", "029307");
-                    ClienteRepository.getInstance().save(cliente);
-
-                    Categoria categoria = new Categoria(1, "Qualquer");
-                    CategoriaRepository.getInstance().save(categoria);
-
-                    Marca marca = new Marca(1, "Honda");
-                    MarcaRepository.getInstance().save(marca);
-
-                    Modelo modelo = new ModeloNacional(1, "Civic", 100000, 1,
-                            1, 10);
-                    ModeloRepository.getInstance().save(modelo);
-
-                    Automovel automovel = new Automovel("AAA-2A22", 2019, 10, modelo.getCodigo());
-                    AutomovelRepository.getInstance().save(automovel);
-
-                    Locacao locar = new Locacao(cliente.getCPFCNPJ(), "02/01/2020", "12/01/2020", automovel.getPlaca());
-                    locacaoRepository.save(locar);
-
                     GridPane finalizar = new GridPane();
                     finalizar.setAlignment(Pos.CENTER);
                     finalizar.setHgap(10);
@@ -655,7 +635,6 @@ public class Menu extends Application{
                                     }
                                     actiontarget.setText("Locação finalizada");
                                     menuStage.setScene(new Scene(finalizando));
-                                    menuStage.show();
                                 });
                                 menuStage.setScene(new Scene(finalizando));
                             }
@@ -725,6 +704,14 @@ public class Menu extends Application{
                 button11.setAlignment(Pos.BOTTOM_LEFT);
                 button11.getChildren().add(consultarLocacoes);
                 opcoeGerente.add(button11,0,11);
+                consultarLocacoes.setOnAction(actionE -> {
+                    try {
+                        consultaMenu.setButton(4);
+                        consultaMenu.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
                 Button  consultarClientes= new Button("CONSULTAR CLIENTES");
                 HBox button12 = new HBox(10);

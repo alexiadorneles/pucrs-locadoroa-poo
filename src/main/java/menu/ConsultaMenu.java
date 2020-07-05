@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -155,6 +156,33 @@ public class ConsultaMenu extends Application{
                 menuConsulta.show();
 
                 break;
+            case 4:
+                Text title3 = new Text("CONSULTAR LOCACOES");
+                title3.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title3.setTextAlignment(TextAlignment.CENTER);
+                grid.add(title3,0,0);
+
+                Label text1 = new Label("Locações disponiveis");
+                grid.add(text1,0,1);
+
+                Text action1 = new Text();
+                action1.setId("action");
+                action1.setFill(Color.FIREBRICK);
+                grid.add(action1,0,6);
+
+                List<Locacao> locacoes = locacaoRepository.filter(locacao -> !locacao.isFinalizada());
+                if (locacoes.isEmpty()) {
+                    action1.setText("Nenhuma locação disponivel");
+                }else {
+                    Text loc = new Text();
+                    loc.setFont(Font.font("Tahoma",FontWeight.NORMAL,14));
+                    loc.setTextAlignment(TextAlignment.CENTER);
+                    locacoes.forEach(str-> loc.setText(str.toString()));
+                    grid.add(loc,0,5);
+                }
+                menuConsulta.setScene(new Scene(grid));
+                menuConsulta.show();
+                break;
         }
     }
     public boolean consultaDisponibilidadeCategoria(String codigo){
@@ -178,9 +206,9 @@ public class ConsultaMenu extends Application{
 //        System.out.println("O valor da sua locação é: " + locacao.calcularValorLocacao());
 //    }
 
-    public void consultarLocacoes() {
-        this.locacaoRepository.findAll().forEach(System.out::println);
-    }
+//    public void consultarLocacoes() {
+//        this.locacaoRepository.findAll().forEach(System.out::println);
+//    }
 
     public void consultarAutomoveis() {
         List<Automovel> automoveis = this.automovelRepository.findAll();
