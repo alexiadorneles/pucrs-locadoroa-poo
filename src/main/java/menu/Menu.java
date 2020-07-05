@@ -1,4 +1,5 @@
 package menu;
+
 import domain.automovel.*;
 import domain.cliente.PessoaFisica;
 import domain.cliente.PessoaJuridica;
@@ -23,11 +24,13 @@ import reader.TxtReader;
 import repository.*;
 
 import javax.swing.*;
+import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Menu extends Application{
+public class Menu extends Application {
     private final Scanner in;
     private final Repository<Locacao, Integer> locacaoRepository;
     private final Repository<Cliente, String> clienteRepository;
@@ -52,6 +55,7 @@ public class Menu extends Application{
         this.clienteRepository = clienteRepository;
         this.reader = reader;
     }
+
     @Override
     public void start(Stage menuStage) throws Exception {
         menuStage.setTitle("---------- LOCADORA AJE ----------");
@@ -81,15 +85,15 @@ public class Menu extends Application{
 
 
                 Text title = new Text("MENU ATENDENTE");
-                title.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                 title.setTextAlignment(TextAlignment.CENTER);
-                opcoeAtendente.add(title,0,0);
+                opcoeAtendente.add(title, 0, 0);
 
                 Button cadastroCliente = new Button("CADASTRAR CLIENTE");
                 HBox button1 = new HBox(10);
                 button1.setAlignment(Pos.BOTTOM_LEFT);
                 button1.getChildren().add(cadastroCliente);
-                opcoeAtendente.add(button1,0,1);
+                opcoeAtendente.add(button1, 0, 1);
                 cadastroCliente.setOnAction(actionEvent1 -> {
                     try {
                         cadastroMenu.setButton(1);
@@ -104,7 +108,7 @@ public class Menu extends Application{
                 HBox button2 = new HBox(10);
                 button2.setAlignment(Pos.BOTTOM_LEFT);
                 button2.getChildren().add(consulta);
-                opcoeAtendente.add(button2,0,2);
+                opcoeAtendente.add(button2, 0, 2);
                 consulta.setOnAction(actionEvent1 -> {
                     try {
                         consultaMenu.setButton(2);
@@ -118,7 +122,7 @@ public class Menu extends Application{
                 HBox button3 = new HBox(10);
                 button3.setAlignment(Pos.BOTTOM_LEFT);
                 button3.getChildren().add(consultaLocacao);
-                opcoeAtendente.add(button3,0,3);
+                opcoeAtendente.add(button3, 0, 3);
                 consultaLocacao.setOnAction(actionEvent1 -> {
                     try {
                         consultaMenu.setButton(3);
@@ -133,7 +137,7 @@ public class Menu extends Application{
                 HBox button4 = new HBox(10);
                 button4.setAlignment(Pos.BOTTOM_LEFT);
                 button4.getChildren().add(realizarLocacao);
-                opcoeAtendente.add(button4,0,4);
+                opcoeAtendente.add(button4, 0, 4);
                 realizarLocacao.setOnAction(actionEvent1 -> {
                     GridPane locacao = new GridPane();
                     locacao.setAlignment(Pos.CENTER);
@@ -142,33 +146,33 @@ public class Menu extends Application{
                     locacao.setPadding(new Insets(100, 100, 100, 100));
 
                     Text realizaLocacao = new Text("REALIZAR A LOCACÃO");
-                    realizaLocacao.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                    realizaLocacao.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                     realizaLocacao.setTextAlignment(TextAlignment.CENTER);
-                    locacao.add(realizaLocacao,0,0);
+                    locacao.add(realizaLocacao, 0, 0);
 
                     Label dataInicial = new Label("Data inicial (DD/MM/AAA) ");
-                    locacao.add(dataInicial,0,1);
+                    locacao.add(dataInicial, 0, 1);
 
                     TextField datainitial = new TextField();
-                    locacao.add(datainitial,1,1);
+                    locacao.add(datainitial, 1, 1);
 
                     Label dataFinal = new Label("Data final (DD/MM/AAA): ");
-                    locacao.add(dataFinal,0,2);
+                    locacao.add(dataFinal, 0, 2);
 
                     TextField datafinal = new TextField();
-                    locacao.add(datafinal,1,2);
+                    locacao.add(datafinal, 1, 2);
 
                     Label category = new Label("Codigo da Categoria: ");
-                    locacao.add(category,0,3);
+                    locacao.add(category, 0, 3);
 
                     TextField codigoCategoria = new TextField();
-                    locacao.add(codigoCategoria,1,3);
+                    locacao.add(codigoCategoria, 1, 3);
 
                     Button confirmarCadastro = new Button("CONTINUAR");
                     HBox btn = new HBox(10);
                     btn.setAlignment(Pos.BOTTOM_RIGHT);
                     btn.getChildren().add(confirmarCadastro);
-                    locacao.add(btn,1,5);
+                    locacao.add(btn, 1, 5);
 
                     final Text actiontarget = new Text();
                     locacao.add(actiontarget, 1, 6);
@@ -178,11 +182,13 @@ public class Menu extends Application{
                         @Override
                         public void handle(ActionEvent actionEvent) {
                             actiontarget.setFill(Color.FIREBRICK);
-                            if(datainitial.getText().trim().isEmpty() || datafinal.getText().isEmpty() ||
-                                    codigoCategoria.getText().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
+                            if (datainitial.getText().trim().isEmpty() || datafinal.getText().isEmpty() ||
+                                    codigoCategoria.getText().isEmpty())
+                                actiontarget.setText("Por favor preencha todos os campos");
                             else {
                                 boolean possuiDestaCategoria = consultaMenu.consultaDisponibilidadeCategoria(codigoCategoria.getText());
-                                if (!possuiDestaCategoria) actiontarget.setText("Não possui automoveis dessa categoria");
+                                if (!possuiDestaCategoria)
+                                    actiontarget.setText("Não possui automoveis dessa categoria");
                                 else {
                                     GridPane newLocacao = new GridPane();
                                     newLocacao.setAlignment(Pos.CENTER);
@@ -191,17 +197,17 @@ public class Menu extends Application{
                                     newLocacao.setPadding(new Insets(100, 100, 100, 100));
 
                                     Text locacaoDisponivel = new Text("Automoveis disponiveis");
-                                    locacaoDisponivel.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                    locacaoDisponivel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                                     locacaoDisponivel.setTextAlignment(TextAlignment.CENTER);
-                                    newLocacao.add(locacaoDisponivel,0,0);
+                                    newLocacao.add(locacaoDisponivel, 0, 0);
 
                                     Text locacaod = new Text("");
-                                    locacaod.setFont(Font.font("Tahoma",FontWeight.NORMAL,14));
+                                    locacaod.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
                                     automovelRepository.findAll().forEach(str -> locacaod.setText(str.toString()));
-                                    newLocacao.add(locacaod,0,1);
+                                    newLocacao.add(locacaod, 0, 1);
 
                                     Label label = new Label("Digite uma placa");
-                                    newLocacao.add(label,0,4);
+                                    newLocacao.add(label, 0, 4);
 
                                     TextField placa = new TextField();
                                     newLocacao.add(placa, 1, 4);
@@ -210,7 +216,7 @@ public class Menu extends Application{
                                     HBox btn = new HBox(10);
                                     btn.setAlignment(Pos.BOTTOM_RIGHT);
                                     btn.getChildren().add(confirma);
-                                    newLocacao.add(btn,1,6);
+                                    newLocacao.add(btn, 1, 6);
 
                                     final Text action = new Text();
                                     newLocacao.add(action, 1, 7);
@@ -227,26 +233,27 @@ public class Menu extends Application{
                                         cli.setPadding(new Insets(100, 100, 100, 100));
                                         action.setFill(Color.FIREBRICK);
                                         if (placa.getText().isEmpty()) action.setText("Preencha os campos");
-                                        if (automovelRepository.findOne(placa.getText())==null) action.setText("Por favor coloque uma placa valida");
+                                        if (automovelRepository.findOne(placa.getText()) == null)
+                                            action.setText("Por favor coloque uma placa valida");
                                         else {
                                             Text clienteDisponivel = new Text("Clientes Cadastrados");
-                                            clienteDisponivel.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                            clienteDisponivel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                                             clienteDisponivel.setTextAlignment(TextAlignment.CENTER);
-                                            cli.add(clienteDisponivel,0,0);
+                                            cli.add(clienteDisponivel, 0, 0);
 
                                             final Automovel automovel;
                                             automovel = automovelRepository.findOne(placa.getText());
                                             List<Cliente> clientes = ClienteRepository.getInstance().findAll();
                                             Text loc = new Text("");
-                                            loc.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                            loc.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                                             clientes.forEach(cliente1 -> loc.setText(cliente1.getNome()));
-                                            cli.add(loc,0,1);
+                                            cli.add(loc, 0, 1);
 
                                             Label client = new Label("Escolha um cliente");
-                                            cli.add(client,0,2);
+                                            cli.add(client, 0, 2);
 
                                             TextField clienteEscolhido = new TextField();
-                                            cli.add(clienteEscolhido,1,2);
+                                            cli.add(clienteEscolhido, 1, 2);
 
                                             final Text actiontarget = new Text();
                                             cli.add(actiontarget, 1, 7);
@@ -257,10 +264,10 @@ public class Menu extends Application{
                                             bttn.setAlignment(Pos.BOTTOM_RIGHT);
                                             bttn.getChildren().add(concluir);
 
-                                            cli.add(concluir,1,5);
+                                            cli.add(concluir, 1, 5);
                                             concluir.setOnAction(actionEvent3 -> {
                                                 actiontarget.setFill(Color.FIREBRICK);
-                                                if(clienteEscolhido.getText().isEmpty())
+                                                if (clienteEscolhido.getText().isEmpty())
                                                     actiontarget.setText("Preencha com um nome valido");
                                                 else {
                                                     final Cliente cliente;
@@ -270,8 +277,8 @@ public class Menu extends Application{
                                                             datafinal.getText(), automovel.getPlaca());
 
                                                     Text t2 = new Text("O valor da locação é " + locacao.calcularValorLocacao());
-                                                    t2.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
-                                                    cli.add(t2,0,8);
+                                                    t2.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+                                                    cli.add(t2, 0, 8);
                                                     locacaoRepository.save(locacao);
                                                 }
                                             });
@@ -287,11 +294,11 @@ public class Menu extends Application{
                     menuStage.show();
                 });
 
-                Button  finalizarLocacao= new Button("FINALIZAR LOCAÇÃO");
+                Button finalizarLocacao = new Button("FINALIZAR LOCAÇÃO");
                 HBox button5 = new HBox(10);
                 button5.setAlignment(Pos.BOTTOM_LEFT);
                 button5.getChildren().add(finalizarLocacao);
-                opcoeAtendente.add(button5,0,5);
+                opcoeAtendente.add(button5, 0, 5);
 
                 Scene atendentesOpcao = new Scene(opcoeAtendente);
                 menuStage.setScene(atendentesOpcao);
@@ -314,15 +321,15 @@ public class Menu extends Application{
                 opcoeGerente.setPadding(new Insets(50, 100, 100, 100));
 
                 Text title = new Text("MENU GERENTE");
-                title.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                 title.setTextAlignment(TextAlignment.CENTER);
-                opcoeGerente.add(title,0,0);
+                opcoeGerente.add(title, 0, 0);
 
                 Button cadastroCliente = new Button("CADASTRAR CLIENTE");
                 HBox button1 = new HBox(10);
                 button1.setAlignment(Pos.BOTTOM_LEFT);
                 button1.getChildren().add(cadastroCliente);
-                opcoeGerente.add(button1,0,1);
+                opcoeGerente.add(button1, 0, 1);
                 cadastroCliente.setOnAction(actionEvent1 -> {
                     try {
                         cadastroMenu.setButton(1);
@@ -336,7 +343,7 @@ public class Menu extends Application{
                 HBox button2 = new HBox(10);
                 button2.setAlignment(Pos.BOTTOM_LEFT);
                 button2.getChildren().add(consulta);
-                opcoeGerente.add(button2,0,2);
+                opcoeGerente.add(button2, 0, 2);
                 consulta.setOnAction(actionEvent1 -> {
                     try {
                         consultaMenu.setButton(2);
@@ -350,7 +357,7 @@ public class Menu extends Application{
                 HBox button3 = new HBox(10);
                 button3.setAlignment(Pos.BOTTOM_LEFT);
                 button3.getChildren().add(consultaLocacao);
-                opcoeGerente.add(button3,0,3);
+                opcoeGerente.add(button3, 0, 3);
                 consultaLocacao.setOnAction(actionEvent1 -> {
                     try {
                         consultaMenu.setButton(3);
@@ -364,7 +371,7 @@ public class Menu extends Application{
                 HBox button4 = new HBox(10);
                 button4.setAlignment(Pos.BOTTOM_LEFT);
                 button4.getChildren().add(realizarLocacao);
-                opcoeGerente.add(button4,0,4);
+                opcoeGerente.add(button4, 0, 4);
                 realizarLocacao.setOnAction(actionEvent1 -> {
                     GridPane locacao = new GridPane();
                     locacao.setAlignment(Pos.CENTER);
@@ -373,33 +380,33 @@ public class Menu extends Application{
                     locacao.setPadding(new Insets(100, 100, 100, 100));
 
                     Text realizaLocacao = new Text("REALIZAR A LOCACÃO");
-                    realizaLocacao.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                    realizaLocacao.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                     realizaLocacao.setTextAlignment(TextAlignment.CENTER);
-                    locacao.add(realizaLocacao,0,0);
+                    locacao.add(realizaLocacao, 0, 0);
 
                     Label dataInicial = new Label("Data inicial (DD/MM/AAA) ");
-                    locacao.add(dataInicial,0,1);
+                    locacao.add(dataInicial, 0, 1);
 
                     TextField datainitial = new TextField();
-                    locacao.add(datainitial,1,1);
+                    locacao.add(datainitial, 1, 1);
 
                     Label dataFinal = new Label("Data final (DD/MM/AAA): ");
-                    locacao.add(dataFinal,0,2);
+                    locacao.add(dataFinal, 0, 2);
 
                     TextField datafinal = new TextField();
-                    locacao.add(datafinal,1,2);
+                    locacao.add(datafinal, 1, 2);
 
                     Label category = new Label("Codigo da Categoria: ");
-                    locacao.add(category,0,3);
+                    locacao.add(category, 0, 3);
 
                     TextField codigoCategoria = new TextField();
-                    locacao.add(codigoCategoria,1,3);
+                    locacao.add(codigoCategoria, 1, 3);
 
                     Button confirmarCadastro = new Button("CONTINUAR");
                     HBox btn = new HBox(10);
                     btn.setAlignment(Pos.BOTTOM_RIGHT);
                     btn.getChildren().add(confirmarCadastro);
-                    locacao.add(btn,1,5);
+                    locacao.add(btn, 1, 5);
 
                     final Text actiontarget = new Text();
                     locacao.add(actiontarget, 1, 6);
@@ -409,11 +416,13 @@ public class Menu extends Application{
                         @Override
                         public void handle(ActionEvent actionEvent) {
                             actiontarget.setFill(Color.FIREBRICK);
-                            if(datainitial.getText().trim().isEmpty() || datafinal.getText().isEmpty() ||
-                                    codigoCategoria.getText().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
+                            if (datainitial.getText().trim().isEmpty() || datafinal.getText().isEmpty() ||
+                                    codigoCategoria.getText().isEmpty())
+                                actiontarget.setText("Por favor preencha todos os campos");
                             else {
                                 boolean possuiDestaCategoria = consultaMenu.consultaDisponibilidadeCategoria(codigoCategoria.getText());
-                            if (!possuiDestaCategoria) actiontarget.setText("Não possui automoveis dessa categoria");
+                                if (!possuiDestaCategoria)
+                                    actiontarget.setText("Não possui automoveis dessa categoria");
                                 else {
                                     GridPane newLocacao = new GridPane();
                                     newLocacao.setAlignment(Pos.CENTER);
@@ -422,17 +431,17 @@ public class Menu extends Application{
                                     newLocacao.setPadding(new Insets(100, 100, 100, 100));
 
                                     Text locacaoDisponivel = new Text("Automoveis disponiveis");
-                                    locacaoDisponivel.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                    locacaoDisponivel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                                     locacaoDisponivel.setTextAlignment(TextAlignment.CENTER);
-                                    newLocacao.add(locacaoDisponivel,0,0);
+                                    newLocacao.add(locacaoDisponivel, 0, 0);
 
                                     Text locacaod = new Text("");
-                                    locacaod.setFont(Font.font("Tahoma",FontWeight.NORMAL,14));
+                                    locacaod.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
                                     automovelRepository.findAll().forEach(str -> locacaod.setText(str.toString()));
-                                    newLocacao.add(locacaod,0,1);
+                                    newLocacao.add(locacaod, 0, 1);
 
                                     Label label = new Label("Digite uma placa");
-                                    newLocacao.add(label,0,4);
+                                    newLocacao.add(label, 0, 4);
 
                                     TextField placa = new TextField();
                                     newLocacao.add(placa, 1, 4);
@@ -441,7 +450,7 @@ public class Menu extends Application{
                                     HBox btn = new HBox(10);
                                     btn.setAlignment(Pos.BOTTOM_RIGHT);
                                     btn.getChildren().add(confirma);
-                                    newLocacao.add(btn,1,6);
+                                    newLocacao.add(btn, 1, 6);
 
                                     final Text action = new Text();
                                     newLocacao.add(action, 1, 7);
@@ -458,26 +467,27 @@ public class Menu extends Application{
                                         cli.setPadding(new Insets(100, 100, 100, 100));
                                         action.setFill(Color.FIREBRICK);
                                         if (placa.getText().isEmpty()) action.setText("Preencha os campos");
-                                        if (automovelRepository.findOne(placa.getText())==null) action.setText("Por favor coloque uma placa valida");
+                                        if (automovelRepository.findOne(placa.getText()) == null)
+                                            action.setText("Por favor coloque uma placa valida");
                                         else {
                                             Text clienteDisponivel = new Text("Clientes Cadastrados");
-                                            clienteDisponivel.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                            clienteDisponivel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                                             clienteDisponivel.setTextAlignment(TextAlignment.CENTER);
-                                            cli.add(clienteDisponivel,0,0);
+                                            cli.add(clienteDisponivel, 0, 0);
 
                                             final Automovel automovel;
                                             automovel = automovelRepository.findOne(placa.getText());
                                             List<Cliente> clientes = ClienteRepository.getInstance().findAll();
                                             Text loc = new Text("");
-                                            loc.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                            loc.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                                             clientes.forEach(cliente1 -> loc.setText(cliente1.getNome()));
-                                            cli.add(loc,0,1);
+                                            cli.add(loc, 0, 1);
 
                                             Label client = new Label("Escolha um cliente");
-                                            cli.add(client,0,2);
+                                            cli.add(client, 0, 2);
 
                                             TextField clienteEscolhido = new TextField();
-                                            cli.add(clienteEscolhido,1,2);
+                                            cli.add(clienteEscolhido, 1, 2);
 
                                             final Text actiontarget = new Text();
                                             cli.add(actiontarget, 1, 7);
@@ -488,10 +498,10 @@ public class Menu extends Application{
                                             bttn.setAlignment(Pos.BOTTOM_RIGHT);
                                             bttn.getChildren().add(concluir);
 
-                                            cli.add(concluir,1,5);
+                                            cli.add(concluir, 1, 5);
                                             concluir.setOnAction(actionEvent3 -> {
                                                 actiontarget.setFill(Color.FIREBRICK);
-                                                if(clienteEscolhido.getText().isEmpty())
+                                                if (clienteEscolhido.getText().isEmpty())
                                                     actiontarget.setText("Preencha com um nome valido");
                                                 else {
                                                     final Cliente cliente;
@@ -501,8 +511,8 @@ public class Menu extends Application{
                                                             datafinal.getText(), automovel.getPlaca());
 
                                                     Text t2 = new Text("O valor da locação é " + locacao.calcularValorLocacao());
-                                                    t2.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
-                                                    cli.add(t2,0,8);
+                                                    t2.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+                                                    cli.add(t2, 0, 8);
                                                     locacaoRepository.save(locacao);
                                                 }
                                             });
@@ -518,11 +528,11 @@ public class Menu extends Application{
                     menuStage.show();
                 });
 
-                Button  finalizarLocacao= new Button("FINALIZAR LOCAÇÃO");
+                Button finalizarLocacao = new Button("FINALIZAR LOCAÇÃO");
                 HBox button5 = new HBox(10);
                 button5.setAlignment(Pos.BOTTOM_LEFT);
                 button5.getChildren().add(finalizarLocacao);
-                opcoeGerente.add(button5,0,5);
+                opcoeGerente.add(button5, 0, 5);
                 finalizarLocacao.setOnAction(actionEvent1 -> {
                     GridPane finalizar = new GridPane();
                     finalizar.setAlignment(Pos.CENTER);
@@ -531,49 +541,50 @@ public class Menu extends Application{
                     finalizar.setPadding(new Insets(50, 100, 100, 100));
 
                     Text finalizaLocacao = new Text("FINALIZAR LOCACÃO");
-                    finalizaLocacao.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                    finalizaLocacao.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                     finalizaLocacao.setTextAlignment(TextAlignment.CENTER);
-                    finalizar.add(finalizaLocacao,0,0);
+                    finalizar.add(finalizaLocacao, 0, 0);
 
                     Text action = new Text();
                     action.setId("action");
                     action.setFill(Color.FIREBRICK);
-                    finalizar.add(action,0,6);
+                    finalizar.add(action, 0, 6);
 
                     List<Locacao> locacoes = locacaoRepository.filter(locacao -> !locacao.isFinalizada());
                     if (locacoes.isEmpty()) {
                         action.setText("Nenhuma locação para ser finalizada");
-                    }else {
+                    } else {
 
                         Text locacao = new Text("Locações disponiveis no sistema");
-                        locacao.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                        locacao.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                         locacao.setTextAlignment(TextAlignment.CENTER);
-                        finalizar.add(locacao,0,1);
+                        finalizar.add(locacao, 0, 1);
 
                         Text loc = new Text();
-                        loc.setFont(Font.font("Tahoma",FontWeight.NORMAL,14));
+                        loc.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
                         loc.setTextAlignment(TextAlignment.CENTER);
-                        locacoes.forEach(str-> loc.setText(str.toString()));
-                        finalizar.add(loc,0,2);
+                        locacoes.forEach(str -> loc.setText(str.toString()));
+                        finalizar.add(loc, 0, 2);
 
                         Label cod = new Label("Digite o codigo para finalizar:");
-                        finalizar.add(cod,0,4);
+                        finalizar.add(cod, 0, 4);
 
                         TextField codigo = new TextField();
-                        finalizar.add(codigo,1,4);
+                        finalizar.add(codigo, 1, 4);
                         Button finalLocacao = new Button("FINALIZAR");
                         HBox hfinal = new HBox(10);
                         hfinal.setAlignment(Pos.BOTTOM_LEFT);
                         hfinal.getChildren().add(finalLocacao);
-                        finalizar.add(finalLocacao,0,5);
-                        Text action1=new Text();
+                        finalizar.add(finalLocacao, 0, 5);
+                        Text action1 = new Text();
                         action.setId("act1");
-                        finalizar.add(action1,0,5);
+                        finalizar.add(action1, 0, 5);
                         finalLocacao.setOnAction(act -> {
 
                             int codigos = Integer.parseInt(codigo.getText());
                             Locacao locacao1 = locacoes.stream().filter(locacao2 -> locacao2.getCodigo().equals(codigos)).findFirst().orElse(null);
-                            if (codigo.getText().isEmpty()||locacao1==null) action1.setText("Preencha com um codigo valido");
+                            if (codigo.getText().isEmpty() || locacao1 == null)
+                                action1.setText("Preencha com um codigo valido");
                             else {
                                 GridPane finalizando = new GridPane();
                                 finalizando.setAlignment(Pos.CENTER);
@@ -582,35 +593,35 @@ public class Menu extends Application{
                                 finalizando.setPadding(new Insets(50, 100, 100, 100));
 
                                 Text acidente = new Text("Ocorreram acidentes com esse veiculo durante a locação?");
-                                acidente.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                acidente.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                                 acidente.setTextAlignment(TextAlignment.CENTER);
-                                finalizando.add(acidente,0,0);
+                                finalizando.add(acidente, 0, 0);
 
                                 Text removido = new Text();
-                                removido.setFont(Font.font("Tahoma",FontWeight.NORMAL,14));
+                                removido.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
                                 removido.setTextAlignment(TextAlignment.CENTER);
-                                finalizando.add(removido,0,3);
+                                finalizando.add(removido, 0, 3);
 
                                 Text actiontarget = new Text();
                                 actiontarget.setId("actiontarget");
                                 actiontarget.setFill(Color.FIREBRICK);
-                                finalizando.add(actiontarget,0,6);
+                                finalizando.add(actiontarget, 0, 6);
                                 locacao1.finalizar();
 
                                 Button sim = new Button("SIM");
                                 HBox hsim = new HBox(10);
                                 hsim.setAlignment(Pos.BOTTOM_LEFT);
                                 hsim.getChildren().add(sim);
-                                finalizando.add(sim,0,1);
+                                finalizando.add(sim, 0, 1);
 
                                 sim.setOnAction(new EventHandler<ActionEvent>() {
                                     @Override
                                     public void handle(ActionEvent actionEvent) {
-                                        finalizando.add(removido,0,3);
-                                        if(locacao1.getAuto().isVelhoDemaisParaAFrota()){
+                                        finalizando.add(removido, 0, 3);
+                                        if (locacao1.getAuto().isVelhoDemaisParaAFrota()) {
                                             removido.setText("O veículo não está mais em condições de operar e foi removido da frota\n" +
                                                     "Pelo motivo de ser velho demais.\nE por ter sofrido um acidente");
-                                        } else{
+                                        } else {
                                             removido.setText("O veículo não está mais em condições de operar e foi removido da frota\n" +
                                                     "E por ter sofrido um acidente");
                                         }
@@ -624,13 +635,13 @@ public class Menu extends Application{
                                 HBox hnao = new HBox(10);
                                 hnao.setAlignment(Pos.BOTTOM_LEFT);
                                 hnao.getChildren().add(nao);
-                                finalizando.add(nao,1,1);
+                                finalizando.add(nao, 1, 1);
                                 nao.setOnAction(actionEvent3 -> {
-                                    finalizando.add(removido,0,2);
-                                    if(locacao1.getAuto().isVelhoDemaisParaAFrota()){
+                                    finalizando.add(removido, 0, 2);
+                                    if (locacao1.getAuto().isVelhoDemaisParaAFrota()) {
                                         removido.setText("O veículo não está mais em condições de operar e foi removido da frota\n" +
                                                 "Por ter sofrido um acidente");
-                                        finalizando.add(removido,0,2);
+                                        finalizando.add(removido, 0, 2);
 
                                     }
                                     actiontarget.setText("Locação finalizada");
@@ -649,7 +660,7 @@ public class Menu extends Application{
                 HBox button6 = new HBox(10);
                 button6.setAlignment(Pos.BOTTOM_LEFT);
                 button6.getChildren().add(cadastrarCategoria);
-                opcoeGerente.add(button6,0,6);
+                opcoeGerente.add(button6, 0, 6);
                 cadastrarCategoria.setOnAction(actionEvent1 -> {
                     try {
                         cadastroMenu.setButton(2);
@@ -659,11 +670,11 @@ public class Menu extends Application{
                     }
                 });
 
-                Button  cadastrarMarca= new Button("CADASTRAR NOVA MARCA DE AUTOMOVEL");
+                Button cadastrarMarca = new Button("CADASTRAR NOVA MARCA DE AUTOMOVEL");
                 HBox button7 = new HBox(10);
                 button7.setAlignment(Pos.BOTTOM_LEFT);
                 button7.getChildren().add(cadastrarMarca);
-                opcoeGerente.add(button7,0,7);
+                opcoeGerente.add(button7, 0, 7);
                 cadastrarMarca.setOnAction(actionEvent1 -> {
                     try {
                         cadastroMenu.setButton(3);
@@ -673,11 +684,11 @@ public class Menu extends Application{
                     }
                 });
 
-                Button cadastrarModelo= new Button("CADASTRAR NOVO MODELO DE AUTOMOVEL");
+                Button cadastrarModelo = new Button("CADASTRAR NOVO MODELO DE AUTOMOVEL");
                 HBox button8 = new HBox(10);
                 button8.setAlignment(Pos.BOTTOM_LEFT);
                 button8.getChildren().add(cadastrarModelo);
-                opcoeGerente.add(button8,0,8);
+                opcoeGerente.add(button8, 0, 8);
                 cadastrarModelo.setOnAction(actionEvent1 -> {
                     try {
                         cadastroMenu.setButton(4);
@@ -687,23 +698,23 @@ public class Menu extends Application{
                     }
                 });
 
-                Button  cadastrarAutomovel= new Button("CADASTRAR NOVO AUTOMOVEL");
+                Button cadastrarAutomovel = new Button("CADASTRAR NOVO AUTOMOVEL");
                 HBox button9 = new HBox(10);
                 button9.setAlignment(Pos.BOTTOM_LEFT);
                 button9.getChildren().add(cadastrarAutomovel);
-                opcoeGerente.add(button9,0,9);
+                opcoeGerente.add(button9, 0, 9);
 
-                Button  removerAutomovel= new Button("REMOVER AUTOMÓVEL");
+                Button removerAutomovel = new Button("REMOVER AUTOMÓVEL");
                 HBox button10 = new HBox(10);
                 button10.setAlignment(Pos.BOTTOM_LEFT);
                 button10.getChildren().add(removerAutomovel);
-                opcoeGerente.add(button10,0,10);
+                opcoeGerente.add(button10, 0, 10);
 
-                Button  consultarLocacoes= new Button("CONSULTAR LOCAÇÕES");
+                Button consultarLocacoes = new Button("CONSULTAR LOCAÇÕES");
                 HBox button11 = new HBox(10);
                 button11.setAlignment(Pos.BOTTOM_LEFT);
                 button11.getChildren().add(consultarLocacoes);
-                opcoeGerente.add(button11,0,11);
+                opcoeGerente.add(button11, 0, 11);
                 consultarLocacoes.setOnAction(actionE -> {
                     try {
                         consultaMenu.setButton(4);
@@ -713,11 +724,11 @@ public class Menu extends Application{
                     }
                 });
 
-                Button  consultarClientes= new Button("CONSULTAR CLIENTES");
+                Button consultarClientes = new Button("CONSULTAR CLIENTES");
                 HBox button12 = new HBox(10);
                 button12.setAlignment(Pos.BOTTOM_LEFT);
                 button12.getChildren().add(consultarClientes);
-                opcoeGerente.add(button12,0,12);
+                opcoeGerente.add(button12, 0, 12);
                 consultarClientes.setOnAction(actionE1 -> {
                     try {
                         consultaMenu.setButton(5);
@@ -727,12 +738,12 @@ public class Menu extends Application{
                     }
                 });
 
-                Button  consultarAutomoveis= new Button("CONSULTAR AUTOMOVEIS CADASTRADOS");
+                Button consultarAutomoveis = new Button("CONSULTAR AUTOMOVEIS CADASTRADOS");
                 HBox button = new HBox(10);
                 button.setAlignment(Pos.BOTTOM_LEFT);
                 button.getChildren().add(consultarAutomoveis);
-                opcoeGerente.add(button,0,13);
-                consultarAutomoveis.setOnAction(actionE-> {
+                opcoeGerente.add(button, 0, 13);
+                consultarAutomoveis.setOnAction(actionE -> {
                     try {
                         consultaMenu.setButton(6);
                         consultaMenu.start(menuStage);
@@ -746,47 +757,53 @@ public class Menu extends Application{
                 HBox button14 = new HBox(10);
                 button14.setAlignment(Pos.BOTTOM_LEFT);
                 button14.getChildren().add(cargaDeDados);
-                opcoeGerente.add(button14,0,14);
+                opcoeGerente.add(button14, 0, 14);
 
 //                private void realizarCargaDeDados(Scanner in) {
 //                    System.out.println("Por favor, digite o nome do arquivo (ele deve estar em resources)");
 //                    String fileName = in.nextLine();
 //                    reader.read(fileName);
 //                }
-                cargaDeDados.setOnAction(actionE-> {
+                cargaDeDados.setOnAction(actionE -> {
                     GridPane telaCarga = new GridPane();
                     telaCarga.setAlignment(Pos.CENTER);
                     telaCarga.setHgap(10);
                     telaCarga.setVgap(10);
                     telaCarga.setPadding(new Insets(50, 100, 100, 100));
-                    
+
                     Text title1 = new Text("CARGA DE DADOS");
-                    title1.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                    title1.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                     title1.setTextAlignment(TextAlignment.CENTER);
-                    telaCarga.add(title1,0,0);
+                    telaCarga.add(title1, 0, 0);
 
                     Label text = new Label("Nome do arquivo: ");
-                    telaCarga.add(text,0,1);
+                    telaCarga.add(text, 0, 1);
 
                     TextField nomeArquivo = new TextField();
-                    telaCarga.add(nomeArquivo,1,1);
+                    telaCarga.add(nomeArquivo, 1, 1);
 
                     Text action = new Text();
                     action.setId("action");
                     action.setFill(Color.FIREBRICK);
-                    telaCarga.add(action,0,6);
+                    telaCarga.add(action, 0, 6);
 
-
-                    Button  carga= new Button("CONFIRMAR");
+                    Button carga = new Button("CONFIRMAR");
                     HBox hbutton = new HBox(10);
                     hbutton.setAlignment(Pos.BOTTOM_LEFT);
                     hbutton.getChildren().add(carga);
-                    telaCarga.add(hbutton,0,5);
-                    carga.setOnAction(ac-> {
-                        reader.read(nomeArquivo.getText());
-                        action.setText("Arquivo lido");
-
-
+                    telaCarga.add(hbutton, 0, 5);
+                    carga.setOnAction(ac -> {
+                        try {
+                            reader.read(nomeArquivo.getText());
+                            action.setText("Arquivo lido");
+                        } catch (IOException e) {
+                            if (e instanceof NoSuchFileException) {
+                                action.setText("Arquivo não encontrado");
+                            } else {
+                                action.setText("Erro ao ler arquivo. Por favor verifique a formatação e tente novamente");
+                            }
+                            e.printStackTrace();
+                        }
                     });
 
                     menuStage.setScene(new Scene(telaCarga));
@@ -878,12 +895,6 @@ public class Menu extends Application{
 //            }
 //        } while (opcao2 != 99);
 //    }
-
-    private void realizarCargaDeDados(Scanner in) {
-        System.out.println("Por favor, digite o nome do arquivo (ele deve estar em resources)");
-        String fileName = in.nextLine();
-        reader.read(fileName);
-    }
 
     private void removerAutomovel(Scanner in) {
         System.out.println("Digite a placa do automóvel que deseja remover");
