@@ -22,6 +22,7 @@ import domain.locacao.Locacao;
 import reader.TxtReader;
 import repository.*;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -517,45 +518,149 @@ public class Menu extends Application{
                     menuStage.show();
                 });
 
-                /*
-                 *   Cada vez que um cliente deseja locar um automóvel ele deve indicar a data inicial, data final, a categoria do
-                 *   automóvel para a locação; se houver automóveis disponíveis da categoria desejada para a locação, o cliente
-                 *   seleciona um automóvel, e uma locação é realizada e o valor final da locação é informado ao cliente.
-                 */
-//                private void realizarLocacao(Scanner in){
-//                    System.out.println("Digite a data inicial da locação (no formado dia/mês/ano. Ex: 02/05/2020)");
-//                    String dataInicial = in.next();
-//                    System.out.println("Digite a data final da locação (no formado dia/mês/ano. Ex: 02/05/2020)");
-//                    String dataFinal = in.next();
-//                    in.nextLine();
-//                   boolean possuiDestaCategoria = this.consultaMenu.consultaDisponibilidadeCategoria(in);
-//                    if (!possuiDestaCategoria) return;
-//                    Automovel automovel;
-//                    Cliente cliente;
-//
-//                    do {
-//                        System.out.println("Por favor selecione um automóvel acima, digitando sua placa");
-//                        String placa = in.nextLine();
-//                        automovel = this.automovelRepository.findOne(placa);
-//                    } while (Objects.isNull(automovel));
-//
-//                    System.out.println("Esses são nossos clientes cadastrados: ");
-//                    this.consultaMenu.consultarClientesCadastrados();
-//                    do {
-//                        System.out.println();
-//                        System.out.println("Por favor digite o nome do cliente");
-//                        cliente = this.clienteRepository.findOne(in.nextLine());
-//                    } while (Objects.isNull(cliente));
-//
-//                    Locacao locacao = new Locacao(cliente.getCPFCNPJ(), dataInicial, dataFinal, automovel.getPlaca());
-//                    System.out.println("Valor total da locação: " + locacao.calcularValorLocacao());
-//                    this.locacaoRepository.save(locacao);
-//                }
                 Button  finalizarLocacao= new Button("FINALIZAR LOCAÇÃO");
                 HBox button5 = new HBox(10);
                 button5.setAlignment(Pos.BOTTOM_LEFT);
                 button5.getChildren().add(finalizarLocacao);
                 opcoeGerente.add(button5,0,5);
+                finalizarLocacao.setOnAction(actionEvent1 -> {
+
+                    Cliente cliente = new PessoaFisica("Maria", "0900", "029307");
+                    ClienteRepository.getInstance().save(cliente);
+
+                    Categoria categoria = new Categoria(1, "Qualquer");
+                    CategoriaRepository.getInstance().save(categoria);
+
+                    Marca marca = new Marca(1, "Honda");
+                    MarcaRepository.getInstance().save(marca);
+
+                    Modelo modelo = new ModeloNacional(1, "Civic", 100000, 1,
+                            1, 10);
+                    ModeloRepository.getInstance().save(modelo);
+
+                    Automovel automovel = new Automovel("AAA-2A22", 2019, 10, modelo.getCodigo());
+                    AutomovelRepository.getInstance().save(automovel);
+
+                    Locacao locar = new Locacao(cliente.getCPFCNPJ(), "02/01/2020", "12/01/2020", automovel.getPlaca());
+                    locacaoRepository.save(locar);
+
+                    GridPane finalizar = new GridPane();
+                    finalizar.setAlignment(Pos.CENTER);
+                    finalizar.setHgap(10);
+                    finalizar.setVgap(10);
+                    finalizar.setPadding(new Insets(50, 100, 100, 100));
+
+                    Text finalizaLocacao = new Text("FINALIZAR LOCACÃO");
+                    finalizaLocacao.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                    finalizaLocacao.setTextAlignment(TextAlignment.CENTER);
+                    finalizar.add(finalizaLocacao,0,0);
+
+                    Text action = new Text();
+                    action.setId("action");
+                    action.setFill(Color.FIREBRICK);
+                    finalizar.add(action,0,6);
+
+                    List<Locacao> locacoes = locacaoRepository.filter(locacao -> !locacao.isFinalizada());
+                    if (locacoes.isEmpty()) {
+                        action.setText("Nenhuma locação para ser finalizada");
+                    }else {
+
+                        Text locacao = new Text("Locações disponiveis no sistema");
+                        locacao.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                        locacao.setTextAlignment(TextAlignment.CENTER);
+                        finalizar.add(locacao,0,1);
+
+                        Text loc = new Text();
+                        loc.setFont(Font.font("Tahoma",FontWeight.NORMAL,14));
+                        loc.setTextAlignment(TextAlignment.CENTER);
+                        locacoes.forEach(str-> loc.setText(str.toString()));
+                        finalizar.add(loc,0,2);
+
+                        Label cod = new Label("Digite o codigo para finalizar:");
+                        finalizar.add(cod,0,4);
+
+                        TextField codigo = new TextField();
+                        finalizar.add(codigo,1,4);
+                        Button finalLocacao = new Button("FINALIZAR");
+                        HBox hfinal = new HBox(10);
+                        hfinal.setAlignment(Pos.BOTTOM_LEFT);
+                        hfinal.getChildren().add(finalLocacao);
+                        finalizar.add(finalLocacao,0,5);
+                        finalLocacao.setOnAction(act -> {
+                            Text action1=new Text();
+                            action.setId("act1");
+                            String s = codigo.getText();
+                            int codigos = Integer.parseInt(s);
+                            Locacao locacao1 = locacoes.stream().filter(locacao2 -> locacao2.getCodigo()==(codigos)).findFirst().orElse(null);
+                            if (codigo.getText().isEmpty()||locacao1==null) action1.setText("Preencha com um codigo valido");
+                            else {
+                                GridPane finalizando = new GridPane();
+                                finalizando.setAlignment(Pos.CENTER);
+                                finalizando.setHgap(10);
+                                finalizando.setVgap(10);
+                                finalizando.setPadding(new Insets(50, 100, 100, 100));
+
+                                Text acidente = new Text("Ocorreram acidentes com esse veiculo durante a locação?");
+                                acidente.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                                acidente.setTextAlignment(TextAlignment.CENTER);
+                                finalizando.add(acidente,0,0);
+
+                                Text removido = new Text();
+                                removido.setFont(Font.font("Tahoma",FontWeight.NORMAL,14));
+                                removido.setTextAlignment(TextAlignment.CENTER);
+                                finalizando.add(removido,0,2);
+
+                                Text actiontarget = new Text();
+                                actiontarget.setId("actiontarget");
+                                actiontarget.setFill(Color.FIREBRICK);
+                                finalizando.add(actiontarget,0,6);
+                                locacao1.finalizar();
+
+                                Button sim = new Button("SIM");
+                                HBox hsim = new HBox(10);
+                                hsim.setAlignment(Pos.BOTTOM_LEFT);
+                                hsim.getChildren().add(sim);
+                                finalizando.add(sim,0,1);
+
+                                sim.setOnAction(actionEvent3 -> {
+                                    finalizando.add(removido,0,2);
+                                    if(locacao1.getAuto().isVelhoDemaisParaAFrota()){
+                                        removido.setText("O veículo não está mais em condições de operar e foi removido da frota\n" +
+                                                "Pelo motivo de ser velho demais.\nE por ter sofrido um acidente");
+                                    } else{
+                                        removido.setText("O veículo não está mais em condições de operar e foi removido da frota\n" +
+                                                "E por ter sofrido um acidente");
+                                    }
+
+                                    actiontarget.setText("Locação finalizada");
+                                    menuStage.setScene(new Scene(finalizando));
+                                    menuStage.show();
+                                });
+
+                                Button nao = new Button("NÃO");
+                                HBox hnao = new HBox(10);
+                                hnao.setAlignment(Pos.BOTTOM_LEFT);
+                                hnao.getChildren().add(nao);
+                                finalizando.add(nao,1,1);
+                                nao.setOnAction(actionEvent3 -> {
+                                    finalizando.add(removido,0,2);
+                                    if(locacao1.getAuto().isVelhoDemaisParaAFrota()){
+                                        removido.setText("O veículo não está mais em condições de operar e foi removido da frota\n" +
+                                                "Por ter sofrido um acidente");
+                                    }
+                                    actiontarget.setText("Locação finalizada");
+                                    menuStage.setScene(new Scene(finalizando));
+                                    menuStage.show();
+                                });
+                                menuStage.setScene(new Scene(finalizando));
+                                menuStage.show();
+                            }
+                        });
+
+                    }
+                    menuStage.setScene(new Scene(finalizar));
+                    menuStage.show();
+                });
 
                 Button cadastrarCategoria = new Button("CADASTRAR NOVA CATEGORIA DE AUTOMOVEL");
                 HBox button6 = new HBox(10);
@@ -702,31 +807,6 @@ public class Menu extends Application{
         String fileName = in.nextLine();
         reader.read(fileName);
     }
-
-
-    private void finalizarLocacao(Scanner in) {
-        List<Locacao> locacoes = this.locacaoRepository.filter(locacao -> !locacao.isFinalizada());
-        if (locacoes.isEmpty()) {
-            System.out.println("Nenhuma locação para ser finalizada");
-        }
-        System.out.println("Essas são a locações disponíveis do sistema: ");
-        locacoes.forEach(System.out::println);
-        System.out.println();
-        System.out.println("Por favor digite o código da que deseja finalizar: ");
-        String codigo = in.nextLine();
-        Locacao locacao = locacoes.stream().filter(loc -> loc.getCodigo().equals(codigo)).findFirst().orElse(null);
-        System.out.println("Houve algum acidente com o veiculo desta locação?");
-        System.out.println("1 - Sim. \t 2 - Não");
-        int acidente = in.nextInt();
-        if (acidente == 1 || locacao.getAuto().isVelhoDemaisParaAFrota()) {
-            this.automovelRepository.removeByPlaca(locacao.getAuto().getPlaca());
-            System.out.println("O veículo não está mais em condições de operar e foi removido da frota");
-            System.out.println("Motivo: " + (acidente == 1 ? "acidente." : "veículo velho demais para a frota"));
-        }
-        locacao.finalizar();
-    }
-
-
 
     private void removerAutomovel(Scanner in) {
         System.out.println("Digite a placa do automóvel que deseja remover");
