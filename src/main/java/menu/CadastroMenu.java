@@ -282,9 +282,9 @@ public class CadastroMenu extends Application {
                         if (categoriaa.getText().trim().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
                         if(a.stream().filter(cat -> cat.getNome().equals(categoriaa.getText())).findAny().isPresent()) actiontarget.setText("Categoria ja existente");
                         else {
-                            actiontarget.setText("Cadastro concluido");
                             Categoria categoria1 = new Categoria(categoriaa.getText());
                             categoriaRepository.save(categoria1);
+                            actiontarget.setText("Cadastro concluido");
                             System.out.println(categoria1.toString());
                         }
                     }
@@ -343,9 +343,9 @@ public class CadastroMenu extends Application {
 
                         if(m.stream().filter(marca -> marca.getNome().equals(marcaAdd.getText())).findAny().isPresent()) actiontarget1.setText("Marca ja existente");
                         else {
-                            actiontarget1.setText("Cadastro concluido");
                             Marca ma = new Marca(marcaAdd.getText());
                             marcaRepository.save(ma);
+                            actiontarget1.setText("Cadastro concluido");
                             System.out.println(ma.toString());
                         }
                     }
@@ -476,7 +476,6 @@ public class CadastroMenu extends Application {
                                 if (nome.getText().trim().isEmpty() || valorModelo.getText().trim().isEmpty())
                                     actiontarget2.setText("Por favor preencha todos os campos");
                                 else {
-                                    actiontarget2.setText("Cadastro concluido");
                                     Categoria categoria = categ.getValue();
                                     Marca marca = marcaModelo.getValue();
                                     Modelo modelo = new ModeloInternacional(nomeModelo.getText(), Double.parseDouble(valorModelo.getText()),
@@ -564,8 +563,10 @@ public class CadastroMenu extends Application {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         actiontarget4.setFill(Color.FIREBRICK);
+                        Automovel auto = automovelRepository.findOne(placaAuto.getText());
                         if (placaAuto.getText().trim().isEmpty() || anoAuto.getText().trim().isEmpty() || diariaAuto.getText().trim().isEmpty())
                             actiontarget4.setText("Por favor preencha todos os campos");
+                        if(auto != null) actiontarget4.setText("Automóvel ja existente");
                         else {
                             Modelo modelo = modeloAuto.getValue();
                             Automovel automovel = new Automovel(placaAuto.getText(), Integer.parseInt(anoAuto.getText()), Double.parseDouble(diariaAuto.getText()), modelo.getCodigo());
