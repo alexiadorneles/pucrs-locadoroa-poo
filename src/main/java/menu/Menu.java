@@ -29,8 +29,13 @@ import reader.JSONReader;
 import reader.TxtReader;
 import repository.*;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -1029,20 +1034,40 @@ public class Menu extends Application {
                     hbutton.setAlignment(Pos.BOTTOM_LEFT);
                     hbutton.getChildren().add(carga);
                     telaCarga.add(hbutton, 0, 5);
-                    carga.setOnAction(ac -> {
-                        try {
-                            Helper.getAllRepositories().forEach(Repository::clear);
-                            reader.read(nomeArquivo.getText());
-                            action.setText("Arquivo lido");
-                        } catch (IOException e) {
-                            if (e instanceof NoSuchFileException) {
-                                action.setText("Arquivo não encontrado");
-                            } else {
-                                action.setText("Erro ao ler arquivo. Por favor verifique a formatação e tente novamente");
+                    carga.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            GridPane telaCarga = new GridPane();
+                            telaCarga.setAlignment(Pos.CENTER);
+                            telaCarga.setHgap(10);
+                            telaCarga.setVgap(10);
+                            telaCarga.setPadding(new Insets(50, 100, 100, 100));
+
+                            Text title4 = new Text("CARGA DE DADOS");
+                            title4.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+                            title4.setTextAlignment(TextAlignment.CENTER);
+                            telaCarga.add(title4, 0, 0);
+
+                            Path path = Paths.get("resources/" + nomeArquivo.getText() + ".txt");
+                            try (BufferedReader br = Files.newBufferedReader(path, Charset.defaultCharset())) {
+                                String linha = null;
+                                int cont = 0;
+                                while ((linha = br.readLine()) != null) {
+                                    Label nome = new Label(linha);
+                                    telaCarga.add(nome, 0, cont);
+                                    cont++;
+                                }
+                                action.setText("Arquivo Lido");
                             }
-                            e.printStackTrace();
+                            catch (IOException e) {
+                                System.err.format("Erro de E/S: %s%n", e);
+                                action.setText("Arro na lietura do arquivo");
+                            }
+                            menuStage.setScene(new Scene(telaCarga));
+                            menuStage.show();
                         }
                     });
+
                     Button mmenu = new Button("MENU");
                     HBox hmenu = new HBox(10);
                     hmenu.setAlignment(Pos.BOTTOM_RIGHT);
