@@ -203,6 +203,9 @@ public class CadastroMenu extends Application {
                                 }
                             }
                         });
+
+                        menuCadastro.setScene(new Scene(pj));
+                        menuCadastro.show();
                     }
                 });
 
@@ -476,7 +479,7 @@ public class CadastroMenu extends Application {
                             actiontarget4.setText("Por favor preencha todos os campos");
                         else {
                             Modelo modelo = modeloAuto.getValue();
-                            Automovel automovel = new Automovel(placaAuto.getText(),Integer.parseInt(anoAuto.getText()), Double.parseDouble(diariaAuto.getText()), modelo.getCodigo());
+                            Automovel automovel = new Automovel(placaAuto.getText(), Integer.parseInt(anoAuto.getText()), Double.parseDouble(diariaAuto.getText()), modelo.getCodigo());
                             automovelRepository.save(automovel);
                             actiontarget4.setText("Cadastro concluido");
 
