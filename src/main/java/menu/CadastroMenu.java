@@ -553,7 +553,7 @@ public class CadastroMenu extends Application {
     public void cadastrarMarca(Scanner in) {
         System.out.println("Digite o nome da marca: ");
         this.marcaRepository.save(new Marca(in.nextLine()));
-    }*/
+    }
 
     public void cadastrarModelo(Scanner in) {
         System.out.println("Digite o nome do modelo: ");
@@ -580,5 +580,5 @@ public class CadastroMenu extends Application {
             Modelo modelo = new ModeloInternacional(nome, valor, categoria.getCodigo(), marca.getCodigo(), in.nextDouble());
             this.modeloRepository.save(modelo);
         }
-    }
+    }*/
 }
