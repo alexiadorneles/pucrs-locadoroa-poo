@@ -5,11 +5,12 @@ import domain.cliente.Cliente;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
 public class ClienteRepository implements Repository<Cliente, String> {
-    private final List<Cliente> clientes;
+    private List<Cliente> clientes;
     private static ClienteRepository instance = null;
 
     private ClienteRepository() {
@@ -55,5 +56,11 @@ public class ClienteRepository implements Repository<Cliente, String> {
             listaCLientes += cliente.toString() + '\n';
         }
         return listaCLientes;
+    }
+
+    public void remove(String cpfcnpj) {
+        this.clientes = this.clientes.stream()
+                .filter(cli -> !cli.getCPFCNPJ().equals(cpfcnpj))
+                .collect(Collectors.toList());
     }
 }

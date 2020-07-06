@@ -78,7 +78,8 @@ public class Locacao {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         LocalDate inicial = LocalDate.parse(getDataInicial(), formatter);
         LocalDate dataFinal = LocalDate.parse(getDataFinal(), formatter);
-        return ChronoUnit.DAYS.between(inicial, dataFinal);
+        long between = ChronoUnit.DAYS.between(inicial, dataFinal);
+        return between == 0 ? 1 : between;
     }
 
     @Override

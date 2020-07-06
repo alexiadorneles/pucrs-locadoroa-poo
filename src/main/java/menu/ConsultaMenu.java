@@ -3,6 +3,8 @@ package menu;
 import domain.automovel.Automovel;
 import domain.automovel.Categoria;
 import domain.cliente.Cliente;
+import domain.cliente.PessoaFisica;
+import domain.cliente.PessoaJuridica;
 import domain.locacao.Locacao;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -22,12 +24,17 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import repository.AutomovelRepository;
 import repository.CategoriaRepository;
 import repository.ClienteRepository;
 import repository.Repository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class ConsultaMenu extends Application {
     public int button = 0;
@@ -74,7 +81,7 @@ public class ConsultaMenu extends Application {
                 button1.getChildren().add(verificar);
                 grid.add(button1, 1, 2);
 
-                final Text actiontarget = new Text();
+                Text actiontarget = new Text();
                 grid.add(actiontarget, 1, 6);
                 actiontarget.setId("actiontarget");
 
@@ -118,51 +125,112 @@ public class ConsultaMenu extends Application {
                 title2.setTextAlignment(TextAlignment.CENTER);
                 grid.add(title2, 0, 0);
 
-                Text locacaoDisponivel = new Text("Locações disponiveis");
-                locacaoDisponivel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-                locacaoDisponivel.setTextAlignment(TextAlignment.CENTER);
-                grid.add(locacaoDisponivel, 0, 5);
-                Text locacaod = new Text("");
-                locacaod.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-                locacaoRepository.findAll().forEach(str -> locacaod.setText(str.toString()));
-                grid.add(locacaod, 0, 6);
+                Label categoriaLabel = new Label("Categoria: ");
+                grid.add(categoriaLabel, 0, 5);
 
-                Label text2 = new Label("Codigo: ");
-                grid.add(text2, 0, 1);
+                ComboBox<Categoria> categoriaComboBox1 = new ComboBox<>();
+                categoriaComboBox1.getItems().addAll(CategoriaRepository.getInstance().findAll());
+                grid.add(categoriaComboBox1, 1, 5);
 
-                TextField codigo = new TextField();
-                grid.add(codigo, 1, 1);
+                Button selecionarCategoria = new Button("Selecionar Categoria");
+                grid.add(selecionarCategoria, 2, 5);
 
+                actiontarget = new Text();
+                grid.add(actiontarget, 0, 12);
+                actiontarget.setId("action");
 
                 Button consult = new Button("VERIFICAR");
+                selecionarCategoria.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        Categoria categoria1 = categoriaComboBox1.getValue();
+                        List<Automovel> all = AutomovelRepository.getInstance().findAll();
+                        List<Automovel> fromThisCategoria = all.stream()
+                                .filter(auto -> auto.getModelo().getCategoria().getCodigo().equals(categoria1.getCodigo()))
+                                .filter(Automovel::isDisponivel)
+                                .collect(toList());
+                        if (fromThisCategoria.isEmpty()) {
+                            actiontarget.setText("Nenhum automovel disponível para esta categoria");
+                            grid.getChildren().removeIf(child -> child.getId() != null && child.getId().equals("id"));
+                        } else {
+                            actiontarget.setText("");
+                            Label autoLabel = new Label("Automóveis Disponíveis");
+                            autoLabel.setId("id");
+                            grid.add(autoLabel, 0, 6);
+                            ComboBox<Automovel> automovelComboBox = new ComboBox<>();
+                            automovelComboBox.getItems().addAll(fromThisCategoria);
+                            automovelComboBox.setId("id");
+                            grid.add(automovelComboBox, 1, 6);
+
+                            Label dataInicial = new Label("Data inicial (DD/MM/AAA) ");
+                            grid.add(dataInicial, 0, 7);
+                            dataInicial.setId("id");
+
+                            TextField dataInicialInput = new TextField();
+                            grid.add(dataInicialInput, 1, 7);
+                            dataInicialInput.setId("id");
+
+                            Label dataFinal = new Label("Data final (DD/MM/AAA): ");
+                            grid.add(dataFinal, 0, 8);
+                            dataFinal.setId("id");
+
+                            TextField dataFinalInput = new TextField();
+                            grid.add(dataFinalInput, 1, 8);
+                            dataFinalInput.setId("id");
+
+                            Label tipoClienteLabel = new Label("Selecione o tipo de cliente");
+                            tipoClienteLabel.setId("id");
+                            grid.add(tipoClienteLabel, 0, 9);
+
+                            ComboBox<String> tipoClienteCombobox = new ComboBox<>();
+                            tipoClienteCombobox.setId("id");
+                            tipoClienteCombobox.getItems().addAll(Arrays.asList("PF", "PJ"));
+                            grid.add(tipoClienteCombobox, 1, 9);
+
+                            consult.setOnAction(new EventHandler<ActionEvent>() {
+                                @Override
+                                public void handle(ActionEvent actionEvent) {
+                                    if (dataFinalInput.getText().isEmpty() || dataInicialInput.getText().isEmpty()
+                                            || automovelComboBox.getValue() == null || tipoClienteCombobox.getValue() == null
+                                    ) {
+                                        actiontarget.setText("Por favor preencha os dados");
+                                    } else {
+                                        actiontarget.setText("");
+                                        String tipoCliente = tipoClienteCombobox.getValue();
+                                        Cliente cliente = null;
+                                        if (tipoCliente.equals("PF")) cliente = new PessoaFisica("", "", "MOCK");
+                                        if (tipoCliente.equals("PJ")) cliente = new PessoaJuridica("", "", "MOCK");
+                                        ClienteRepository.getInstance().save(cliente);
+                                        Locacao locacao = new Locacao(cliente.getCPFCNPJ(), dataInicialInput.getText(), dataFinalInput.getText(), automovelComboBox.getValue().getPlaca());
+                                        try {
+                                            double valorLocacao = locacao.calcularValorLocacao();
+                                            ClienteRepository.getInstance().remove(cliente.getCPFCNPJ());
+                                            grid.getChildren().removeIf(child -> child.getId() != null && child.getId().equals("valorLocacao"));
+                                            Text text = new Text("O valor da locação é: " + valorLocacao);
+                                            text.setId("valorLocacao");
+                                            grid.add(text, 1, 10);
+                                        } catch (Exception e) {
+                                            actiontarget.setText("Dados inválidos. Por favor, corrija os dados e tente novamente.");
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
                 HBox button2 = new HBox(10);
                 button2.setAlignment(Pos.BOTTOM_LEFT);
                 button2.getChildren().add(consult);
-                grid.add(button2, 1, 2);
+                grid.add(button2, 1, 12);
 
-                final Text action = new Text();
-                grid.add(action, 1, 6);
-                action.setId("action");
-
+                actiontarget.setId("action");
 
                 consult.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        action.setFill(Color.FIREBRICK);
-                        if (codigo.getText().isEmpty()) action.setText("Por favor preencha todos os campos");
-                        else {
-                            Locacao locacao;
-                            locacao = locacaoRepository.findOne(Integer.valueOf(codigo.getText()));
-                            try {
-                                Text t2 = new Text("O valor da locação é " + locacao.calcularValorLocacao());
-                                t2.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-                                grid.add(t2, 0, 2);
-                            } catch (Exception e) {
-                                Text t2 = new Text("Houve um problema ao calcular o valor da locação. Certifique-se que ela esteja ligada a um automóvel.");
-                                t2.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-                                grid.add(t2, 0, 2);
-                            }
-                        }
+                        actiontarget.setFill(Color.FIREBRICK);
+                        actiontarget.setText("Por favor preencha os dados");
                     }
                 });
                 Scene scene2 = new Scene(grid);
