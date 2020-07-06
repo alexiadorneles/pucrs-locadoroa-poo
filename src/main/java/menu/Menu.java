@@ -473,6 +473,19 @@ public class Menu extends Application {
                                     newLocacao.add(action, 1, 7);
                                     action.setId("action");
 
+                                    Button mmenu = new Button("MENU");
+                                    HBox hmenu = new HBox(10);
+                                    hmenu.setAlignment(Pos.BOTTOM_RIGHT);
+                                    hmenu.getChildren().add(mmenu);
+                                    newLocacao.add(hmenu, 0, 20);
+                                    mmenu.setOnAction(actEven -> {
+                                        Principal principal = new Principal();
+                                        try {
+                                            principal.start(menuStage);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    });
                                     menuStage.setScene(new Scene(newLocacao));
                                     menuStage.show();
 
@@ -533,12 +546,38 @@ public class Menu extends Application {
                                                     locacaoRepository.save(locacao);
                                                 }
                                             });
+                                            Button menu1 = new Button("MENU");
+                                            HBox hmenu1 = new HBox(10);
+                                            hmenu1.setAlignment(Pos.BOTTOM_RIGHT);
+                                            hmenu1.getChildren().add(menu1);
+                                            cli.add(hmenu1, 0, 20);
+                                            menu1.setOnAction(actE -> {
+                                                Principal principal = new Principal();
+                                                try {
+                                                    principal.start(menuStage);
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+                                            });
                                             menuStage.setScene(new Scene(cli));
                                             menuStage.show();
                                         }
                                     });
                                 }
                             }
+                        }
+                    });
+                    Button mmenu = new Button("MENU");
+                    HBox hmenu = new HBox(10);
+                    hmenu.setAlignment(Pos.BOTTOM_RIGHT);
+                    hmenu.getChildren().add(mmenu);
+                    locacao.add(hmenu, 0, 20);
+                    mmenu.setOnAction(actEv -> {
+                        Principal principal = new Principal();
+                        try {
+                            principal.start(menuStage);
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     });
                     menuStage.setScene(new Scene(locacao));
