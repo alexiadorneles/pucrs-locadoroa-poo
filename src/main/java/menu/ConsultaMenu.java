@@ -88,6 +88,7 @@ public class ConsultaMenu extends Application {
                             Categoria chosenCategoria = categoriaComboBox.getValue();
                             List<Automovel> autoDisponiveisCategoria = automovelRepository.filter(auto -> getAutomovelByCategoriaAndDisponivel(chosenCategoria, auto));
                             if (autoDisponiveisCategoria.isEmpty()) {
+                                grid.getChildren().removeIf(child -> child.getId() != null && child.getId().equals("id"));
                                 actiontarget.setText("Não há automoveis dessa categoria");
                             }
 
@@ -98,9 +99,9 @@ public class ConsultaMenu extends Application {
 
                             int count = 6;
                             for (Automovel automovel : autoDisponiveisCategoria) {
-                                Text txt = new Text();
+                                Text txt = new Text(automovel.toString());
+                                txt.setId("id");
                                 txt.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
-                                txt.setText(automovel.toString());
                                 grid.add(txt, 0, count++);
                             }
                         }
@@ -187,7 +188,7 @@ public class ConsultaMenu extends Application {
                 if (locacoes.isEmpty()) {
                     action1.setText("Nenhuma locação disponivel");
                 } else {
-                    this.showInGrid(grid, locacoes);
+                    this.showInGrid(grid, locacoes, 6);
                 }
                 menuConsulta.setScene(new Scene(grid));
                 menuConsulta.show();
@@ -210,7 +211,7 @@ public class ConsultaMenu extends Application {
                 if (clientes.isEmpty()) {
                     action2.setText("Nenhum cliente disponivel");
                 } else {
-                    this.showInGrid(grid, clientes);
+                    this.showInGrid(grid, clientes, 6);
                 }
                 menuConsulta.setScene(new Scene(grid));
                 menuConsulta.show();
@@ -234,7 +235,7 @@ public class ConsultaMenu extends Application {
                 if (automoveis.isEmpty()) {
                     action3.setText("Nenhum automovel cadastrado");
                 } else {
-                    this.showInGrid(grid, automoveis);
+                    this.showInGrid(grid, automoveis, 6);
                 }
                 menuConsulta.setScene(new Scene(grid));
                 menuConsulta.show();
@@ -242,8 +243,8 @@ public class ConsultaMenu extends Application {
         }
     }
 
-    private <T> void showInGrid(GridPane grid, List<T> objects) {
-        AtomicInteger count = new AtomicInteger(5);
+    private <T> void showInGrid(GridPane grid, List<T> objects, int init) {
+        AtomicInteger count = new AtomicInteger(init);
         objects.forEach(str -> {
             Text loc = new Text();
             loc.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
