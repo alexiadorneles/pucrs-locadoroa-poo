@@ -1,5 +1,6 @@
 package repository;
 
+import domain.automovel.Categoria;
 import domain.automovel.Marca;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class MarcaRepository implements Repository<Marca, Integer> {
 
     @Override
     public void save(Marca marca) {
+        IDGenerator.getInstance().registerTopFor(Marca.class.getName(), marca.getCodigo() + 1);
         this.marcas.add(marca);
     }
 

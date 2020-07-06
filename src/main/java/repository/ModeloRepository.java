@@ -1,5 +1,6 @@
 package repository;
 
+import domain.automovel.Categoria;
 import domain.automovel.Modelo;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class ModeloRepository implements Repository<Modelo, Integer> {
 
     @Override
     public void save(Modelo model) {
+        IDGenerator.getInstance().registerTopFor("Modelo", model.getCodigo() + 1);
         this.modelos.add(model);
     }
 

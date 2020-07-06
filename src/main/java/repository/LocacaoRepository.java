@@ -1,5 +1,6 @@
 package repository;
 
+import domain.automovel.Categoria;
 import domain.locacao.Locacao;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class LocacaoRepository implements Repository<Locacao, Integer> {
 
     @Override
     public void save(Locacao model) {
+        IDGenerator.getInstance().registerTopFor(Locacao.class.getName(), model.getCodigo() + 1);
         this.locacoes.add(model);
     }
 

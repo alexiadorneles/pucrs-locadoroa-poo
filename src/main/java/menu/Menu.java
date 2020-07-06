@@ -720,14 +720,14 @@ public class Menu extends Application {
                 button9.setAlignment(Pos.BOTTOM_LEFT);
                 button9.getChildren().add(cadastrarAutomovel);
                 opcoeGerente.add(button9, 0, 9);
-                cadastrarAutomovel.setOnAction(actionEvent1 ->{
-                try {
-                    cadastroMenu.setButton(5);
-                    cadastroMenu.start(menuStage);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+                cadastrarAutomovel.setOnAction(actionEvent1 -> {
+                    try {
+                        cadastroMenu.setButton(5);
+                        cadastroMenu.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
                 Button removerAutomovel = new Button("REMOVER AUTOMÓVEL");
                 HBox button10 = new HBox(10);
@@ -783,12 +783,6 @@ public class Menu extends Application {
                 button14.setAlignment(Pos.BOTTOM_LEFT);
                 button14.getChildren().add(cargaDeDados);
                 opcoeGerente.add(button14, 0, 14);
-
-//                private void realizarCargaDeDados(Scanner in) {
-//                    System.out.println("Por favor, digite o nome do arquivo (ele deve estar em resources)");
-//                    String fileName = in.nextLine();
-//                    reader.read(fileName);
-//                }
                 cargaDeDados.setOnAction(actionE -> {
                     GridPane telaCarga = new GridPane();
                     telaCarga.setAlignment(Pos.CENTER);
@@ -819,6 +813,7 @@ public class Menu extends Application {
                     telaCarga.add(hbutton, 0, 5);
                     carga.setOnAction(ac -> {
                         try {
+                            Helper.getAllRepositories().forEach(Repository::clear);
                             reader.read(nomeArquivo.getText());
                             action.setText("Arquivo lido");
                         } catch (IOException e) {

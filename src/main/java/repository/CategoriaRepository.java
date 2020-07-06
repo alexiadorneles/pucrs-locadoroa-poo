@@ -26,11 +26,12 @@ public class CategoriaRepository implements Repository<Categoria, Integer> {
 
     @Override
     public void save(Categoria model) {
+        IDGenerator.getInstance().registerTopFor(Categoria.class.getName(), model.getCodigo() + 1);
         this.categorias.add(model);
     }
 
     @Override
-    public Categoria findOne(Integer codigo){
+    public Categoria findOne(Integer codigo) {
         return this.categorias.stream().filter(categoria -> categoria.getCodigo().equals(codigo)).findFirst().orElse(null);
     }
 

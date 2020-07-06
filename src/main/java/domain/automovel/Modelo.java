@@ -22,12 +22,12 @@ public abstract class Modelo {
         this.valor = valor;
         this.codCategoria = categoria;
         this.codMarca = marca;
-        this.codigo = IDGenerator.getInstance().getIdFor(this.getClass().getName());
+        this.codigo = IDGenerator.getInstance().getIdFor("Modelo");
     }
 
     protected Modelo(Integer codigo, String nome, double valor, Integer categoria, Integer marca) {
         this.codigo = codigo;
-        IDGenerator.getInstance().registerTopFor(this.getClass().getName(), codigo);
+        IDGenerator.getInstance().registerTopFor("Modelo", codigo);
         this.nome = nome;
         this.valor = valor;
         this.codCategoria = categoria;
