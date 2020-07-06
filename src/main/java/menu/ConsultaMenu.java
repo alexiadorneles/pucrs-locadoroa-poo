@@ -236,11 +236,14 @@ public class ConsultaMenu extends Application {
                 if (automoveis.isEmpty()) {
                     action3.setText("Nenhum automovel cadastrado");
                 } else {
-                    Text auto = new Text();
-                    auto.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
-                    auto.setTextAlignment(TextAlignment.CENTER);
-                    automoveis.forEach(str -> auto.setText(str.toString()));
-                    grid.add(auto, 0, 5);
+                    AtomicInteger count = new AtomicInteger(5);
+                    automoveis.forEach(str -> {
+                        Text auto = new Text();
+                        auto.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+                        auto.setTextAlignment(TextAlignment.CENTER);
+                        auto.setText(str.toString());
+                        grid.add(auto, 0, count.getAndIncrement());
+                    });
                 }
                 menuConsulta.setScene(new Scene(grid));
                 menuConsulta.show();
