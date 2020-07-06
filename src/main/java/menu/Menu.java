@@ -958,6 +958,58 @@ public class Menu extends Application {
                 button10.setAlignment(Pos.BOTTOM_LEFT);
                 button10.getChildren().add(removerAutomovel);
                 opcoeGerente.add(button10, 0, 10);
+                removerAutomovel.setOnAction(actionEvent1 -> {
+                    GridPane removerAuto = new GridPane();
+                    removerAuto.setAlignment(Pos.CENTER);
+                    removerAuto.setHgap(10);
+                    removerAuto.setVgap(10);
+                    removerAuto.setPadding(new Insets(50, 100, 100, 100));
+
+                    Text title3 = new Text("REMOVER AUTOMOVEL");
+                    title3.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                    title3.setTextAlignment(TextAlignment.CENTER);
+                    removerAuto.add(title3,0,0);
+
+                    Label text3 = new Label("Placa: ");
+                    removerAuto.add(text3,0,1);
+
+                    TextField placa = new TextField();
+                    removerAuto.add(placa,1,1);
+
+                    Text action2 = new Text();
+                    action2.setId("action");
+                    action2.setFill(Color.FIREBRICK);
+                    removerAuto.add(action2,0,6);
+
+                    Button remover = new Button("REMOVER");
+                    HBox remov = new HBox(10);
+                    remov.setAlignment(Pos.BOTTOM_LEFT);
+                    remov.getChildren().add(remover);
+                    removerAuto.add(remov, 0, 3);
+                    remover.setOnAction(actionEvent2 -> {
+                        if (placa.getText().isEmpty()) action2.setText("Por favor, preencha o campo");
+                        else {
+                            boolean result = automovelRepository.removeByPlaca(placa.getText());
+                            action2.setText(result ? "Removido com sucesso!" : "Um automóvel com essa placa não existe");
+                        }
+                    });
+
+                    Button mmenu = new Button("MENU");
+                    HBox hmenu = new HBox(10);
+                    hmenu.setAlignment(Pos.BOTTOM_RIGHT);
+                    hmenu.getChildren().add(mmenu);
+                    removerAuto.add(hmenu, 0, 20);
+                    mmenu.setOnAction(actEven -> {
+                        Principal principal = new Principal();
+                        try {
+                            principal.start(menuStage);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    menuStage.setScene(new Scene(removerAuto));
+                    menuStage.show();
+                });
 
                 Button consultarLocacoes = new Button("CONSULTAR LOCAÇÕES");
                 HBox button11 = new HBox(10);
@@ -1065,6 +1117,7 @@ public class Menu extends Application {
                     menuStage.setScene(new Scene(telaCarga));
                     menuStage.show();
                 });
+
                 Button mmenu = new Button("MENU");
                 HBox hmenu = new HBox(10);
                 hmenu.setAlignment(Pos.BOTTOM_RIGHT);
