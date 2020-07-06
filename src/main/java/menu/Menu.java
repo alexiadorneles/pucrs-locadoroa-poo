@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import domain.cliente.Cliente;
@@ -119,7 +120,6 @@ public class Menu extends Application {
                         e.printStackTrace();
                     }
                 });
-
 
                 Button consulta = new Button("CONSULTAR DISPONIBILIDADE DE AUTOMOVEL POR CATEGORIA");
                 HBox button2 = new HBox(10);
@@ -879,5 +879,6 @@ public class Menu extends Application {
         Scene scene = new Scene(telaCarga);
         menuStage.setScene(scene);
         menuStage.show();
+
     }
 }
