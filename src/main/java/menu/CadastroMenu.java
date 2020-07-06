@@ -358,7 +358,7 @@ public class CadastroMenu extends Application {
                                 if(nome.getText().trim().isEmpty() || valorModelo.getText().trim().isEmpty()) actiontarget2.setText("Por favor preencha todos os campos");
                                 else {
                                     actiontarget2.setText("Cadastro concluido");
-                                    // Marca m = new Marca(nomeModelo.getText(), valorModelo.getText(), categ.getValue(),modelo.getValue());
+                                   //Modelo novoModelo = new Modelo();
                                     //marcaRepository.save(m);
                                     //System.out.println(marca.toString());
                                 }
