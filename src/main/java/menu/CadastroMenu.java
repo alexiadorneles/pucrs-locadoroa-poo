@@ -207,10 +207,6 @@ public class CadastroMenu extends Application {
                 break;
 
                 case 2:
-                    Scene scene1 = new Scene(grid);
-                    menuCadastro.setScene(scene1);
-                    menuCadastro.show();
-
                     Text title1 = new Text("CADASTRAR NOVA CATEGORIA");
                     title1.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
                     title1.setTextAlignment(TextAlignment.CENTER);
@@ -245,6 +241,10 @@ public class CadastroMenu extends Application {
                             }
                         }
                     });
+
+                    Scene scene1 = new Scene(grid);
+                    menuCadastro.setScene(scene1);
+                    menuCadastro.show();
                 break;
 
             case 3:
@@ -314,6 +314,7 @@ public class CadastroMenu extends Application {
                 final ComboBox categ = new ComboBox();
                 categ.getItems().addAll(categoriaRepository.findAll());
                 grid.add(categ, 1,3);
+                categ.setValue(categoriaRepository.findOne(0));
 
                 Label marca1 = new Label("Escolha o Marca: ");
                 grid.add(marca1,0,4);
@@ -321,6 +322,7 @@ public class CadastroMenu extends Application {
                 final ComboBox marcaModelo = new ComboBox();
                 marcaModelo.getItems().addAll(marcaRepository.findAll());
                 grid.add(marcaModelo, 1,4);
+                marcaModelo.setValue(marcaRepository.findOne(0));
 
                 Button cadastroModelo = new Button("CADASTRAR MODELO");
                 HBox button7 = new HBox(10);
@@ -420,19 +422,48 @@ public class CadastroMenu extends Application {
                 TextField anoAuto = new TextField();
                 grid.add(anoAuto,1,2);
 
-                Label diaria = new Label("Diaria: ");
+                Label diaria = new Label("Diária: ");
                 grid.add(diaria,0,3);
 
                 TextField diariaAuto = new TextField();
                 grid.add(diariaAuto,1,3);
 
-                Label m = new Label("Nome do Modelo: ");
+                Label m = new Label("Modelo: ");
                 grid.add(m,0,4);
 
                 final ComboBox modeloAuto = new ComboBox();
                 modeloAuto.getItems().addAll(modeloRepository.findAll());
-                grid.add(modeloAuto, 1,3);
+                grid.add(modeloAuto, 1,4);
                 modeloAuto.setValue(modeloRepository.findOne(0));
+
+                Button cadastroAuto = new Button("CADASTRAR AUTOMÓVEL");
+                HBox button8 = new HBox(10);
+                button8.setAlignment(Pos.BOTTOM_RIGHT);
+                button8.getChildren().add(cadastroAuto);
+                grid.add(cadastroAuto,0,5);
+
+                final Text actiontarget4 = new Text();
+                grid.add(actiontarget4, 1, 7);
+                actiontarget4.setId("actiontarget");
+
+                cadastroAuto.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        actiontarget4.setFill(Color.FIREBRICK);
+                        if(placaAuto.getText().trim().isEmpty() || anoAuto.getText().trim().isEmpty() || diariaAuto.getText().trim().isEmpty()) actiontarget4.setText("Por favor preencha todos os campos");
+                        else {
+                            actiontarget4.setText("Cadastro concluido");
+
+                        }
+                    }
+                });
+
+                Scene scene4 = new Scene(grid);
+                menuCadastro.setScene(scene4);
+                menuCadastro.show();
+                break;
+
+
 
 
 
