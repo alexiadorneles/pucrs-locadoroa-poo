@@ -1,5 +1,9 @@
 package menu;
 
+import domain.automovel.Automovel;
+import domain.automovel.Categoria;
+import domain.cliente.Cliente;
+import domain.locacao.Locacao;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,19 +11,20 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-
-import domain.automovel.Automovel;
-import domain.automovel.Categoria;
-import domain.cliente.Cliente;
-import domain.locacao.Locacao;
-import repository.*;
+import repository.CategoriaRepository;
+import repository.ClienteRepository;
+import repository.Repository;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -55,12 +60,13 @@ public class ConsultaMenu extends Application {
                 title.setTextAlignment(TextAlignment.CENTER);
                 grid.add(title, 0, 0);
 
-                Label text = new Label("Codigo (números): ");
-                grid.add(text, 0, 1);
+                Label categoria = new Label("Escolha a Categoria: ");
+                grid.add(categoria, 0, 3);
 
-                TextField categoria = new TextField();
-                grid.add(categoria, 1, 1);
-
+                final ComboBox<Categoria> categoriaComboBox = new ComboBox<>();
+                categoriaComboBox.getItems().addAll(CategoriaRepository.getInstance().findAll());
+                grid.add(categoriaComboBox, 1, 3);
+                categoriaComboBox.setValue(CategoriaRepository.getInstance().findOne(0));
 
                 Button verificar = new Button("VERIFICAR");
                 HBox button1 = new HBox(10);
@@ -79,21 +85,24 @@ public class ConsultaMenu extends Application {
                         actiontarget.setFill(Color.FIREBRICK);
                         if (categoria.getText().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
                         else {
-                            Categoria categoria1 = CategoriaRepository.getInstance().findOne(Integer.valueOf(categoria.getText()));
-                            List<Automovel> autoDisponiveisCategoria = automovelRepository.filter(auto -> getAutomovelByCategoriaAndDisponivel(categoria1, auto));
+                            Categoria chosenCategoria = categoriaComboBox.getValue();
+                            List<Automovel> autoDisponiveisCategoria = automovelRepository.filter(auto -> getAutomovelByCategoriaAndDisponivel(chosenCategoria, auto));
                             if (autoDisponiveisCategoria.isEmpty()) {
                                 actiontarget.setText("Não há automoveis dessa categoria");
-
                             }
 
                             Text categoriaDisponivel = new Text("Automoveis disponiveis");
                             categoriaDisponivel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                             categoriaDisponivel.setTextAlignment(TextAlignment.CENTER);
                             grid.add(categoriaDisponivel, 0, 5);
-                            Text txt = new Text();
-                            txt.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
-                            autoDisponiveisCategoria.forEach(str -> txt.setText(str.toString()));
-                            grid.add(txt, 0, 6);
+
+                            int count = 6;
+                            for (Automovel automovel : autoDisponiveisCategoria) {
+                                Text txt = new Text();
+                                txt.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+                                txt.setText(automovel.toString());
+                                grid.add(txt, 0, count++);
+                            }
                         }
                     }
                 });
