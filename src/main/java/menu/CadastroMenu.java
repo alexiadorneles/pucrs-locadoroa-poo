@@ -452,7 +452,7 @@ public class CadastroMenu extends Application {
                 Label m = new Label("Modelo: ");
                 grid.add(m, 0, 4);
 
-                final ComboBox modeloAuto = new ComboBox();
+                final ComboBox<Modelo> modeloAuto = new ComboBox<>();
                 modeloAuto.getItems().addAll(modeloRepository.findAll());
                 grid.add(modeloAuto, 1, 4);
                 modeloAuto.setValue(modeloRepository.findOne(0));
@@ -474,8 +474,10 @@ public class CadastroMenu extends Application {
                         if (placaAuto.getText().trim().isEmpty() || anoAuto.getText().trim().isEmpty() || diariaAuto.getText().trim().isEmpty())
                             actiontarget4.setText("Por favor preencha todos os campos");
                         else {
+                            Automovel automovel = new Automovel(placaAuto.getText(), Integer.parseInt(anoAuto.getText()),
+                                    Double.parseDouble(diariaAuto.getText()), modeloAuto.getValue().getCodigo());
+                            automovelRepository.save(automovel);
                             actiontarget4.setText("Cadastro concluido");
-
                         }
                     }
                 });

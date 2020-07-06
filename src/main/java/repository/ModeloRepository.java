@@ -26,7 +26,7 @@ public class ModeloRepository implements Repository<Modelo, Integer> {
 
     @Override
     public void save(Modelo model) {
-        IDGenerator.getInstance().registerTopFor("Modelo", model.getCodigo() + 1);
+        IDGenerator.getInstance().registerTopFor("Modelo", model.getCodigo() + 2);
         this.modelos.add(model);
     }
 
