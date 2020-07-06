@@ -720,6 +720,14 @@ public class Menu extends Application {
                 button9.setAlignment(Pos.BOTTOM_LEFT);
                 button9.getChildren().add(cadastrarAutomovel);
                 opcoeGerente.add(button9, 0, 9);
+                cadastrarAutomovel.setOnAction(actionEvent1 ->{
+                try {
+                    cadastroMenu.setButton(5);
+                    cadastroMenu.start(menuStage);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
 
                 Button removerAutomovel = new Button("REMOVER AUTOMÓVEL");
                 HBox button10 = new HBox(10);

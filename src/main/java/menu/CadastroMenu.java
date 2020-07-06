@@ -249,10 +249,6 @@ public class CadastroMenu extends Application {
 
             case 3:
 
-                Scene scene2 = new Scene(grid);
-                menuCadastro.setScene(scene2);
-                menuCadastro.show();
-
                 Text title2 = new Text("CADASTRAR NOVA MARCA");
                 title2.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
                 title2.setTextAlignment(TextAlignment.CENTER);
@@ -287,12 +283,13 @@ public class CadastroMenu extends Application {
                         }
                     }
                 });
+
+                Scene scene2 = new Scene(grid);
+                menuCadastro.setScene(scene2);
+                menuCadastro.show();
                 break;
 
             case 4:
-                Scene scene3 = new Scene(grid);
-                menuCadastro.setScene(scene3);
-                menuCadastro.show();
 
                 Text title3 = new Text("CADASTRAR NOVA MODELO");
                 title3.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
@@ -318,12 +315,12 @@ public class CadastroMenu extends Application {
                 categ.getItems().addAll(categoriaRepository.findAll());
                 grid.add(categ, 1,3);
 
-                Label model = new Label("Escolha o Modelo: ");
-                grid.add(model,0,4);
+                Label marca1 = new Label("Escolha o Marca: ");
+                grid.add(marca1,0,4);
 
-                final ComboBox modelo = new ComboBox();
-                modelo.getItems().addAll(modeloRepository.findAll());
-                grid.add(modelo, 1,4);
+                final ComboBox marcaModelo = new ComboBox();
+                marcaModelo.getItems().addAll(marcaRepository.findAll());
+                grid.add(marcaModelo, 1,4);
 
                 Button cadastroModelo = new Button("CADASTRAR MODELO");
                 HBox button7 = new HBox(10);
@@ -398,7 +395,51 @@ public class CadastroMenu extends Application {
                         }
                     }
                 });
+
+                Scene scene3 = new Scene(grid);
+                menuCadastro.setScene(scene3);
+                menuCadastro.show();
                 break;
+
+            case 5:
+
+                Text title4 = new Text("CADASTRAR NOVA AUTOMÓVEL");
+                title4.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title4.setTextAlignment(TextAlignment.CENTER);
+                grid.add(title4,0,0);
+
+                Label placa = new Label("Placa: ");
+                grid.add(placa,0,1);
+
+                TextField placaAuto = new TextField();
+                grid.add(placaAuto,1,1);
+
+                Label ano = new Label("Ano: ");
+                grid.add(ano,0,2);
+
+                TextField anoAuto = new TextField();
+                grid.add(anoAuto,1,2);
+
+                Label diaria = new Label("Diaria: ");
+                grid.add(diaria,0,3);
+
+                TextField diariaAuto = new TextField();
+                grid.add(diariaAuto,1,3);
+
+                Label m = new Label("Nome do Modelo: ");
+                grid.add(m,0,4);
+
+                final ComboBox modeloAuto = new ComboBox();
+                modeloAuto.getItems().addAll(modeloRepository.findAll());
+                grid.add(modeloAuto, 1,3);
+                modeloAuto.setValue(modeloRepository.findOne(0));
+
+
+
+
+
+
+
 
 
         }
