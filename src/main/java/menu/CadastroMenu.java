@@ -19,8 +19,7 @@ import domain.cliente.PessoaFisica;
 import domain.cliente.PessoaJuridica;
 import repository.*;
 
-import javax.security.auth.callback.Callback;
-import java.util.Scanner;
+import java.util.List;
 
 public class CadastroMenu extends Application {
 
@@ -223,14 +222,14 @@ public class CadastroMenu extends Application {
                 Label nomeCat = new Label("Nome da Categoria: ");
                 grid.add(nomeCat, 0, 1);
 
-                TextField cat = new TextField();
-                grid.add(cat, 1, 1);
+                TextField categoriaa = new TextField();
+                grid.add(categoriaa, 1, 1);
 
                 Button cadastroCat = new Button("CADASTRAR CATEGORIA");
                 HBox button3 = new HBox(10);
                 button3.setAlignment(Pos.BOTTOM_LEFT);
                 button3.getChildren().add(cadastroCat);
-                grid.add(button3, 0, 2);
+                grid.add(button3, 0, 3);
 
                 final Text actiontarget = new Text();
                 grid.add(actiontarget, 1, 6);
@@ -240,12 +239,15 @@ public class CadastroMenu extends Application {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         actiontarget.setFill(Color.FIREBRICK);
-                        if (cat.getText().trim().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
+                        List<Categoria> a = categoriaRepository.findAll();
+
+                        if (categoriaa.getText().trim().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
+                        if(a.stream().filter(cat -> cat.getNome().equals(categoriaa.getText())).findAny().isPresent()) actiontarget.setText("Categoria ja existente");
                         else {
                             actiontarget.setText("Cadastro concluido");
-                            Categoria categoria = new Categoria(cat.getText());
-                            categoriaRepository.save(categoria);
-                            System.out.println(categoria.toString());
+                            Categoria categoria1 = new Categoria(categoriaa.getText());
+                            categoriaRepository.save(categoria1);
+                            System.out.println(categoria1.toString());
                         }
                     }
                 });
@@ -265,8 +267,8 @@ public class CadastroMenu extends Application {
                 Label nomeMarca = new Label("Nome da Marca: ");
                 grid.add(nomeMarca, 0, 1);
 
-                TextField marca = new TextField();
-                grid.add(marca, 1, 1);
+                TextField marcaAdd = new TextField();
+                grid.add(marcaAdd, 1, 1);
 
                 Button cadastroMarca = new Button("CADASTRAR MARCA");
                 HBox button4 = new HBox(10);
@@ -282,13 +284,17 @@ public class CadastroMenu extends Application {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         actiontarget1.setFill(Color.FIREBRICK);
-                        if (marca.getText().trim().isEmpty())
+                        List<Marca> m = marcaRepository.findAll();
+
+                        if (marcaAdd.getText().trim().isEmpty())
                             actiontarget1.setText("Por favor preencha todos os campos");
+
+                        if(m.stream().filter(marca -> marca.getNome().equals(marcaAdd.getText())).findAny().isPresent()) actiontarget1.setText("Marca ja existente");
                         else {
                             actiontarget1.setText("Cadastro concluido");
-                            Marca m = new Marca(marca.getText());
-                            marcaRepository.save(m);
-                            System.out.println(marca.toString());
+                            Marca ma = new Marca(marcaAdd.getText());
+                            marcaRepository.save(ma);
+                            System.out.println(ma.toString());
                         }
                     }
                 });
@@ -363,8 +369,11 @@ public class CadastroMenu extends Application {
                             @Override
                             public void handle(ActionEvent actionEvent) {
                                 actiontarget2.setFill(Color.FIREBRICK);
+                                List<Modelo> model = modeloRepository.findAll();
                                 if (nome.getText().trim().isEmpty() || valorModelo.getText().trim().isEmpty())
                                     actiontarget2.setText("Por favor preencha todos os campos");
+
+                                if(model.stream().filter(modelo-> modelo.getNome().equals(nomeModelo.getText())).findAny().isPresent()) actiontarget2.setText("Modelo ja existente");
                                 else {
                                     Categoria categoria = categ.getValue();
                                     Marca marca = marcaModelo.getValue();
