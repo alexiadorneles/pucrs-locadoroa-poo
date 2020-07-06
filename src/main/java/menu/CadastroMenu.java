@@ -203,10 +203,12 @@ public class CadastroMenu extends Application {
                                 }
                             }
                         });
-                        menuCadastro.setScene(new Scene(pj));
-                        menuCadastro.show();
                     }
                 });
+
+                Scene scene = new Scene(grid);
+                menuCadastro.setScene(scene);
+                menuCadastro.show();
                 break;
 
             case 2:
