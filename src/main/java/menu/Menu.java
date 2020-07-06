@@ -1063,10 +1063,6 @@ public class Menu extends Application {
                             } else {
                                 action.setText("Erro ao ler arquivo. Por favor verifique a formatação e tente novamente");
                             }
-                            catch (IOException e) {
-                                System.err.format("Erro de E/S: %s%n", e);
-                                action.setText("Arro na lietura do arquivo");
-                            }
                             menuStage.setScene(new Scene(telaCarga));
                             menuStage.show();
                         }
