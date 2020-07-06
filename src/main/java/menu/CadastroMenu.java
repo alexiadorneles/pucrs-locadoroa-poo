@@ -134,6 +134,19 @@ public class CadastroMenu extends Application {
                                 }
                             }
                         });
+                        Button mmenu = new Button("MENU");
+                        HBox hmenu = new HBox(10);
+                        hmenu.setAlignment(Pos.BOTTOM_RIGHT);
+                        hmenu.getChildren().add(mmenu);
+                        grid.add(hmenu, 0, 20);
+                        mmenu.setOnAction(actEven -> {
+                            Principal principal = new Principal();
+                            try {
+                                principal.start(menuCadastro);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
                         menuCadastro.setScene(new Scene(pf));
                         menuCadastro.show();
                     }
@@ -209,6 +222,19 @@ public class CadastroMenu extends Application {
                     }
                 });
 
+                Button mmenu = new Button("MENU");
+                HBox hmenu = new HBox(10);
+                hmenu.setAlignment(Pos.BOTTOM_RIGHT);
+                hmenu.getChildren().add(mmenu);
+                grid.add(hmenu, 0, 20);
+                mmenu.setOnAction(actEven -> {
+                    Principal principal = new Principal();
+                    try {
+                        principal.start(menuCadastro);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
                 Scene scene = new Scene(grid);
                 menuCadastro.setScene(scene);
                 menuCadastro.show();

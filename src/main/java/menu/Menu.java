@@ -316,6 +316,128 @@ public class Menu extends Application {
                 button5.setAlignment(Pos.BOTTOM_LEFT);
                 button5.getChildren().add(finalizarLocacao);
                 opcoeAtendente.add(button5, 0, 5);
+                finalizarLocacao.setOnAction(actionEvent1 -> {
+                    GridPane finalizar = new GridPane();
+                    finalizar.setAlignment(Pos.CENTER);
+                    finalizar.setHgap(10);
+                    finalizar.setVgap(10);
+                    finalizar.setPadding(new Insets(50, 100, 100, 100));
+
+                    Text finalizaLocacao = new Text("FINALIZAR LOCACÃO");
+                    finalizaLocacao.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+                    finalizaLocacao.setTextAlignment(TextAlignment.CENTER);
+                    finalizar.add(finalizaLocacao, 0, 0);
+
+                    Text action = new Text();
+                    action.setId("action");
+                    action.setFill(Color.FIREBRICK);
+                    finalizar.add(action, 0, 6);
+
+                    List<Locacao> locacoes = locacaoRepository.filter(locacao -> !locacao.isFinalizada());
+                    if (locacoes.isEmpty()) {
+                        action.setText("Nenhuma locação para ser finalizada");
+                    } else {
+
+                        Text locacao = new Text("Locações disponiveis no sistema");
+                        locacao.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+                        locacao.setTextAlignment(TextAlignment.CENTER);
+                        finalizar.add(locacao, 0, 1);
+
+                        Text loc = new Text();
+                        loc.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+                        loc.setTextAlignment(TextAlignment.CENTER);
+                        locacoes.forEach(str -> loc.setText(str.toString()));
+                        finalizar.add(loc, 0, 2);
+
+                        Label cod = new Label("Digite o codigo para finalizar:");
+                        finalizar.add(cod, 0, 4);
+
+                        TextField codigo = new TextField();
+                        finalizar.add(codigo, 1, 4);
+                        Button finalLocacao = new Button("FINALIZAR");
+                        HBox hfinal = new HBox(10);
+                        hfinal.setAlignment(Pos.BOTTOM_LEFT);
+                        hfinal.getChildren().add(finalLocacao);
+                        finalizar.add(finalLocacao, 0, 5);
+                        Text action1 = new Text();
+                        action.setId("act1");
+                        finalizar.add(action1, 0, 5);
+                        finalLocacao.setOnAction(act -> {
+
+                            int codigos = Integer.parseInt(codigo.getText());
+                            Locacao locacao1 = locacoes.stream().filter(locacao2 -> locacao2.getCodigo().equals(codigos)).findFirst().orElse(null);
+                            if (codigo.getText().isEmpty() || locacao1 == null)
+                                action1.setText("Preencha com um codigo valido");
+                            else {
+                                GridPane finalizando = new GridPane();
+                                finalizando.setAlignment(Pos.CENTER);
+                                finalizando.setHgap(10);
+                                finalizando.setVgap(10);
+                                finalizando.setPadding(new Insets(50, 100, 100, 100));
+
+                                Text acidente = new Text("Ocorreram acidentes com esse veiculo durante a locação?");
+                                acidente.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+                                acidente.setTextAlignment(TextAlignment.CENTER);
+                                finalizando.add(acidente, 0, 0);
+
+                                Text removido = new Text();
+                                removido.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+                                removido.setTextAlignment(TextAlignment.CENTER);
+                                finalizando.add(removido, 0, 3);
+
+                                Text actiontarget = new Text();
+                                actiontarget.setId("actiontarget");
+                                actiontarget.setFill(Color.FIREBRICK);
+                                finalizando.add(actiontarget, 0, 6);
+                                locacao1.finalizar();
+
+                                Button sim = new Button("SIM");
+                                HBox hsim = new HBox(10);
+                                hsim.setAlignment(Pos.BOTTOM_LEFT);
+                                hsim.getChildren().add(sim);
+                                finalizando.add(sim, 0, 1);
+
+                                sim.setOnAction(new EventHandler<ActionEvent>() {
+                                    @Override
+                                    public void handle(ActionEvent actionEvent) {
+                                        finalizando.add(removido, 0, 3);
+                                        if (locacao1.getAuto().isVelhoDemaisParaAFrota()) {
+                                            removido.setText("O veículo não está mais em condições de operar e foi removido da frota\n" +
+                                                    "Pelo motivo de ser velho demais.\nE por ter sofrido um acidente");
+                                        } else {
+                                            removido.setText("O veículo não está mais em condições de operar e foi removido da frota\n" +
+                                                    "E por ter sofrido um acidente");
+                                        }
+
+                                        actiontarget.setText("Locação finalizada");
+                                        menuStage.setScene(new Scene(finalizando));
+                                    }
+                                });
+
+                                Button nao = new Button("NÃO");
+                                HBox hnao = new HBox(10);
+                                hnao.setAlignment(Pos.BOTTOM_LEFT);
+                                hnao.getChildren().add(nao);
+                                finalizando.add(nao, 1, 1);
+                                nao.setOnAction(actionEvent3 -> {
+                                    finalizando.add(removido, 0, 2);
+                                    if (locacao1.getAuto().isVelhoDemaisParaAFrota()) {
+                                        removido.setText("O veículo não está mais em condições de operar e foi removido da frota\n" +
+                                                "Por ter sofrido um acidente");
+                                        finalizando.add(removido, 0, 2);
+
+                                    }
+                                    actiontarget.setText("Locação finalizada");
+                                    menuStage.setScene(new Scene(finalizando));
+                                });
+                                menuStage.setScene(new Scene(finalizando));
+                            }
+                        });
+
+                    }
+                    menuStage.setScene(new Scene(finalizar));
+                    menuStage.show();
+                });
 
                 Scene atendentesOpcao = new Scene(opcoeAtendente);
                 menuStage.setScene(atendentesOpcao);
