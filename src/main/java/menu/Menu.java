@@ -324,10 +324,10 @@ public class Menu extends Application {
         });
 
         Button gerente = new Button("GERENTE");
-        HBox gerentBt = new HBox(10);
-        gerentBt.setAlignment(Pos.BOTTOM_RIGHT);
-        gerentBt.getChildren().add(gerente);
-        telaCarga.add(gerentBt, 0, 4);
+        HBox removerAuto = new HBox(10);
+        removerAuto.setAlignment(Pos.BOTTOM_RIGHT);
+        removerAuto.getChildren().add(gerente);
+        telaCarga.add(removerAuto, 0, 4);
         gerente.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -726,6 +726,43 @@ public class Menu extends Application {
                 button10.setAlignment(Pos.BOTTOM_LEFT);
                 button10.getChildren().add(removerAutomovel);
                 opcoeGerente.add(button10, 0, 10);
+                removerAutomovel.setOnAction(actionEvent1 -> {
+                    GridPane removerAuto = new GridPane();
+                    removerAuto.setAlignment(Pos.CENTER);
+                    removerAuto.setHgap(10);
+                    removerAuto.setVgap(10);
+                    removerAuto.setPadding(new Insets(50, 100, 100, 100));
+
+                    Text title3 = new Text("REMOVER AUTOMOVEL");
+                    title3.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                    title3.setTextAlignment(TextAlignment.CENTER);
+                    removerAuto.add(title3,0,0);
+
+                    Label text3 = new Label("Placa: ");
+                    removerAuto.add(text3,0,1);
+
+                    TextField placa = new TextField();
+                    removerAuto.add(placa,1,1);
+
+                    Text action2 = new Text();
+                    action2.setId("action");
+                    action2.setFill(Color.FIREBRICK);
+                    removerAuto.add(action2,0,6);
+
+                    Button remover = new Button("REMOVER");
+                    HBox remov = new HBox(10);
+                    remov.setAlignment(Pos.BOTTOM_LEFT);
+                    remov.getChildren().add(remover);
+                    removerAuto.add(remov, 0, 3);
+                    remover.setOnAction(actionEvent2 -> {
+                        boolean result = automovelRepository.removeByPlaca(placa.getText());
+                        action2.setText(result ? "Removido com sucesso!" : "Um automóvel com essa placa não existe");
+                    });
+
+
+                    menuStage.setScene(new Scene(removerAuto));
+                    menuStage.show();
+                });
 
                 Button consultarLocacoes = new Button("CONSULTAR LOCAÇÕES");
                 HBox button11 = new HBox(10);
@@ -776,11 +813,6 @@ public class Menu extends Application {
                 button14.getChildren().add(cargaDeDados);
                 opcoeGerente.add(button14, 0, 14);
 
-//                private void realizarCargaDeDados(Scanner in) {
-//                    System.out.println("Por favor, digite o nome do arquivo (ele deve estar em resources)");
-//                    String fileName = in.nextLine();
-//                    reader.read(fileName);
-//                }
                 cargaDeDados.setOnAction(actionE -> {
                     GridPane telaCarga = new GridPane();
                     telaCarga.setAlignment(Pos.CENTER);
