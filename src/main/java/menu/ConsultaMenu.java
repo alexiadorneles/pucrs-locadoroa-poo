@@ -178,11 +178,7 @@ public class ConsultaMenu extends Application {
                 if (locacoes.isEmpty()) {
                     action1.setText("Nenhuma locação disponivel");
                 } else {
-                    Text loc = new Text();
-                    loc.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
-                    loc.setTextAlignment(TextAlignment.CENTER);
-                    locacoes.forEach(str -> loc.setText(str.toString()));
-                    grid.add(loc, 0, 5);
+                    this.showInGrid(grid, locacoes);
                 }
                 menuConsulta.setScene(new Scene(grid));
                 menuConsulta.show();
@@ -205,14 +201,7 @@ public class ConsultaMenu extends Application {
                 if (clientes.isEmpty()) {
                     action2.setText("Nenhum cliente disponivel");
                 } else {
-                    AtomicInteger count = new AtomicInteger(5);
-                    clientes.forEach(cliente -> {
-                        Text cli = new Text();
-                        cli.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
-                        cli.setTextAlignment(TextAlignment.CENTER);
-                        cli.setText(cliente.toString() + " - " + cliente.getCPFCNPJ());
-                        grid.add(cli, 0, count.incrementAndGet());
-                    });
+                    this.showInGrid(grid, clientes);
                 }
                 menuConsulta.setScene(new Scene(grid));
                 menuConsulta.show();
@@ -236,19 +225,23 @@ public class ConsultaMenu extends Application {
                 if (automoveis.isEmpty()) {
                     action3.setText("Nenhum automovel cadastrado");
                 } else {
-                    AtomicInteger count = new AtomicInteger(5);
-                    automoveis.forEach(str -> {
-                        Text auto = new Text();
-                        auto.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
-                        auto.setTextAlignment(TextAlignment.CENTER);
-                        auto.setText(str.toString());
-                        grid.add(auto, 0, count.getAndIncrement());
-                    });
+                    this.showInGrid(grid, automoveis);
                 }
                 menuConsulta.setScene(new Scene(grid));
                 menuConsulta.show();
                 break;
         }
+    }
+
+    private <T> void showInGrid(GridPane grid, List<T> objects) {
+        AtomicInteger count = new AtomicInteger(5);
+        objects.forEach(str -> {
+            Text loc = new Text();
+            loc.setFont(Font.font("Tahoma", FontWeight.NORMAL, 14));
+            loc.setTextAlignment(TextAlignment.CENTER);
+            loc.setText(str.toString());
+            grid.add(loc, 0, count.getAndIncrement());
+        });
     }
 
     public boolean consultaDisponibilidadeCategoria(String codigo) {

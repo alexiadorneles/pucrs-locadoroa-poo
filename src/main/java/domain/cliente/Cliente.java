@@ -25,6 +25,6 @@ public abstract class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente: " + nome;
+        return nome + " - " + this.getCPFCNPJ();
     }
 }

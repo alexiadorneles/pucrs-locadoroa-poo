@@ -83,12 +83,11 @@ public class Locacao {
 
     @Override
     public String toString() {
-        return "Locacao: " +
-                " Codigo: " + codigo + '\'' +
-                " Cliente" + clienteId +
-                " Data inicio da locação: " + dataInicial + '\'' +
-                " Data final da locação" + dataFinal + '\'' +
-                " Automovel: " + autoPlaca + '\'' +
+        return " Codigo: " + codigo + "\n" +
+                " Cliente: " + clienteId + "\n" +
+                " Data inicio da locação: " + dataInicial + "\n" +
+                " Data final da locação: " + dataFinal + "\n" +
+                " Automovel: " + autoPlaca + "\n" +
                 " Status: " + finalizada;
     }
 
