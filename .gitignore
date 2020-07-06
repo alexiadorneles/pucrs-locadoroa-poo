@@ -11,3 +11,5 @@ resources/teste.json
 *.class
 
 *.lst
+
+resources/db.json
