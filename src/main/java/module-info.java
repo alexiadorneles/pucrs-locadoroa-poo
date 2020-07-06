@@ -1,8 +1,9 @@
 module org.example {
+    opens domain to com.google.gson;
+    opens menu to com.google.gson;
     requires javafx.controls;
     requires com.google.gson;
     requires java.desktop;
-    opens domain to com.google.gson;
     exports domain;
     exports menu;
 }

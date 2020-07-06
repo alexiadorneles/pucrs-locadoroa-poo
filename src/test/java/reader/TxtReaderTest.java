@@ -9,6 +9,7 @@ import domain.locacao.Locacao;
 import org.junit.jupiter.api.Test;
 import repository.*;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TxtReaderTest {
 
     @Test
-    void read() {
+    void read() throws IOException {
         // arrange
         TxtReader reader = new TxtReader(Arrays.asList(
                 new AutomovelFactory(),
