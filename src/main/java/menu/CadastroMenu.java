@@ -46,10 +46,11 @@ public class CadastroMenu extends Application {
     }
 
 
-    public void setButton(int i){
-        if(i>0 && i<15) button=i;
+    public void setButton(int i) {
+        if (i > 0 && i < 15) button = i;
         else button = 0;
     }
+
     @Override
     public void start(Stage menuCadastro) throws Exception {
         menuCadastro.setTitle("---------- LOCADORA AJE ----------");
@@ -59,12 +60,12 @@ public class CadastroMenu extends Application {
         grid.setVgap(10);
         grid.setPadding(new Insets(100, 100, 100, 100));
 
-        switch (button){
+        switch (button) {
             case 1:
                 Text title = new Text("CADASTRAR CLIENTE");
-                title.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                 title.setTextAlignment(TextAlignment.CENTER);
-                grid.add(title,0,0);
+                grid.add(title, 0, 0);
 
                 Text text = new Text("ESCOLHA O TIPO DE CLIENTE");
 
@@ -72,7 +73,7 @@ public class CadastroMenu extends Application {
                 HBox button1 = new HBox(10);
                 button1.setAlignment(Pos.BOTTOM_LEFT);
                 button1.getChildren().add(pf);
-                grid.add(button1,0,1);
+                grid.add(button1, 0, 1);
                 pf.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
@@ -83,33 +84,33 @@ public class CadastroMenu extends Application {
                         pf.setPadding(new Insets(100, 100, 100, 100));
 
                         Text title = new Text("DADOS DO CLIENTE");
-                        title.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                        title.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                         title.setTextAlignment(TextAlignment.CENTER);
-                        pf.add(title,0,0);
+                        pf.add(title, 0, 0);
 
                         Label nome = new Label("Nome: ");
-                        pf.add(nome,0,1);
+                        pf.add(nome, 0, 1);
 
                         TextField nomeCliente = new TextField();
-                        pf.add(nomeCliente,1,1);
+                        pf.add(nomeCliente, 1, 1);
 
                         Label telefone = new Label("Telefone: ");
-                        pf.add(telefone,0,2);
+                        pf.add(telefone, 0, 2);
 
                         TextField telefoneCliente = new TextField();
-                        pf.add(telefoneCliente,1,2);
+                        pf.add(telefoneCliente, 1, 2);
 
                         Label cpf = new Label("CPF: ");
-                        pf.add(cpf,0,3);
+                        pf.add(cpf, 0, 3);
 
                         TextField cpfCliente = new TextField();
-                        pf.add(cpfCliente,1,3);
+                        pf.add(cpfCliente, 1, 3);
 
                         Button confirmarCadastro = new Button("CADASTRAR");
                         HBox btn = new HBox(10);
                         btn.setAlignment(Pos.BOTTOM_RIGHT);
                         btn.getChildren().add(confirmarCadastro);
-                        pf.add(btn,1,5);
+                        pf.add(btn, 1, 5);
 
                         final Text actiontarget = new Text();
                         pf.add(actiontarget, 1, 6);
@@ -121,9 +122,10 @@ public class CadastroMenu extends Application {
                                 actiontarget.setFill(Color.FIREBRICK);
                                 Cliente c = clienteRepository.findOne(cpfCliente.getText());
 
-                                if(nomeCliente.getText().trim().isEmpty() || telefoneCliente.getText().isEmpty() ||
-                                        cpfCliente.getText().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
-                                if(c!=null)actiontarget.setText("Usuário ja existente");
+                                if (nomeCliente.getText().trim().isEmpty() || telefoneCliente.getText().isEmpty() ||
+                                        cpfCliente.getText().isEmpty())
+                                    actiontarget.setText("Por favor preencha todos os campos");
+                                if (c != null) actiontarget.setText("Usuário ja existente");
                                 else {
                                     actiontarget.setText("Cadastro concluido");
                                     Cliente cliente = new PessoaFisica(nomeCliente.getText(), telefoneCliente.getText(), cpfCliente.getText());
@@ -141,7 +143,7 @@ public class CadastroMenu extends Application {
                 HBox button2 = new HBox(10);
                 button2.setAlignment(Pos.BOTTOM_LEFT);
                 button2.getChildren().add(pj);
-                grid.add(button2,1,1);
+                grid.add(button2, 1, 1);
                 pj.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
@@ -152,33 +154,33 @@ public class CadastroMenu extends Application {
                         pj.setPadding(new Insets(100, 100, 100, 100));
 
                         Text title = new Text("DADOS DO CLIENTE");
-                        title.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                        title.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                         title.setTextAlignment(TextAlignment.CENTER);
-                        pj.add(title,0,0);
+                        pj.add(title, 0, 0);
 
                         Label nome = new Label("Nome: ");
-                        pj.add(nome,0,1);
+                        pj.add(nome, 0, 1);
 
                         TextField nomeCliente = new TextField();
-                        pj.add(nomeCliente,1,1);
+                        pj.add(nomeCliente, 1, 1);
 
                         Label telefone = new Label("Telefone: ");
-                        pj.add(telefone,0,2);
+                        pj.add(telefone, 0, 2);
 
                         TextField telefoneCliente = new TextField();
-                        pj.add(telefoneCliente,1,2);
+                        pj.add(telefoneCliente, 1, 2);
 
                         Label cnpj = new Label("CNPJ: ");
-                        pj.add(cnpj,0,3);
+                        pj.add(cnpj, 0, 3);
 
                         TextField cnpjCliente = new TextField();
-                        pj.add(cnpjCliente,1,3);
+                        pj.add(cnpjCliente, 1, 3);
 
                         Button confirmarCadastro = new Button("CADASTRAR");
                         HBox btn = new HBox(10);
                         btn.setAlignment(Pos.BOTTOM_RIGHT);
                         btn.getChildren().add(confirmarCadastro);
-                        pj.add(btn,1,5);
+                        pj.add(btn, 1, 5);
 
                         final Text actiontarget = new Text();
                         pj.add(actiontarget, 1, 6);
@@ -189,9 +191,10 @@ public class CadastroMenu extends Application {
                             public void handle(ActionEvent actionEvent) {
                                 actiontarget.setFill(Color.FIREBRICK);
                                 Cliente c = clienteRepository.findOne(cnpjCliente.getText());
-                                if(nomeCliente.getText().trim().isEmpty() || telefoneCliente.getText().isEmpty() ||
-                                        cnpjCliente.getText().isEmpty()) actiontarget.setText("Por favor preencha todos os campos com dados validos");
-                                if( c!=null) actiontarget.setText("Usuário ja existente");
+                                if (nomeCliente.getText().trim().isEmpty() || telefoneCliente.getText().isEmpty() ||
+                                        cnpjCliente.getText().isEmpty())
+                                    actiontarget.setText("Por favor preencha todos os campos com dados validos");
+                                if (c != null) actiontarget.setText("Usuário ja existente");
                                 else {
                                     actiontarget.setText("Cadastro concluido");
                                     Cliente cliente = new PessoaJuridica(nomeCliente.getText(), telefoneCliente.getText(), cnpjCliente.getText());
@@ -206,65 +209,65 @@ public class CadastroMenu extends Application {
                 });
                 break;
 
-                case 2:
-                    Scene scene1 = new Scene(grid);
-                    menuCadastro.setScene(scene1);
-                    menuCadastro.show();
+            case 2:
+                Scene scene1 = new Scene(grid);
+                menuCadastro.setScene(scene1);
+                menuCadastro.show();
 
-                    Text title1 = new Text("CADASTRAR NOVA CATEGORIA");
-                    title1.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
-                    title1.setTextAlignment(TextAlignment.CENTER);
-                    grid.add(title1,0,0);
+                Text title1 = new Text("CADASTRAR NOVA CATEGORIA");
+                title1.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+                title1.setTextAlignment(TextAlignment.CENTER);
+                grid.add(title1, 0, 0);
 
-                    Label nomeCat = new Label("Nome da Categoria: ");
-                    grid.add(nomeCat,0,1);
+                Label nomeCat = new Label("Nome da Categoria: ");
+                grid.add(nomeCat, 0, 1);
 
-                    TextField cat = new TextField();
-                    grid.add(cat,1,1);
+                TextField cat = new TextField();
+                grid.add(cat, 1, 1);
 
-                    Button cadastroCat = new Button("CADASTRAR CATEGORIA");
-                    HBox button3 = new HBox(10);
-                    button3.setAlignment(Pos.BOTTOM_LEFT);
-                    button3.getChildren().add(cadastroCat);
-                    grid.add(button3,0,2);
+                Button cadastroCat = new Button("CADASTRAR CATEGORIA");
+                HBox button3 = new HBox(10);
+                button3.setAlignment(Pos.BOTTOM_LEFT);
+                button3.getChildren().add(cadastroCat);
+                grid.add(button3, 0, 2);
 
-                    final Text actiontarget = new Text();
-                    grid.add(actiontarget, 1, 6);
-                    actiontarget.setId("actiontarget");
+                final Text actiontarget = new Text();
+                grid.add(actiontarget, 1, 6);
+                actiontarget.setId("actiontarget");
 
-                    cadastroCat.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent actionEvent) {
-                            actiontarget.setFill(Color.FIREBRICK);
-                            if(cat.getText().trim().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
-                            else {
-                                actiontarget.setText("Cadastro concluido");
-                                Categoria categoria = new Categoria(cat.getText());
-                                categoriaRepository.save(categoria);
-                                System.out.println(categoria.toString());
-                            }
+                cadastroCat.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        actiontarget.setFill(Color.FIREBRICK);
+                        if (cat.getText().trim().isEmpty()) actiontarget.setText("Por favor preencha todos os campos");
+                        else {
+                            actiontarget.setText("Cadastro concluido");
+                            Categoria categoria = new Categoria(cat.getText());
+                            categoriaRepository.save(categoria);
+                            System.out.println(categoria.toString());
                         }
-                    });
+                    }
+                });
                 break;
 
             case 3:
 
                 Text title2 = new Text("CADASTRAR NOVA MARCA");
-                title2.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title2.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                 title2.setTextAlignment(TextAlignment.CENTER);
-                grid.add(title2,0,0);
+                grid.add(title2, 0, 0);
 
                 Label nomeMarca = new Label("Nome da Marca: ");
-                grid.add(nomeMarca,0,1);
+                grid.add(nomeMarca, 0, 1);
 
                 TextField marca = new TextField();
-                grid.add(marca,1,1);
+                grid.add(marca, 1, 1);
 
                 Button cadastroMarca = new Button("CADASTRAR MARCA");
                 HBox button4 = new HBox(10);
                 button4.setAlignment(Pos.BOTTOM_LEFT);
                 button4.getChildren().add(cadastroMarca);
-                grid.add(button4,0,2);
+                grid.add(button4, 0, 2);
 
                 final Text actiontarget1 = new Text();
                 grid.add(actiontarget1, 1, 6);
@@ -274,7 +277,8 @@ public class CadastroMenu extends Application {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         actiontarget1.setFill(Color.FIREBRICK);
-                        if(marca.getText().trim().isEmpty()) actiontarget1.setText("Por favor preencha todos os campos");
+                        if (marca.getText().trim().isEmpty())
+                            actiontarget1.setText("Por favor preencha todos os campos");
                         else {
                             actiontarget1.setText("Cadastro concluido");
                             Marca m = new Marca(marca.getText());
@@ -292,72 +296,75 @@ public class CadastroMenu extends Application {
             case 4:
 
                 Text title3 = new Text("CADASTRAR NOVA MODELO");
-                title3.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title3.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                 title3.setTextAlignment(TextAlignment.CENTER);
-                grid.add(title3,0,0);
+                grid.add(title3, 0, 0);
 
                 Label nome = new Label("Nome do Modelo: ");
-                grid.add(nome,0,1);
+                grid.add(nome, 0, 1);
 
                 TextField nomeModelo = new TextField();
-                grid.add(nomeModelo,1,1);
+                grid.add(nomeModelo, 1, 1);
 
                 Label valor = new Label("Valor do Modelo: ");
-                grid.add(valor,0,2);
+                grid.add(valor, 0, 2);
 
                 TextField valorModelo = new TextField();
-                grid.add(valorModelo,1,2);
+                grid.add(valorModelo, 1, 2);
 
                 Label categoria = new Label("Escolha a Categoria: ");
-                grid.add(categoria,0,3);
+                grid.add(categoria, 0, 3);
 
-                final ComboBox categ = new ComboBox();
+                final ComboBox<Categoria> categ = new ComboBox<>();
                 categ.getItems().addAll(categoriaRepository.findAll());
-                grid.add(categ, 1,3);
+                grid.add(categ, 1, 3);
 
                 Label marca1 = new Label("Escolha o Marca: ");
-                grid.add(marca1,0,4);
+                grid.add(marca1, 0, 4);
 
-                final ComboBox marcaModelo = new ComboBox();
+                final ComboBox<Marca> marcaModelo = new ComboBox<>();
                 marcaModelo.getItems().addAll(marcaRepository.findAll());
-                grid.add(marcaModelo, 1,4);
+                grid.add(marcaModelo, 1, 4);
 
                 Button cadastroModelo = new Button("CADASTRAR MODELO");
                 HBox button7 = new HBox(10);
                 button7.setAlignment(Pos.BOTTOM_LEFT);
                 button7.getChildren().add(cadastroModelo);
-                grid.add(cadastroModelo,0,10);
+                grid.add(cadastroModelo, 0, 10);
 
                 final Text actiontarget2 = new Text();
                 grid.add(actiontarget2, 1, 7);
                 actiontarget2.setId("actiontarget");
 
                 Label tipoModelo = new Label("Escolha o Tipo de Modelo: ");
-                grid.add(tipoModelo,0,5);
+                grid.add(tipoModelo, 0, 5);
 
                 Button nacional = new Button("Nacional");
                 HBox button5 = new HBox(10);
                 button5.setAlignment(Pos.BOTTOM_LEFT);
                 button5.getChildren().add(nacional);
-                grid.add(nacional,0,6);
+                grid.add(nacional, 0, 6);
                 nacional.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         Label ipi = new Label("Valor do ipi: ");
-                        grid.add(ipi,0,7);
+                        grid.add(ipi, 0, 7);
 
                         TextField valorIpi = new TextField();
-                        grid.add(valorIpi,1,7);
+                        grid.add(valorIpi, 1, 7);
                         cadastroModelo.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
                                 actiontarget2.setFill(Color.FIREBRICK);
-                                if(nome.getText().trim().isEmpty() || valorModelo.getText().trim().isEmpty()) actiontarget2.setText("Por favor preencha todos os campos");
+                                if (nome.getText().trim().isEmpty() || valorModelo.getText().trim().isEmpty())
+                                    actiontarget2.setText("Por favor preencha todos os campos");
                                 else {
+                                    Categoria categoria = categ.getValue();
+                                    Marca marca = marcaModelo.getValue();
+                                    Modelo modelo = new ModeloNacional(nomeModelo.getText(), Double.parseDouble(valorModelo.getText()),
+                                            categoria.getCodigo(), marca.getCodigo(), Double.parseDouble(valorIpi.getText()));
+                                    modeloRepository.save(modelo);
                                     actiontarget2.setText("Cadastro concluido");
-                                   //Modelo novoModelo = new Modelo();
-                                    //marcaRepository.save(m);
-                                    //System.out.println(marca.toString());
                                 }
                             }
                         });
@@ -369,16 +376,34 @@ public class CadastroMenu extends Application {
                 HBox button6 = new HBox(10);
                 button6.setAlignment(Pos.BOTTOM_RIGHT);
                 button6.getChildren().add(internacional);
-                grid.add(internacional,0,8);
+                grid.add(internacional, 0, 8);
 
                 internacional.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         Label taxa = new Label("Valor da Taxa de Importanção: ");
-                        grid.add(taxa,0,9);
+                        grid.add(taxa, 0, 9);
 
                         TextField valorTaxa = new TextField();
-                        grid.add(valorTaxa,1,9);
+                        grid.add(valorTaxa, 1, 9);
+
+                        cadastroModelo.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent actionEvent) {
+                                actiontarget2.setFill(Color.FIREBRICK);
+                                if (nome.getText().trim().isEmpty() || valorModelo.getText().trim().isEmpty())
+                                    actiontarget2.setText("Por favor preencha todos os campos");
+                                else {
+                                    actiontarget2.setText("Cadastro concluido");
+                                    Categoria categoria = categ.getValue();
+                                    Marca marca = marcaModelo.getValue();
+                                    Modelo modelo = new ModeloInternacional(nomeModelo.getText(), Double.parseDouble(valorModelo.getText()),
+                                            categoria.getCodigo(), marca.getCodigo(), Double.parseDouble(valorTaxa.getText()));
+                                    modeloRepository.save(modelo);
+                                    actiontarget2.setText("Cadastro concluido");
+                                }
+                            }
+                        });
                     }
                 });
 
@@ -386,13 +411,7 @@ public class CadastroMenu extends Application {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         actiontarget2.setFill(Color.FIREBRICK);
-                        if(nome.getText().trim().isEmpty() || valorModelo.getText().trim().isEmpty()) actiontarget2.setText("Por favor preencha todos os campos");
-                        else {
-                            actiontarget2.setText("Cadastro concluido");
-                           // Marca m = new Marca(nomeModelo.getText(), valorModelo.getText(), categ.getValue(),modelo.getValue());
-                            //marcaRepository.save(m);
-                            //System.out.println(marca.toString());
-                        }
+                        actiontarget2.setText("Por favor preencha todos os campos");
                     }
                 });
 
@@ -404,42 +423,35 @@ public class CadastroMenu extends Application {
             case 5:
 
                 Text title4 = new Text("CADASTRAR NOVA AUTOMÓVEL");
-                title4.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title4.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                 title4.setTextAlignment(TextAlignment.CENTER);
-                grid.add(title4,0,0);
+                grid.add(title4, 0, 0);
 
                 Label placa = new Label("Placa: ");
-                grid.add(placa,0,1);
+                grid.add(placa, 0, 1);
 
                 TextField placaAuto = new TextField();
-                grid.add(placaAuto,1,1);
+                grid.add(placaAuto, 1, 1);
 
                 Label ano = new Label("Ano: ");
-                grid.add(ano,0,2);
+                grid.add(ano, 0, 2);
 
                 TextField anoAuto = new TextField();
-                grid.add(anoAuto,1,2);
+                grid.add(anoAuto, 1, 2);
 
                 Label diaria = new Label("Diaria: ");
-                grid.add(diaria,0,3);
+                grid.add(diaria, 0, 3);
 
                 TextField diariaAuto = new TextField();
-                grid.add(diariaAuto,1,3);
+                grid.add(diariaAuto, 1, 3);
 
                 Label m = new Label("Nome do Modelo: ");
-                grid.add(m,0,4);
+                grid.add(m, 0, 4);
 
                 final ComboBox modeloAuto = new ComboBox();
                 modeloAuto.getItems().addAll(modeloRepository.findAll());
-                grid.add(modeloAuto, 1,3);
+                grid.add(modeloAuto, 1, 3);
                 modeloAuto.setValue(modeloRepository.findOne(0));
-
-
-
-
-
-
-
 
 
         }
