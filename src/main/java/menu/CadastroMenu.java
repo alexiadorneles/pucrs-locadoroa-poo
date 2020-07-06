@@ -137,7 +137,7 @@ public class CadastroMenu extends Application {
                         HBox hmenu = new HBox(10);
                         hmenu.setAlignment(Pos.BOTTOM_RIGHT);
                         hmenu.getChildren().add(mmenu);
-                        grid.add(hmenu, 0, 20);
+                        pf.add(hmenu, 0, 20);
                         mmenu.setOnAction(actEven -> {
                             Principal principal = new Principal();
                             try {
@@ -215,7 +215,19 @@ public class CadastroMenu extends Application {
                                 }
                             }
                         });
-
+                        Button mmenu = new Button("MENU");
+                        HBox hmenu = new HBox(10);
+                        hmenu.setAlignment(Pos.BOTTOM_RIGHT);
+                        hmenu.getChildren().add(mmenu);
+                        pj.add(hmenu, 0, 20);
+                        mmenu.setOnAction(actEven -> {
+                            Principal principal = new Principal();
+                            try {
+                                principal.start(menuCadastro);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
                         menuCadastro.setScene(new Scene(pj));
                         menuCadastro.show();
                     }
@@ -278,6 +290,20 @@ public class CadastroMenu extends Application {
                     }
                 });
 
+                Button menu = new Button("MENU");
+                HBox hbmenu = new HBox(10);
+                hbmenu.setAlignment(Pos.BOTTOM_RIGHT);
+                hbmenu.getChildren().add(menu);
+                grid.add(hbmenu, 0, 20);
+                menu.setOnAction(actEven -> {
+                    Principal principal = new Principal();
+                    try {
+                        principal.start(menuCadastro);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
                 Scene scene1 = new Scene(grid);
                 menuCadastro.setScene(scene1);
                 menuCadastro.show();
@@ -322,6 +348,20 @@ public class CadastroMenu extends Application {
                             marcaRepository.save(ma);
                             System.out.println(ma.toString());
                         }
+                    }
+                });
+
+                Button menu1 = new Button("MENU");
+                HBox hbmenu1 = new HBox(10);
+                hbmenu1.setAlignment(Pos.BOTTOM_RIGHT);
+                hbmenu1.getChildren().add(menu1);
+                grid.add(hbmenu1, 0, 20);
+                menu1.setOnAction(actEven -> {
+                    Principal principal = new Principal();
+                    try {
+                        principal.start(menuCadastro);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
 
@@ -457,6 +497,20 @@ public class CadastroMenu extends Application {
                     }
                 });
 
+                Button menu2 = new Button("MENU");
+                HBox hbmenu2 = new HBox(10);
+                hbmenu2.setAlignment(Pos.BOTTOM_RIGHT);
+                hbmenu2.getChildren().add(menu2);
+                grid.add(hbmenu2, 0, 20);
+                menu2.setOnAction(actEven -> {
+                    Principal principal = new Principal();
+                    try {
+                        principal.start(menuCadastro);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
                 Scene scene3 = new Scene(grid);
                 menuCadastro.setScene(scene3);
                 menuCadastro.show();
@@ -464,7 +518,7 @@ public class CadastroMenu extends Application {
 
             case 5:
 
-                Text title4 = new Text("CADASTRAR NOVA AUTOMÓVEL");
+                Text title4 = new Text("CADASTRAR NOVO AUTOMÓVEL");
                 title4.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                 title4.setTextAlignment(TextAlignment.CENTER);
                 grid.add(title4, 0, 0);
@@ -519,6 +573,20 @@ public class CadastroMenu extends Application {
                             actiontarget4.setText("Cadastro concluido");
 
                         }
+                    }
+                });
+
+                Button menu3 = new Button("MENU");
+                HBox hbmenu3 = new HBox(10);
+                hbmenu3.setAlignment(Pos.BOTTOM_RIGHT);
+                hbmenu3.getChildren().add(menu3);
+                grid.add(hbmenu3, 0, 20);
+                menu3.setOnAction(actEven -> {
+                    Principal principal = new Principal();
+                    try {
+                        principal.start(menuCadastro);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
 

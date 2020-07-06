@@ -32,7 +32,6 @@ import repository.Repository;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -112,6 +111,19 @@ public class ConsultaMenu extends Application {
                                 grid.add(txt, 0, count++);
                             }
                         }
+                    }
+                });
+                Button menu = new Button("MENU");
+                HBox hmenu = new HBox(10);
+                hmenu.setAlignment(Pos.BOTTOM_RIGHT);
+                hmenu.getChildren().add(menu);
+                grid.add(hmenu, 0, 20);
+                menu.setOnAction(actEven -> {
+                    Principal principal = new Principal();
+                    try {
+                        principal.start(menuConsulta);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
                 Scene scene = new Scene(grid);
@@ -233,9 +245,6 @@ public class ConsultaMenu extends Application {
                         actiontarget.setText("Por favor preencha os dados");
                     }
                 });
-                Scene scene2 = new Scene(grid);
-                menuConsulta.setScene(scene2);
-                menuConsulta.show();
 
                 break;
             case 4:
@@ -258,8 +267,6 @@ public class ConsultaMenu extends Application {
                 } else {
                     this.showInGrid(grid, locacoes, 6);
                 }
-                menuConsulta.setScene(new Scene(grid));
-                menuConsulta.show();
                 break;
             case 5:
                 Text title4 = new Text("CONSULTAR CLIENTES");
@@ -281,8 +288,6 @@ public class ConsultaMenu extends Application {
                 } else {
                     this.showInGrid(grid, clientes, 6);
                 }
-                menuConsulta.setScene(new Scene(grid));
-                menuConsulta.show();
                 break;
 
             case 6:
@@ -309,6 +314,24 @@ public class ConsultaMenu extends Application {
                 menuConsulta.show();
                 break;
         }
+
+        Button menu1 = new Button("MENU");
+        HBox hmenu1 = new HBox(10);
+        hmenu1.setAlignment(Pos.BOTTOM_RIGHT);
+        hmenu1.getChildren().add(menu1);
+        grid.add(hmenu1, 0, 20);
+        menu1.setOnAction(actEven -> {
+            Principal principal = new Principal();
+            try {
+                principal.start(menuConsulta);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        Scene scene2 = new Scene(grid);
+        menuConsulta.setScene(scene2);
+        menuConsulta.show();
     }
 
     private <T> void showInGrid(GridPane grid, List<T> objects, int init) {

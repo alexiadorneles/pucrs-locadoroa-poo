@@ -410,7 +410,6 @@ public class Menu extends Application {
                                         }
 
                                         actiontarget.setText("Locação finalizada");
-                                        menuStage.setScene(new Scene(finalizando));
                                     }
                                 });
 
@@ -428,17 +427,56 @@ public class Menu extends Application {
 
                                     }
                                     actiontarget.setText("Locação finalizada");
-                                    menuStage.setScene(new Scene(finalizando));
+                                });
+                                Button mmenu = new Button("MENU");
+                                HBox hmenu = new HBox(10);
+                                hmenu.setAlignment(Pos.BOTTOM_RIGHT);
+                                hmenu.getChildren().add(mmenu);
+                                finalizando.add(hmenu, 0, 20);
+                                mmenu.setOnAction(actEven -> {
+                                    Principal principal = new Principal();
+                                    try {
+                                        principal.start(menuStage);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
                                 });
                                 menuStage.setScene(new Scene(finalizando));
+                                menuStage.show();
                             }
                         });
 
                     }
+                    Button mmenu = new Button("MENU");
+                    HBox hmenu = new HBox(10);
+                    hmenu.setAlignment(Pos.BOTTOM_RIGHT);
+                    hmenu.getChildren().add(mmenu);
+                    finalizar.add(hmenu, 0, 20);
+                    mmenu.setOnAction(actEven -> {
+                        Principal principal = new Principal();
+                        try {
+                            principal.start(menuStage);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
                     menuStage.setScene(new Scene(finalizar));
                     menuStage.show();
                 });
 
+                Button mmenu = new Button("MENU");
+                HBox hmenu = new HBox(10);
+                hmenu.setAlignment(Pos.BOTTOM_RIGHT);
+                hmenu.getChildren().add(mmenu);
+                opcoeAtendente.add(hmenu, 0, 20);
+                mmenu.setOnAction(actEven -> {
+                    Principal principal = new Principal();
+                    try {
+                        principal.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
                 Scene atendentesOpcao = new Scene(opcoeAtendente);
                 menuStage.setScene(atendentesOpcao);
                 menuStage.show();
@@ -805,7 +843,6 @@ public class Menu extends Application {
                                         }
 
                                         actiontarget.setText("Locação finalizada");
-                                        menuStage.setScene(new Scene(finalizando));
                                     }
                                 });
 
@@ -823,13 +860,39 @@ public class Menu extends Application {
 
                                     }
                                     actiontarget.setText("Locação finalizada");
-                                    menuStage.setScene(new Scene(finalizando));
+
+                                });
+                                Button mmenu = new Button("MENU");
+                                HBox hmenu = new HBox(10);
+                                hmenu.setAlignment(Pos.BOTTOM_RIGHT);
+                                hmenu.getChildren().add(mmenu);
+                                finalizando.add(hmenu, 0, 20);
+                                mmenu.setOnAction(actEven -> {
+                                    Principal principal = new Principal();
+                                    try {
+                                        principal.start(menuStage);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
                                 });
                                 menuStage.setScene(new Scene(finalizando));
+                                menuStage.show();
                             }
                         });
-
                     }
+                    Button mmenu = new Button("MENU");
+                    HBox hmenu = new HBox(10);
+                    hmenu.setAlignment(Pos.BOTTOM_RIGHT);
+                    hmenu.getChildren().add(mmenu);
+                    finalizar.add(hmenu, 0, 20);
+                    mmenu.setOnAction(actEven -> {
+                        Principal principal = new Principal();
+                        try {
+                            principal.start(menuStage);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
                     menuStage.setScene(new Scene(finalizar));
                     menuStage.show();
                 });
@@ -986,11 +1049,35 @@ public class Menu extends Application {
                             e.printStackTrace();
                         }
                     });
-
+                    Button mmenu = new Button("MENU");
+                    HBox hmenu = new HBox(10);
+                    hmenu.setAlignment(Pos.BOTTOM_RIGHT);
+                    hmenu.getChildren().add(mmenu);
+                    telaCarga.add(hmenu, 0, 20);
+                    mmenu.setOnAction(actEven -> {
+                        Principal principal = new Principal();
+                        try {
+                            principal.start(menuStage);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
                     menuStage.setScene(new Scene(telaCarga));
                     menuStage.show();
                 });
-
+                Button mmenu = new Button("MENU");
+                HBox hmenu = new HBox(10);
+                hmenu.setAlignment(Pos.BOTTOM_RIGHT);
+                hmenu.getChildren().add(mmenu);
+                opcoeGerente.add(hmenu, 0, 20);
+                mmenu.setOnAction(actEven -> {
+                    Principal principal = new Principal();
+                    try {
+                        principal.start(menuStage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
                 Scene gerenteOpcao = new Scene(opcoeGerente);
                 menuStage.setScene(gerenteOpcao);
                 menuStage.show();
