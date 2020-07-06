@@ -66,8 +66,6 @@ public class CadastroMenu extends Application {
                 title.setTextAlignment(TextAlignment.CENTER);
                 grid.add(title,0,0);
 
-                Text text = new Text("ESCOLHA O TIPO DE CLIENTE");
-
                 Button pf = new Button("PESSOA FISICA");
                 HBox button1 = new HBox(10);
                 button1.setAlignment(Pos.BOTTOM_LEFT);
@@ -401,42 +399,73 @@ public class CadastroMenu extends Application {
                     }
                 });
                 break;
+            case 5:
+                Text title5 = new Text("CADASTRAR AUTOMOVEL");
+                title5.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                title5.setTextAlignment(TextAlignment.CENTER);
+                grid.add(title5,0,0);
 
+                Label getplaca = new Label("Digite a placa: ");
+                grid.add(getplaca,0,1);
+
+                TextField placa = new TextField();
+                grid.add(placa, 1,1);
+
+                Label getano = new Label("Digite o ano: ");
+                grid.add(getano,0,2);
+
+                TextField ano = new TextField();
+                grid.add(ano, 1,2);
+
+                Label getdiaria = new Label("Digite o valor da diaria: ");
+                grid.add(getdiaria,0,3);
+
+                TextField diaria = new TextField();
+                grid.add(diaria, 1,3);
+
+                Label getmodel = new Label("Escolha um modelo");
+                grid.add(getmodel,0,4);
+
+                final ComboBox<Modelo> model1 = new ComboBox<>();
+                model1.getItems().addAll(modeloRepository.findAll());
+                grid.add(model1, 1,4);
+
+                Button confirmar = new Button("CONFIRMAR");
+                HBox hconfirm = new HBox(10);
+                hconfirm.setAlignment(Pos.BOTTOM_RIGHT);
+                hconfirm.getChildren().add(confirmar);
+                grid.add(hconfirm,0,6);
+
+                Text actTarget = new Text();
+                actTarget.setFill(Color.FIREBRICK);
+                grid.add(actTarget, 1, 7);
+                actTarget.setId("actiontarget");
+
+                Text placaInvalida = new Text();
+                placaInvalida.setFill(Color.FIREBRICK);
+                grid.add(placaInvalida, 2, 1);
+
+                confirmar.setOnAction(actionEvent -> {
+                    Automovel auto = automovelRepository.findOne(placa.getText());
+                    if (auto!=null) placaInvalida.setText("Placa já cadastrada");
+                    if(placa.getText().isEmpty() || ano.getText().isEmpty() || diaria.getText().isEmpty())
+                        actTarget.setText("Preencha todos os dados");
+                    else {
+                        double valorDiaria = Double.parseDouble(diaria.getText());
+                        int anoI = Integer.parseInt(ano.getText());
+                        Automovel automovel = new Automovel(
+                                placa.getText(), anoI, valorDiaria,
+                                model1.getValue().getCodigo());
+                        this.automovelRepository.save(automovel);
+                    }
+                });
+
+                menuCadastro.setScene(new Scene(grid));
+                menuCadastro.show();
+                break;
 
         }
     }
-//
-//
-//    public void cadastrarCliente(Scanner in) {
-//        int escolha;
-//        do {
-//            System.out.println("Escolha o tipo de cliente: ");
-//            System.out.println("1- Pessoa fisica ");
-//            System.out.println("2- Pessoa juridica");
-//            escolha = in.nextInt();
-//        } while (escolha > 2 || escolha < 1);
-//
-//        Cliente cliente;
-//        System.out.println("Digite os dados do cliente: ");
-//        in.nextLine();
-//        System.out.println("Nome: ");
-//        String nome = in.nextLine();
-//        System.out.println("Telefone: ");
-//        String telefone = in.nextLine();
-//
-//        if (escolha == 1) {
-//            System.out.println("CPF: ");
-//            String cpf = in.nextLine();
-//            cliente = new PessoaFisica(nome, telefone, cpf);
-//        } else {
-//            System.out.println("CNPJ: ");
-//            String cnpj = in.nextLine();
-//            cliente = new PessoaJuridica(nome, telefone, cnpj);
-//        }
-//        this.clienteRepository.save(cliente);
-//        System.out.println("Cadastro concluído.");
-//    }
-
 
     /*public void cadastrarAutomovel(Scanner in) {
         System.out.println("Digite a placa: ");
