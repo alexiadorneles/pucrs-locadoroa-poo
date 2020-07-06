@@ -11,10 +11,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -34,11 +31,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -207,10 +202,10 @@ public class Menu extends Application {
                             String tipoCliente = tipoClienteCombobox.getValue();
 
                             Label clientTipo = new Label("Escolha o cliente");
-                            locacao.add(clientTipo,0,2);
+                            locacao.add(clientTipo, 0, 2);
 
                             ComboBox<Cliente> cliente = new ComboBox<>();
-                            locacao.add(cliente,1,2);
+                            locacao.add(cliente, 1, 2);
 
 
                             if (clientTipo.equals("PF")) {
@@ -590,10 +585,10 @@ public class Menu extends Application {
                             String tipoCliente = tipoClienteCombobox.getValue();
 
                             Label clientTipo = new Label("Escolha o cliente");
-                            locacao.add(clientTipo,0,2);
+                            locacao.add(clientTipo, 0, 2);
 
                             ComboBox<Cliente> cliente = new ComboBox<>();
-                            locacao.add(cliente,1,2);
+                            locacao.add(cliente, 1, 2);
 
 
                             if (clientTipo.equals("PF")) {
@@ -913,20 +908,20 @@ public class Menu extends Application {
                     removerAuto.setPadding(new Insets(50, 100, 100, 100));
 
                     Text title3 = new Text("REMOVER AUTOMOVEL");
-                    title3.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
+                    title3.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
                     title3.setTextAlignment(TextAlignment.CENTER);
-                    removerAuto.add(title3,0,0);
+                    removerAuto.add(title3, 0, 0);
 
                     Label text3 = new Label("Placa: ");
-                    removerAuto.add(text3,0,1);
+                    removerAuto.add(text3, 0, 1);
 
                     TextField placa = new TextField();
-                    removerAuto.add(placa,1,1);
+                    removerAuto.add(placa, 1, 1);
 
                     Text action2 = new Text();
                     action2.setId("action");
                     action2.setFill(Color.FIREBRICK);
-                    removerAuto.add(action2,0,6);
+                    removerAuto.add(action2, 0, 6);
 
                     Button remover = new Button("REMOVER");
                     HBox remov = new HBox(10);
@@ -1034,30 +1029,39 @@ public class Menu extends Application {
                     hbutton.setAlignment(Pos.BOTTOM_LEFT);
                     hbutton.getChildren().add(carga);
                     telaCarga.add(hbutton, 0, 5);
-                    carga.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent actionEvent) {
-                            GridPane telaCarga = new GridPane();
-                            telaCarga.setAlignment(Pos.CENTER);
-                            telaCarga.setHgap(10);
-                            telaCarga.setVgap(10);
-                            telaCarga.setPadding(new Insets(50, 100, 100, 100));
+                    AtomicInteger atomic = new AtomicInteger(8);
 
-                            Text title4 = new Text("CARGA DE DADOS");
-                            title4.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-                            title4.setTextAlignment(TextAlignment.CENTER);
-                            telaCarga.add(title4, 0, 0);
+                    carga.setOnAction(ac -> {
+                        try {
+                            Helper.getAllRepositories().forEach(Repository::clear);
+                            reader.read(nomeArquivo.getText());
+                            action.setText("Arquivo lido");
 
-                            Path path = Paths.get("resources/" + nomeArquivo.getText() + ".txt");
-                            try (BufferedReader br = Files.newBufferedReader(path, Charset.defaultCharset())) {
-                                String linha = null;
-                                int cont = 0;
-                                while ((linha = br.readLine()) != null) {
-                                    Label nome = new Label(linha);
-                                    telaCarga.add(nome, 0, cont);
-                                    cont++;
-                                }
-                                action.setText("Arquivo Lido");
+                            List<Repository> allRepositories = Helper.getAllRepositories();
+                            List<Object> objects = new LinkedList<>();
+                            Map<Integer, String> map = Map.of(
+                                    0, "Categorias: ",
+                                    1, "Marcas: ",
+                                    2, "Modelos: ",
+                                    3, "Automóveis: ",
+                                    4, "Clientes: ",
+                                    5, "Locações: "
+                            );
+
+                            for (int i = 0; i < allRepositories.size(); i++) {
+                                Text titleType = new Text(map.get(i));
+                                telaCarga.add(titleType, 0, atomic.getAndIncrement());
+                                allRepositories.get(i).findAll().forEach(a -> {
+                                    Text text1 = new Text(a.toString());
+                                    telaCarga.add(text1, 0, atomic.getAndIncrement());
+                                });
+                                atomic.incrementAndGet();
+                            }
+                        } catch (IOException e) {
+                            if (e instanceof NoSuchFileException) {
+                                action.setText("Arquivo não encontrado");
+                            } else {
+                                action.setText("Erro ao ler arquivo. Por favor verifique a formatação e tente novamente");
                             }
                             catch (IOException e) {
                                 System.err.format("Erro de E/S: %s%n", e);
@@ -1072,7 +1076,7 @@ public class Menu extends Application {
                     HBox hmenu = new HBox(10);
                     hmenu.setAlignment(Pos.BOTTOM_RIGHT);
                     hmenu.getChildren().add(mmenu);
-                    telaCarga.add(hmenu, 0, 20);
+                    telaCarga.add(hmenu, 0, atomic.getAndIncrement());
                     mmenu.setOnAction(actEven -> {
                         Principal principal = new Principal();
                         try {
@@ -1081,7 +1085,9 @@ public class Menu extends Application {
                             e.printStackTrace();
                         }
                     });
-                    menuStage.setScene(new Scene(telaCarga));
+                    ScrollPane pane = new ScrollPane();
+                    pane.setContent(telaCarga);
+                    menuStage.setScene(new Scene(pane));
                     menuStage.show();
                 });
 
