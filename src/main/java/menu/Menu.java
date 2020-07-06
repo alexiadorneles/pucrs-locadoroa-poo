@@ -1105,6 +1105,7 @@ public class Menu extends Application {
             }
         });
 
+
         Scene scene = new Scene(telaCarga);
         menuStage.setScene(scene);
         menuStage.show();
