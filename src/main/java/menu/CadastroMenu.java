@@ -207,6 +207,10 @@ public class CadastroMenu extends Application {
                 break;
 
                 case 2:
+                    Scene scene1 = new Scene(grid);
+                    menuCadastro.setScene(scene1);
+                    menuCadastro.show();
+
                     Text title1 = new Text("CADASTRAR NOVA CATEGORIA");
                     title1.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
                     title1.setTextAlignment(TextAlignment.CENTER);
@@ -241,13 +245,14 @@ public class CadastroMenu extends Application {
                             }
                         }
                     });
-
-                    Scene scene1 = new Scene(grid);
-                    menuCadastro.setScene(scene1);
-                    menuCadastro.show();
                 break;
 
             case 3:
+
+                Scene scene2 = new Scene(grid);
+                menuCadastro.setScene(scene2);
+                menuCadastro.show();
+
                 Text title2 = new Text("CADASTRAR NOVA MARCA");
                 title2.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
                 title2.setTextAlignment(TextAlignment.CENTER);
@@ -282,13 +287,13 @@ public class CadastroMenu extends Application {
                         }
                     }
                 });
-
-                Scene scene2 = new Scene(grid);
-                menuCadastro.setScene(scene2);
-                menuCadastro.show();
                 break;
 
             case 4:
+                Scene scene3 = new Scene(grid);
+                menuCadastro.setScene(scene3);
+                menuCadastro.show();
+
                 Text title3 = new Text("CADASTRAR NOVA MODELO");
                 title3.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
                 title3.setTextAlignment(TextAlignment.CENTER);
@@ -312,15 +317,13 @@ public class CadastroMenu extends Application {
                 final ComboBox categ = new ComboBox();
                 categ.getItems().addAll(categoriaRepository.findAll());
                 grid.add(categ, 1,3);
-                categ.setValue(categoriaRepository.findOne(0));
 
-                Label m = new Label("Escolha a Marca: ");
-                grid.add(m,0,4);
+                Label model = new Label("Escolha o Modelo: ");
+                grid.add(model,0,4);
 
-                final ComboBox marca1 = new ComboBox();
-                marca1.getItems().addAll(marcaRepository.findAll());
-                grid.add(marca1, 1,4);
-                marca1.setValue(marcaRepository.findOne(0));
+                final ComboBox modelo = new ComboBox();
+                modelo.getItems().addAll(modeloRepository.findAll());
+                grid.add(modelo, 1,4);
 
                 Button cadastroModelo = new Button("CADASTRAR MODELO");
                 HBox button7 = new HBox(10);
@@ -355,7 +358,9 @@ public class CadastroMenu extends Application {
                                 if(nome.getText().trim().isEmpty() || valorModelo.getText().trim().isEmpty()) actiontarget2.setText("Por favor preencha todos os campos");
                                 else {
                                     actiontarget2.setText("Cadastro concluido");
-                                  //Modelo modelo1 = new ModeloNacional(nomeModelo.getText(), Double.parseDouble(valorModelo.getText(),Double.parseDouble(valorIpi.getText(),) ))
+                                   //Modelo novoModelo = new Modelo();
+                                    //marcaRepository.save(m);
+                                    //System.out.println(marca.toString());
                                 }
                             }
                         });
@@ -377,87 +382,25 @@ public class CadastroMenu extends Application {
 
                         TextField valorTaxa = new TextField();
                         grid.add(valorTaxa,1,9);
-
-                        cadastroModelo.setOnAction(new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent actionEvent) {
-                                actiontarget2.setFill(Color.FIREBRICK);
-                                if(nome.getText().trim().isEmpty() || valorModelo.getText().trim().isEmpty()) actiontarget2.setText("Por favor preencha todos os campos");
-                                else {
-                                    actiontarget2.setText("Cadastro concluido");
-                                    //Modelo nacional = new ModeloNacional(nome.getText(), Double.parseDouble(valorModelo.getText(),
-                                            //Double.parseDouble(valorTaxa.getText(), categoriaRepository.toString().equals(categ.getValue()), modeloRepository.toString().equals(get))))
-                                }
-                            }
-                        });
                     }
                 });
 
-                Scene scene3 = new Scene(grid);
-                menuCadastro.setScene(scene3);
-                menuCadastro.show();
-                break;
-
-            case 5:
-                Text title4 = new Text("CADASTRAR NOVA AUTOMÓVEL");
-                title4.setFont(Font.font("Tahoma",FontWeight.NORMAL,20));
-                title4.setTextAlignment(TextAlignment.CENTER);
-                grid.add(title4,0,0);
-
-                Label placa = new Label("Placa: ");
-                grid.add(placa,0,1);
-
-                TextField placaAuto = new TextField();
-                grid.add(placaAuto,1,1);
-
-                Label ano = new Label("Ano: ");
-                grid.add(ano,0,2);
-
-                TextField anoAuto = new TextField();
-                grid.add(anoAuto,1,2);
-
-                Label diaria = new Label("Diária: ");
-                grid.add(diaria,0,3);
-
-                TextField diariaAuto = new TextField();
-                grid.add(diariaAuto,1,3);
-
-                Label modelo = new Label("Escolha o Modelo: ");
-                grid.add(modelo,0,4);
-
-                final ComboBox modeloAuto = new ComboBox();
-                modeloAuto.getItems().addAll(modeloRepository.findAll());
-                grid.add(modeloAuto, 1,4);
-                modeloAuto.setValue(modeloRepository.findOne(0));
-
-                final Text actiontarget3 = new Text();
-                grid.add(actiontarget3, 1, 7);
-                actiontarget3.setId("actiontarget");
-
-                Button cadastroAuto = new Button("CADASTRAR AUTOMÓVEL");
-                HBox button8 = new HBox(10);
-                button8.setAlignment(Pos.BOTTOM_LEFT);
-                button8.getChildren().add(cadastroAuto);
-                grid.add(cadastroAuto,0,5);
-
-                cadastroAuto.setOnAction(new EventHandler<ActionEvent>() {
+                cadastroModelo.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        actiontarget3.setFill(Color.FIREBRICK);
-                        if(placaAuto.getText().trim().isEmpty() || anoAuto.getText().trim().isEmpty() || diariaAuto.getText().trim().isEmpty()) actiontarget3.setText("Por favor preencha todos os campos");
+                        actiontarget2.setFill(Color.FIREBRICK);
+                        if(nome.getText().trim().isEmpty() || valorModelo.getText().trim().isEmpty()) actiontarget2.setText("Por favor preencha todos os campos");
                         else {
-                            actiontarget3.setText("Cadastro concluido");
-                            //Automovel auto = new Automovel(placaAuto.getText(),Integer.parseInt(anoAuto.getText()),Double.parseDouble(diariaAuto.getText()), Integer.valueOf(modeloAuto.getValue()));
-                            //automovelRepository.save(auto);
-                            //System.out.println(auto.toString());
+                            actiontarget2.setText("Cadastro concluido");
+                           // Marca m = new Marca(nomeModelo.getText(), valorModelo.getText(), categ.getValue(),modelo.getValue());
+                            //marcaRepository.save(m);
+                            //System.out.println(marca.toString());
                         }
                     }
                 });
-
-                Scene scene4 = new Scene(grid);
-                menuCadastro.setScene(scene4);
-                menuCadastro.show();
                 break;
+
+
         }
     }
 //
@@ -521,7 +464,7 @@ public class CadastroMenu extends Application {
     public void cadastrarMarca(Scanner in) {
         System.out.println("Digite o nome da marca: ");
         this.marcaRepository.save(new Marca(in.nextLine()));
-    }
+    }*/
 
     public void cadastrarModelo(Scanner in) {
         System.out.println("Digite o nome do modelo: ");
@@ -548,5 +491,5 @@ public class CadastroMenu extends Application {
             Modelo modelo = new ModeloInternacional(nome, valor, categoria.getCodigo(), marca.getCodigo(), in.nextDouble());
             this.modeloRepository.save(modelo);
         }
-    }*/
+    }
 }

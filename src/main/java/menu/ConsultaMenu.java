@@ -255,32 +255,6 @@ public class ConsultaMenu extends Application{
         autoDisponiveisCategoria.forEach(System.out::println);
         return true;
     }
-//    public void consultarValorLocacao(Scanner in){
-//        System.out.println("Essas são as locações disponíveis no sistema: ");
-//        this.consultarLocacoes();
-//        Locacao locacao;
-//            do {
-//            System.out.println("Por favor digite o código de uma locação pra consultar seu valor total: ");
-//                locacao = locacaoRepository.findOne(Integer.valueOf(in.nextLine()));
-//            } while (Objects.isNull(locacao));
-//
-//        System.out.println("O valor da sua locação é: " + locacao.calcularValorLocacao());
-//    }
-
-//    public void consultarLocacoes() {
-//        this.locacaoRepository.findAll().forEach(System.out::println);
-//    }
-
-//    public void consultarAutomoveis() {
-//        List<Automovel> automoveis = this.automovelRepository.findAll();
-//        automoveis.forEach(System.out::println);
-//    }
-
-
-//    public void consultarClientesCadastrados() {
-//        List<Cliente> clientes = ClienteRepository.getInstance().findAll();
-//        clientes.forEach(cliente -> System.out.println(cliente.getNome()));
-//    }
 
     private boolean getAutomovelByCategoriaAndDisponivel(Categoria categoria, Automovel automovel) {
         return automovel.getModelo().getCategoria().equals(categoria) && automovel.isDisponivel();
