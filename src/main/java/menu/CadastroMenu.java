@@ -441,6 +441,9 @@ public class CadastroMenu extends Application {
                 grid.add(actTarget, 1, 7);
                 actTarget.setId("actiontarget");
 
+                Text naoExiste = new Text();
+                grid.add(naoExiste, 2,4);
+
                 Text placaInvalida = new Text();
                 placaInvalida.setFill(Color.FIREBRICK);
                 grid.add(placaInvalida, 2, 1);
@@ -448,6 +451,7 @@ public class CadastroMenu extends Application {
                 confirmar.setOnAction(actionEvent -> {
                     Automovel auto = automovelRepository.findOne(placa.getText());
                     if (auto!=null) placaInvalida.setText("Placa já cadastrada");
+                    if (model1.getValue()==null) naoExiste.setText("Não existem marcas");
                     if(placa.getText().isEmpty() || ano.getText().isEmpty() || diaria.getText().isEmpty())
                         actTarget.setText("Preencha todos os dados");
                     else {
