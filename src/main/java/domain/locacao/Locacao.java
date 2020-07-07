@@ -11,8 +11,8 @@ import repository.IDGenerator;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Random;
-
 
 public class Locacao {
     private final Integer codigo;
@@ -67,6 +67,10 @@ public class Locacao {
     }
 
     public Automovel getAuto() {
+        if (this.autoPlaca == null || this.autoPlaca.isEmpty()) {
+            List<Automovel> automovels = AutomovelRepository.getInstance().findAll();
+            return automovels.stream().filter(auto -> auto.getModelo().getCategoria().getCodigo().equals(this.categoriaId)).findAny().orElse(null);
+        }
         return AutomovelRepository.getInstance().findOne(this.autoPlaca);
     }
 
@@ -88,7 +92,7 @@ public class Locacao {
                 " Cliente: " + clienteId + "\n" +
                 " Data inicio da locação: " + dataInicial + "\n" +
                 " Data final da locação: " + dataFinal + "\n" +
-                " Automovel: " + autoPlaca + "\n" +
+                " Automovel: " + this.getAuto().getPlaca() + "\n" +
                 " Status: " + finalizada;
     }
 
