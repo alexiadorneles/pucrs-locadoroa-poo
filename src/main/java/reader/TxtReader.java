@@ -27,7 +27,7 @@ public class TxtReader {
                 String type = linha;
                 System.out.println("Processando " + type.substring(1, type.length() - 1));
                 linha = reader.readLine();
-                while (linha != null && !linha.startsWith("//") && !linha.startsWith("[")) {
+                while (linha != null && !linha.startsWith("//") && !linha.startsWith("[") && !linha.isEmpty()) {
                     System.out.println("Lendo linha " + linha);
                     Optional<Factory<?>> factory = this.factories.stream().filter(b -> b.verify(type)).findAny();
                     String finalLinha = linha;
